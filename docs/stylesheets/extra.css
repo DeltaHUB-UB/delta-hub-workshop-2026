@@ -1,0 +1,688 @@
+/* ============================================================
+   DELTA-HUB Workshop · MkDocs Material theme
+   Ported from the Delta-Hub Design System.
+   Palette: Reed · Channel · Sediment · Ember on Paper / Ink.
+   Type: Space Grotesk + JetBrains Mono.
+   ============================================================ */
+
+:root {
+  /* —— Base palette ———————————————————————————————————— */
+  --ink:        #0E1A1D;
+  --ink-2:      #1F2D31;
+  --paper:      #F4EFE5;
+  --paper-2:    #ECE6D7;
+  --paper-3:    #DCD3BE;
+
+  --reed:       #1F4D3F;   /* primary brand */
+  --reed-2:     #2D6A55;
+  --reed-3:     #6FA68F;
+  --reed-4:     #B7D3C5;
+
+  --channel:    #6FB3D8;
+  --channel-2:  #4F8FB8;
+  --channel-3:  #B9DCEE;
+  --channel-4:  #E1EFF7;
+
+  --abyss:      #0A1F3D;
+  --abyss-2:    #16335C;
+
+  --sediment:   #D4A574;
+  --sediment-2: #E8C547;
+  --sediment-3: #F2E0AE;
+
+  --ember:      #E85D2F;
+  --ember-2:    #FFB59A;
+  --signal:     #C8FF3D;
+
+  /* —— Semantic roles —————————————————————————————————— */
+  --brand:        var(--reed);
+  --brand-soft:   var(--reed-3);
+  --brand-bg:     var(--reed-4);
+  --accent:       var(--ember);
+  --highlight:    var(--sediment-2);
+  --surface:      var(--paper);
+  --surface-2:    var(--paper-2);
+  --text:         var(--ink);
+  --text-soft:    #5A6669;
+  --rule:         #C9C0A8;
+  --rule-soft:    #DFD7C2;
+
+  /* —— Shape ——————————————————————————————————————— */
+  --r-1: 4px;
+  --r-2: 8px;
+  --r-3: 12px;
+  --r-4: 16px;
+  --r-5: 24px;
+  --r-pill: 999px;
+
+  /* —— Elevation —————————————————————————————————————— */
+  --shadow-1: 0 1px 0 rgba(14,26,29,.05), 0 2px 4px rgba(14,26,29,.04);
+  --shadow-2: 0 4px 16px rgba(14,26,29,.08);
+  --shadow-3: 0 12px 40px rgba(14,26,29,.12);
+  --shadow-card: 0 1px 0 rgba(14,26,29,.06), 0 8px 24px -8px rgba(14,26,29,.10);
+}
+
+/* ============================================================
+   MAP DELTA-HUB TOKENS ONTO MATERIAL'S CSS VARIABLES
+   ============================================================ */
+
+/* Light mode = paper + reed */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:           var(--reed);
+  --md-primary-fg-color--light:    var(--reed-2);
+  --md-primary-fg-color--dark:     #143527;
+  --md-primary-bg-color:           var(--paper);
+  --md-primary-bg-color--light:    rgba(244, 239, 229, 0.75);
+
+  --md-accent-fg-color:            var(--ember);
+  --md-accent-fg-color--transparent: rgba(232, 93, 47, 0.10);
+  --md-accent-bg-color:            var(--paper);
+
+  --md-default-bg-color:           var(--surface);
+  --md-default-fg-color:           var(--ink);
+  --md-default-fg-color--light:    #3a4549;
+  --md-default-fg-color--lighter:  var(--text-soft);
+  --md-default-fg-color--lightest: var(--rule);
+
+  --md-typeset-color:              var(--ink);
+  --md-typeset-a-color:            var(--reed-2);
+
+  --md-code-bg-color:              var(--paper-2);
+  --md-code-fg-color:              var(--ink);
+
+  --md-footer-bg-color:            var(--ink);
+  --md-footer-bg-color--dark:      #060f12;
+}
+
+/* Dark mode = ink + reed-3 */
+[data-md-color-scheme="slate"] {
+  --md-hue: 165;
+  --md-primary-fg-color:           var(--reed-3);
+  --md-primary-fg-color--light:    var(--reed-4);
+  --md-primary-fg-color--dark:     var(--reed);
+  --md-primary-bg-color:           var(--ink);
+
+  --md-accent-fg-color:            var(--ember-2);
+  --md-accent-fg-color--transparent: rgba(255, 181, 154, 0.12);
+
+  --md-default-bg-color:           #0c1719;
+  --md-default-fg-color:           var(--paper);
+  --md-default-fg-color--light:    #b9c4c8;
+  --md-default-fg-color--lighter:  #8a979b;
+  --md-default-fg-color--lightest: #4a565a;
+
+  --md-typeset-color:              var(--paper);
+  --md-typeset-a-color:            var(--reed-3);
+
+  --md-code-bg-color:              var(--ink-2);
+  --md-code-fg-color:              var(--paper);
+
+  --md-footer-bg-color:            #060f12;
+}
+
+/* ============================================================
+   BASE TYPOGRAPHY
+   ============================================================ */
+
+body {
+  font-feature-settings: "ss01", "ss02";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.md-typeset {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+}
+
+.md-typeset h1 {
+  color: var(--reed);
+  font-weight: 600;
+  font-size: 2.4rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.2rem;
+}
+.md-typeset h2 {
+  color: var(--reed);
+  font-weight: 600;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--rule-soft);
+  padding-bottom: 0.4rem;
+  margin-top: 2.4rem;
+}
+.md-typeset h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 1.8rem;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1,
+[data-md-color-scheme="slate"] .md-typeset h2 {
+  color: var(--reed-3);
+}
+[data-md-color-scheme="slate"] .md-typeset h3 {
+  color: var(--paper);
+}
+
+/* Δ accent — wrap the glyph with <span class="delta">Δ</span> */
+.delta {
+  color: var(--reed);
+  font-weight: 500;
+}
+[data-md-color-scheme="slate"] .delta { color: var(--reed-3); }
+
+/* ============================================================
+   HEADER & TABS
+   ============================================================ */
+
+.md-header {
+  background: var(--ink);
+  border-bottom: 2px solid var(--reed);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+}
+.md-header__title {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.md-tabs {
+  background: var(--ink-2);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.md-tabs__link {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: 0.85;
+}
+.md-tabs__link--active,
+.md-tabs__link:hover { opacity: 1; }
+
+.md-search__input {
+  background: rgba(255,255,255,0.08);
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+.md-search__input::placeholder { color: rgba(244,239,229,0.55); }
+
+/* Logo: keep crisp on dark header */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 1.6rem;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+/* ============================================================
+   HERO (homepage)
+   ============================================================ */
+
+.hero {
+  margin: -1.5rem -1rem 2.4rem;
+  padding: 4.5rem 2.5rem 3.5rem;
+  background:
+    linear-gradient(135deg, rgba(31,77,63,0.94) 0%, rgba(45,106,85,0.88) 60%, rgba(20,53,39,0.95) 100%),
+    url("../assets/delta-pattern.svg");
+  background-size: cover, 520px;
+  background-position: center;
+  color: var(--paper);
+  border-radius: 0 0 var(--r-5) var(--r-5);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--sediment-2);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1.4px);
+  background-size: 18px 18px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.hero > * { position: relative; }
+
+.hero h1 {
+  color: var(--paper) !important;
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin: 0.6rem 0 0.8rem;
+  border: 0;
+  padding: 0;
+}
+.hero h1 .delta { color: var(--sediment-2); }
+
+.hero .tagline {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  opacity: 0.94;
+  max-width: 62ch;
+  margin: 0 0 1.4rem;
+}
+
+.md-typeset .hero .eyebrow,
+.hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sediment-2);
+  margin-bottom: 0.4rem;
+}
+.md-typeset .hero .eyebrow::before,
+.hero .eyebrow::before {
+  content: "▸";
+  opacity: 0.85;
+  color: var(--sediment-2);
+}
+
+.hero .meta {
+  display: inline-flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  padding: 0.65rem 1.1rem;
+  background: rgba(244,239,229,0.10);
+  border: 1px solid rgba(244,239,229,0.18);
+  border-radius: var(--r-3);
+  margin-bottom: 1.2rem;
+}
+
+.hero a:not(.md-button) {
+  color: var(--sediment-2);
+  text-decoration: underline;
+}
+
+/* Hero buttons — pill-style with ember accent */
+.md-typeset .hero .md-button,
+.hero .md-button {
+  margin: 0.4rem 0.4rem 0 0;
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--r-pill);
+  background: var(--ember);
+  color: var(--paper);
+  border: 1px solid var(--ember);
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.md-typeset .hero .md-button:hover,
+.hero .md-button:hover {
+  background: #d04f24;
+  border-color: #d04f24;
+  color: var(--paper);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-2);
+}
+.md-typeset .hero .md-button--secondary,
+.hero .md-button--secondary {
+  background: transparent;
+  color: var(--paper);
+  border-color: rgba(244,239,229,0.55);
+}
+.md-typeset .hero .md-button--secondary:hover,
+.hero .md-button--secondary:hover {
+  background: rgba(244,239,229,0.12);
+  border-color: var(--paper);
+  color: var(--paper);
+}
+
+/* ============================================================
+   GENERIC BUTTONS (in body content)
+   ============================================================ */
+
+.md-typeset .md-button {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  border-radius: var(--r-pill);
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--reed);
+  background: var(--reed);
+  color: var(--paper);
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.md-typeset .md-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-2);
+  background: var(--reed-2);
+  border-color: var(--reed-2);
+  color: var(--paper);
+}
+.md-typeset .md-button--secondary {
+  background: transparent;
+  color: var(--reed);
+  border-color: var(--rule);
+}
+.md-typeset .md-button--secondary:hover {
+  background: var(--paper-2);
+  color: var(--reed);
+}
+
+/* ============================================================
+   COLAB LAUNCH BLOCK — paper + ember accent
+   ============================================================ */
+
+.colab-launch {
+  background: var(--paper-2);
+  border: 1px solid var(--rule-soft);
+  border-left: 4px solid var(--ember);
+  border-radius: var(--r-3);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+[data-md-color-scheme="slate"] .colab-launch {
+  background: #15252a;
+  border-color: #243439;
+  border-left-color: var(--ember);
+  color: var(--paper);
+}
+.colab-launch .colab-text { flex: 1; min-width: 250px; }
+.colab-launch .colab-text strong {
+  color: var(--reed);
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+}
+[data-md-color-scheme="slate"] .colab-launch .colab-text strong { color: var(--reed-3); }
+.colab-launch .colab-text p {
+  margin: 0.2rem 0 0;
+  font-size: 0.88rem;
+  color: var(--text-soft);
+}
+[data-md-color-scheme="slate"] .colab-launch .colab-text p { color: #a4b1b5; }
+
+.colab-launch a.colab-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--ink);
+  color: var(--paper) !important;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1rem;
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  box-shadow: var(--shadow-1);
+  transition: transform 120ms, box-shadow 120ms, background 120ms;
+}
+.colab-launch a.colab-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-2);
+  background: var(--reed);
+}
+.colab-launch a.colab-button::before {
+  content: "▶";
+  color: var(--sediment-2);
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   GRID CARDS — rounded, paper-2 hover, reed left border
+   ============================================================ */
+
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid > .card {
+  border-radius: var(--r-4);
+  border: 1px solid var(--rule-soft);
+  border-left: 3px solid var(--reed);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  transition: border-left-color 160ms, transform 160ms, box-shadow 160ms;
+  padding: 1.2rem;
+}
+.md-typeset .grid.cards > ul > li:hover {
+  border-left-color: var(--ember);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li {
+  background: #142023;
+  border-color: #243439;
+  border-left-color: var(--reed-3);
+}
+
+/* Side-by-side admonitions (prompt comparison) */
+.grid.side-by-side {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.2rem 0;
+}
+@media (max-width: 720px) {
+  .grid.side-by-side { grid-template-columns: 1fr; }
+}
+.grid.side-by-side .admonition { margin: 0; }
+
+/* ============================================================
+   ADMONITIONS — recolored to Delta-Hub palette
+   ============================================================ */
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: var(--r-3);
+  border-width: 1px 1px 1px 4px;
+  font-size: 0.82rem;
+  box-shadow: var(--shadow-1);
+}
+
+/* note → channel */
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-color: var(--channel-2);
+  background: var(--channel-4);
+}
+.md-typeset .note > .admonition-title,
+.md-typeset .note > summary {
+  background: rgba(79,143,184,0.14);
+  color: var(--abyss);
+}
+.md-typeset .note > .admonition-title::before,
+.md-typeset .note > summary::before { background-color: var(--channel-2); }
+
+/* tip / success → reed */
+.md-typeset .tip > .admonition-title,
+.md-typeset .tip > summary,
+.md-typeset .success > .admonition-title,
+.md-typeset .success > summary {
+  background: rgba(31,77,63,0.10);
+  color: var(--reed);
+}
+.md-typeset .admonition.tip,
+.md-typeset .admonition.success { border-color: var(--reed-2); }
+.md-typeset .tip > .admonition-title::before,
+.md-typeset .success > .admonition-title::before { background-color: var(--reed-2); }
+
+/* warning → sediment */
+.md-typeset .admonition.warning { border-color: var(--sediment-2); background: var(--sediment-3); }
+.md-typeset .warning > .admonition-title,
+.md-typeset .warning > summary {
+  background: rgba(232,197,71,0.20);
+  color: #6e5400;
+}
+.md-typeset .warning > .admonition-title::before { background-color: #b08800; }
+
+/* danger / failure → ember */
+.md-typeset .admonition.danger,
+.md-typeset .admonition.failure { border-color: var(--ember); }
+.md-typeset .danger > .admonition-title,
+.md-typeset .failure > .admonition-title,
+.md-typeset .danger > summary,
+.md-typeset .failure > summary {
+  background: rgba(232,93,47,0.10);
+  color: var(--ember);
+}
+.md-typeset .danger > .admonition-title::before,
+.md-typeset .failure > .admonition-title::before { background-color: var(--ember); }
+
+/* example → ink */
+.md-typeset .admonition.example { border-color: var(--ink); }
+.md-typeset .example > .admonition-title {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.md-typeset .example > .admonition-title::before { background-color: var(--ink); }
+
+/* info → channel-2 */
+.md-typeset .admonition.info { border-color: var(--channel-2); }
+.md-typeset .info > .admonition-title {
+  background: rgba(79,143,184,0.10);
+  color: var(--channel-2);
+}
+
+/* ============================================================
+   TABLES — paper-2 header, mono numbers
+   ============================================================ */
+
+.md-typeset table:not([class]) {
+  font-size: 0.8rem;
+  border-radius: var(--r-3);
+  overflow: hidden;
+  border: 1px solid var(--rule-soft);
+}
+.md-typeset table:not([class]) th {
+  background: var(--paper-2);
+  color: var(--reed);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.md-typeset table:not([class]) td {
+  border-color: var(--rule-soft);
+}
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background: var(--ink-2);
+  color: var(--reed-3);
+}
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  border-color: #243439;
+}
+
+/* ============================================================
+   CODE — JetBrains Mono on paper-2
+   ============================================================ */
+
+.md-typeset code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.82em;
+  background: var(--paper-2);
+  border-radius: var(--r-2);
+  padding: 0.1em 0.4em;
+  color: var(--reed);
+}
+[data-md-color-scheme="slate"] .md-typeset code {
+  background: var(--ink-2);
+  color: var(--reed-3);
+}
+.md-typeset pre > code {
+  border-radius: var(--r-3);
+  background: var(--paper-2);
+  color: var(--ink);
+}
+[data-md-color-scheme="slate"] .md-typeset pre > code {
+  background: var(--ink-2);
+  color: var(--paper);
+}
+
+/* ============================================================
+   EYEBROW & PILL UTILITIES (matching design system)
+   ============================================================ */
+
+.md-typeset .eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--reed);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+.md-typeset .eyebrow::before { content: "▸"; opacity: 0.7; }
+
+.md-typeset .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.8rem;
+  background: var(--reed);
+  color: var(--paper);
+  border-radius: var(--r-pill);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+.md-typeset .pill::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--sediment-2);
+}
+.md-typeset .pill--ember { background: var(--ember); }
+.md-typeset .pill--ink { background: var(--ink); }
+
+/* ============================================================
+   TASK LISTS — bigger checkboxes
+   ============================================================ */
+
+.md-typeset [type="checkbox"] {
+  accent-color: var(--reed);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.md-footer {
+  background: var(--ink);
+  color: var(--paper);
+}
+.md-footer-meta {
+  background: #060f12;
+}
+.md-footer__link {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ============================================================
+   LINKS
+   ============================================================ */
+
+.md-typeset a {
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+.md-typeset a:hover {
+  color: var(--ember);
+  text-decoration-thickness: 2px;
+}

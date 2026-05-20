@@ -36,7 +36,7 @@ Vineri este dedicat trainingului structurat; sâmbătă, participanții lucreaz�
 
 <div class="grid cards" markdown>
 
--   :material-database:{ .lg .middle } __Modul 1 · Vineri 10:30__
+-   :material-database:{ .lg .middle } __Modul 1 · Vineri 11:00__
 
     ---
 
@@ -46,7 +46,7 @@ Vineri este dedicat trainingului structurat; sâmbătă, participanții lucreaz�
 
     [:octicons-arrow-right-24: Deschide modulul](modules/module1-databases.md)
 
--   :material-language-python:{ .lg .middle } __Modul 2 · Vineri 11:15__
+-   :material-language-python:{ .lg .middle } __Modul 2 · Vineri 11:45__
 
     ---
 
@@ -56,7 +56,7 @@ Vineri este dedicat trainingului structurat; sâmbătă, participanții lucreaz�
 
     [:octicons-arrow-right-24: Deschide modulul](modules/module2-python.md)
 
--   :material-robot:{ .lg .middle } __Modul 3 · Vineri 13:30__
+-   :material-robot:{ .lg .middle } __Modul 3 · Vineri 14:00__
 
     ---
 
@@ -66,7 +66,7 @@ Vineri este dedicat trainingului structurat; sâmbătă, participanții lucreaz�
 
     [:octicons-arrow-right-24: Deschide modulul](modules/module3-ai-coding.md)
 
--   :material-chart-line:{ .lg .middle } __Modul 4 · Vineri 14:45__
+-   :material-chart-line:{ .lg .middle } __Modul 4 · Vineri 15:15__
 
     ---
 

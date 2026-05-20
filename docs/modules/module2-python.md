@@ -1,6 +1,6 @@
 # Modul 2 — Introducere în Python pentru analiza datelor de mediu
 
-**Vineri 22 mai · 11:15-12:30 (hands-on)**
+**Vineri 22 mai · 11:45-13:00 (hands-on)**
 
 <div class="colab-launch" markdown>
 <div class="colab-text" markdown>

@@ -1,6 +1,6 @@
 # Modul 3 — AI-assisted coding cu Python
 
-**Vineri 22 mai · 13:30-14:45**
+**Vineri 22 mai · 14:00-15:15**
 
 <div class="colab-launch" markdown>
 <div class="colab-text" markdown>

@@ -1,6 +1,6 @@
 # Modul 1 — Baze de date globale deschise
 
-**Vineri 22 mai · 10:30-11:15**
+**Vineri 22 mai · 11:00-11:45**
 
 <div class="colab-launch" markdown>
 <div class="colab-text" markdown>

@@ -1,6 +1,6 @@
 # Modul 4 — Metode statistice de bază pentru date de mediu
 
-**Vineri 22 mai · 14:45-15:30**
+**Vineri 22 mai · 15:15-16:00**
 
 <div class="colab-launch" markdown>
 <div class="colab-text" markdown>

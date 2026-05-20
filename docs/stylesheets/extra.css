@@ -183,45 +183,146 @@ body {
 [data-md-color-scheme="slate"] .delta { color: var(--reed-3); }
 
 /* ============================================================
-   HEADER & TABS
+   HEADER & TABS — one unified ink bar with gold nav links
    ============================================================ */
 
 .md-header {
   background: var(--ink);
-  border-bottom: 2px solid var(--reed);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+  border-bottom: none;
+  box-shadow: none;
+  height: 2.4rem;
+  position: relative;
+}
+.md-header__inner {
+  padding: 0 0.8rem;
+  height: 2.4rem;
 }
 .md-header__title {
   font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   font-weight: 600;
   letter-spacing: -0.01em;
+  font-size: 0.88rem;
+  color: var(--paper);
+  line-height: 2.4rem;
 }
+
+/* Logo: wide banner PNG, smaller, far right */
+.md-header__button.md-logo {
+  order: 99;
+  margin: 0;
+  padding: 0.15rem 0.6rem;
+  display: flex;
+  align-items: center;
+  height: 2.4rem;
+}
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 1.5rem;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: right center;
+  transition: transform .15s ease, opacity .15s ease;
+}
+.md-header__button.md-logo:hover img,
+.md-header__button.md-logo:hover svg {
+  transform: scale(1.04);
+  opacity: 0.9;
+}
+/* Push everything default to the left, logo to the right */
+.md-header__option,
+.md-header__source,
+.md-header__topic[data-md-component="header-topic"] {
+  order: 1;
+}
+
+/* ---------- TABS BAR — search lives here, aligned with tab links ---------- */
 .md-tabs {
-  background: var(--ink-2);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 2px solid var(--reed);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+  position: relative;
+  z-index: 2;
+}
+.md-tabs__list {
+  align-items: center;
 }
 .md-tabs__link {
   font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  opacity: 0.85;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  color: var(--sediment-2) !important;
+  opacity: 1;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  transition: color .15s ease, transform .15s ease;
 }
-.md-tabs__link--active,
-.md-tabs__link:hover { opacity: 1; }
+.md-tabs__link:hover {
+  color: var(--ember) !important;
+  transform: translateY(-1px);
+}
+.md-tabs__link--active {
+  color: var(--paper) !important;
+  border-bottom: 2px solid var(--ember);
+  padding-bottom: 0.25rem;
+}
 
+/* ---------- SEARCH — moved out of header, into tabs row ---------- */
+.md-search {
+  position: absolute;
+  top: 2.4rem;             /* sits exactly at top of tabs row */
+  right: 6rem;
+  height: 2.4rem;          /* matches tabs row height */
+  display: flex;
+  align-items: center;
+  margin: 0;
+  z-index: 3;
+  width: clamp(180px, 22vw, 280px);
+}
+.md-search__form {
+  background: rgba(244,239,229,0.14);
+  border: 1px solid rgba(244,239,229,0.25);
+  border-radius: var(--r-pill);
+  transition: background .15s ease, border-color .15s ease;
+  height: 1.7rem;
+  width: 100%;
+}
+.md-search__form:hover,
+[data-md-toggle="search"]:checked ~ .md-header .md-search__form {
+  background: rgba(244,239,229,0.22);
+  border-color: var(--sediment-2);
+}
 .md-search__input {
-  background: rgba(255,255,255,0.08);
+  background: transparent;
+  color: var(--paper);
   font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.8rem;
+  height: 1.7rem;
+  padding-left: 2rem;
 }
-.md-search__input::placeholder { color: rgba(244,239,229,0.55); }
-
-/* Logo: keep crisp on dark header */
-.md-header__button.md-logo img,
-.md-header__button.md-logo svg {
-  height: 1.6rem;
-  width: auto;
-  filter: brightness(0) invert(1);
+.md-search__input::placeholder {
+  color: rgba(244,239,229,0.7);
+  font-weight: 500;
+}
+.md-search__icon {
+  color: var(--sediment-2);
+  opacity: 1;
+}
+/* Anchor the search dropdown to the search input's new position */
+.md-search__output {
+  top: 1.7rem;
+}
+/* Below tabs breakpoint (Material hides .md-tabs), restore search to header */
+@media (max-width: 76.1875em) {
+  .md-search {
+    position: static;
+    top: auto;
+    right: auto;
+    height: auto;
+    width: auto;
+  }
 }
 
 /* ============================================================

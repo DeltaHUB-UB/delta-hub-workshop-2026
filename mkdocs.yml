@@ -16,7 +16,7 @@ theme:
   language: ro
 
   logo: assets/Delta-HubWebsite1.png
-  favicon: assets/logo.svg
+  favicon: assets/favicon.svg
 
   palette:
     # Light mode

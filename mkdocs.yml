@@ -1,9 +1,9 @@
 site_name: DELTA-Hub 2026 Data Science Workshop
 site_description: Data Science & AI-Assisted Coding pentru Delta Dunării — 22-23 mai 2026
-site_url: https://FlorinZai.github.io/delta-hub-workshop-2026/
+site_url: https://deltahub-ub.github.io/delta-hub-workshop-2026/
 site_author: DELTA-Hub
 
-repo_url: https://github.com/FlorinZai/delta-hub-workshop-2026
+repo_url: https://github.com/DeltaHUB-UB/delta-hub-workshop-2026
 repo_name: delta-hub-workshop-2026
 edit_uri: edit/main/docs/
 
@@ -126,7 +126,7 @@ extra:
   homepage: https://delta-hub.unibuc.ro/
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/FlorinZai/delta-hub-workshop-2026
+      link: https://github.com/DeltaHUB-UB/delta-hub-workshop-2026
       name: Sursa pe GitHub
     - icon: fontawesome/solid/globe
       link: https://delta-hub.unibuc.ro/

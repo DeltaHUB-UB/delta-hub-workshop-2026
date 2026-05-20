@@ -18,7 +18,7 @@ That's it. Just one Python install. No Quarto, no Node, no Ruby.
 
 ### 2. Local preview
 ```bash
-git clone https://github.com/FlorinZai/delta-hub-workshop-2026.git
+git clone https://github.com/DeltaHUB-UB/delta-hub-workshop-2026.git
 cd delta-hub-workshop-2026
 mkdocs serve
 ```
@@ -36,7 +36,7 @@ Live-reload server at `http://localhost:8000`. Edit any `.md` file — browser r
 ### 4. Set up GitHub Pages
 1. Create a new repo on GitHub: `delta-hub-workshop-2026`.
 2. Settings → Pages → Source: **GitHub Actions**.
-3. **Find-replace `FlorinZai`** with your handle in:
+3. **Find-replace `DeltaHUB-UB`** with your handle in:
    - `mkdocs.yml`
    - `README.md`
    - all `docs/modules/*.md` (the Colab badge URLs)

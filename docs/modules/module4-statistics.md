@@ -8,7 +8,7 @@
 
 Nu trebuie să instalezi nimic local. Doar un cont Google.
 </div>
-<a class="colab-button" href="https://colab.research.google.com/github/FlorinZai/delta-hub-workshop-2026/blob/main/notebooks/04_statistics.ipynb" target="_blank">Open in Colab</a>
+<a class="colab-button" href="https://colab.research.google.com/github/DeltaHUB-UB/delta-hub-workshop-2026/blob/main/notebooks/04_statistics.ipynb" target="_blank">Open in Colab</a>
 </div>
 
 !!! note "Pagină în pregătire"

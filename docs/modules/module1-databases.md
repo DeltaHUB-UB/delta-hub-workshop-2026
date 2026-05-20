@@ -52,6 +52,18 @@ Fiecare participant lucrează cu **un singur set de date**, din Copernicus Clima
 
 ### Proiecții climatice (viitor)
 
+!!! info "Ce înseamnă SSPx-y.z din CMIP6"
+    **SSP** = *Shared Socioeconomic Pathway* — un scenariu socio-economic global care descrie cum ar putea evolua populația, economia, tehnologia și politicile climatice până în 2100. Combinat cu un nivel de **forțaj radiativ** (W/m² în 2100), dă numele complet: `SSPx-y.z`.
+
+    | Scenariu | Narativ socio-economic | Forțaj 2100 | Încălzire estimată ~2100 |
+    |:---|:---|:---:|:---:|
+    | **SSP1-2.6** | *Sustainability* — cooperare globală, decarbonizare rapidă | 2,6 W/m² | ~1,8 °C |
+    | **SSP2-4.5** | *Middle of the road* — tendințe actuale continuate | 4,5 W/m² | ~2,7 °C |
+    | **SSP3-7.0** | *Regional rivalry* — fragmentare, politici slabe | 7,0 W/m² | ~3,6 °C |
+    | **SSP5-8.5** | *Fossil-fueled development* — creștere intensă pe combustibili fosili | 8,5 W/m² | ~4,4 °C |
+
+    *Pentru context Delta Dunării / Marea Neagră:* SSP2-4.5 e cel mai folosit ca "scenariu de planificare", iar SSP5-8.5 ca "limită superioară" pentru evaluări de risc costier.
+
 <div class="grid cards" markdown>
 
 -   :material-chart-areaspline:{ .lg .middle } __CMIP6 — proiecții globale__

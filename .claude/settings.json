@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"d:\\\\RESEARCH\\\\EOPersist\\\\delta-hub-workshop-2026\\\\src\" -Recurse -File)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "Bash(ls -la /d/RESEARCH/EOPersist/delta-hub-workshop-2026/ 2>/dev/null || ls -la ~/RESEARCH/EOPersist/delta-hub-workshop-2026/ 2>/dev/null || pwd)",
+      "Read(//c/Users/flori/RESEARCH/EOPersist/**)",
+      "Bash(awk '{print $NF}')",
+      "Bash(mkdocs serve *)",
+      "PowerShell(\\(Get-Command python -ErrorAction SilentlyContinue\\).Source; \\(Get-Command pip -ErrorAction SilentlyContinue\\).Source; \\(Get-Command conda -ErrorAction SilentlyContinue\\).Source)",
+      "PowerShell(Stop-Process -Name \"mkdocs\" -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(Start-Process -FilePath \"C:\\\\Users\\\\flori\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\mkdocs.exe\" -ArgumentList \"serve\" -WorkingDirectory \"d:\\\\RESEARCH\\\\EOPersist\\\\delta-hub-workshop-2026\" -NoNewWindow)"
+    ]
+  }
+}

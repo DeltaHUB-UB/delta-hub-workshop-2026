@@ -39,6 +39,106 @@ Comenzi utile:
 !!! warning "Salvează prima copie imediat"
     Prima dată când deschizi un notebook, **salvează imediat o copie în Drive**. Altfel, orice ai schimbat se pierde când închizi tab-ul.
 
+## Tutorial: Colab pas cu pas
+
+Ghid rapid pentru prima ta sesiune — de la zero la notebook rulat în 5 minute.
+
+1. **Deschide notebook-ul** — click pe butonul **Open in Colab** de pe pagina modulului, sau mergi direct la [colab.research.google.com](https://colab.research.google.com) și deschide un fișier (*File → Open notebook*).
+
+2. **Conectează runtime-ul** — click pe butonul **Connect** din dreapta sus (sau *Runtime → Connect to hosted runtime*). Vei vedea indicatorii RAM/Disk când e gata.
+
+3. **Rulează celulele în ordine** — ++shift+enter++ pe fiecare celulă, de sus în jos. Nu sări peste celula de instalare pachete (`!pip install ...`).
+
+4. **Instalează pachete lipsă** — dacă apare `ModuleNotFoundError`, adaugă o celulă la început cu:
+   ```python
+   !pip install numpy pandas xarray  # înlocuiește cu pachetele necesare
+   ```
+
+5. **Salvează copia ta** — *File → Save a copy in Drive*. Fă asta imediat după ce deschizi notebook-ul.
+
+6. **Descarcă fișiere generate** — panoul **Files** (iconița dosar din stânga) → click dreapta pe fișier → *Download*.
+
+7. **Partajează rezultatele** — butonul **Share** din dreapta sus, exact ca un Google Doc.
+
+!!! warning "Runtime se resetează după inactivitate"
+    Dacă lași Colab-ul nefolosit ~90 de minute, runtime-ul se oprește și **toate variabilele și fișierele din `/content` se pierd**. Va trebui să reinstalezi pachetele și să rerulezi celulele. Datele salvate în Drive rămân.
+
+!!! tip "GPU gratuit"
+    Pentru calcule mai grele: *Runtime → Change runtime type → T4 GPU*. Disponibil gratuit, cu limite de utilizare zilnică.
+
+!!! tip "Linkuri utile"
+    - [colab.research.google.com](https://colab.research.google.com) — interfața principală
+    - [Colab FAQ](https://research.google.com/colaboratory/faq.html) — întrebări frecvente
+    - [Colab keyboard shortcuts](https://colab.research.google.com/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/Index.ipynb) — ++ctrl+m+h++ în Colab afișează lista completă
+
+---
+
+## Tutorial avansat: Conda + VS Code (local)
+
+Pentru cei care vor să lucreze **offline**, cu seturi mari de date sau preferă un IDE complet. Același cod ca în Colab, rulat pe mașina ta.
+
+**Pas 1 — Instalează Miniconda**
+
+Descarcă și instalează [Miniconda](https://www.anaconda.com/download/success) (versiunea Python 3.11+). Miniconda e mai ușoară decât Anaconda — include doar `conda` și Python.
+
+**Pas 2 — Creează environmentul**
+
+```bash
+conda create -n delta-hub python=3.11 -y
+conda activate delta-hub
+```
+
+**Pas 3 — Instalează pachetele workshop-ului**
+
+```bash
+pip install earthengine-api geemap pystac-client planetary-computer \
+            xarray rioxarray netCDF4 cartopy cdsapi \
+            numpy pandas matplotlib scipy statsmodels pymannkendall \
+            jupyterlab ipykernel
+```
+
+**Pas 4 — Înregistrează kernel-ul în Jupyter**
+
+```bash
+python -m ipykernel install --user --name delta-hub --display-name "Python (delta-hub)"
+```
+
+**Pas 5 — Instalează VS Code**
+
+Descarcă [VS Code](https://code.visualstudio.com/download). După instalare, deschide panoul Extensions (++ctrl+shift+x++) și instalează:
+
+- **Python** — Microsoft
+- **Jupyter** — Microsoft
+
+**Pas 6 — Deschide repo-ul**
+
+Clonează repo-ul sau descarcă ZIP de pe GitHub, apoi în VS Code: *File → Open Folder* → selectează folderul `delta-hub-workshop-2026`.
+
+**Pas 7 — Selectează kernel-ul conda**
+
+Deschide un fișier `.ipynb`. Click pe selectorul de kernel (dreapta sus) → *Select Another Kernel → Python Environments → Python (delta-hub)*.
+
+**Pas 8 — Rulează notebook-ul**
+
+++shift+enter++ celulă cu celulă, sau *Run All* din bara de sus.
+
+!!! tip "Autentificare GEE local"
+    Prima dată, rulează în terminal (cu environmentul activat):
+    ```bash
+    earthengine authenticate
+    ```
+    Se deschide un browser pentru aprobare — după asta, autentificarea e salvată local.
+
+!!! note "CDS API key local"
+    Creează fișierul `~/.cdsapirc` (acasă, nu în repo) cu:
+    ```
+    url: https://cds.climate.copernicus.eu/api
+    key: YOUR_API_KEY_HERE
+    ```
+    Key-ul îl găsești în contul tău pe [cds.climate.copernicus.eu](https://cds.climate.copernicus.eu) → *Your profile*.
+
+---
+
 ## AI-assisted coding în Colab
 
 Colab are integrare nativă cu **Gemini** (gratuit cu cont Google). Pentru ce vom discuta în [Modul 3](modules/module3-ai-coding.md), concluziile sunt valabile pentru **orice asistent** (Gemini, Claude, GitHub Copilot, ChatGPT).

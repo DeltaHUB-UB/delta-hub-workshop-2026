@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Modul 4 — Metode statistice de bază pentru date de mediu
 
 **Vineri 22 mai · 15:15-16:00**

@@ -11,75 +11,16 @@ Nu trebuie să instalezi nimic local. Doar un cont Google.
 <a class="colab-button" href="https://colab.research.google.com/github/DeltaHUB-UB/delta-hub-workshop-2026/blob/main/notebooks/04_statistics.ipynb" target="_blank">Open in Colab</a>
 </div>
 
-!!! note "Pagină în pregătire"
-    Conținutul de mai jos este un schelet. Secțiunile vor fi completate înainte de workshop.
+<p style="margin: 1.2rem 0 0.6rem 0;">
+  <a href="../../assets/module4-statistics.html" target="_blank" rel="noopener" style="display:inline-block;padding:10px 18px;border-radius:8px;background:#06151a;color:#5fc9bb;font-weight:600;text-decoration:none;border:1px solid #1c3e48;">
+    Deschide modulul în filă nouă ↗
+  </a>
+  <span style="margin-left:0.6rem;color:var(--md-default-fg-color--light);font-size:0.9rem;">recomandat pentru experiența completă (full-width, fonturi custom).</span>
+</p>
 
-## Obiective
-
-*TODO — listă scurtă (3-5 puncte) cu ce va putea participantul la final.*
-
-- [ ] Obiectiv 1
-- [ ] Obiectiv 2
-- [ ] Obiectiv 3
-
-## Plan de sesiune
-
-*TODO — împărțirea celor 45 min pe sub-teme, cu durate.*
-
-| Minut | Sub-temă |
-|:---:|:---|
-| 0-10 | … |
-| 10-25 | … |
-| 25-40 | … |
-| 40-45 | Q&A |
-
-## Concepte cheie
-
-*TODO — metode statistice acoperite. Recomandat: `grid cards` per metodă.*
-
-<div class="grid cards" markdown>
-
--   :material-chart-line:{ .lg .middle } **Metodă 1**
-
-    ---
-
-    Când se folosește și ce asumpții cere.
-
--   :material-chart-line:{ .lg .middle } **Metodă 2**
-
-    ---
-
-    Când se folosește și ce asumpții cere.
-
-</div>
-
-## Exemple de cod
-
-*TODO — fragmente cu `scipy.stats`, `statsmodels`, `pymannkendall` etc.*
-
-```python
-# TODO: exemplu minim
-```
-
-## Capcane frecvente
-
-*TODO — autocorelație, multiple testing, confundarea trendului cu ciclul.*
-
-!!! warning "De evitat"
-    - TODO
-    - TODO
-
-## Exercițiu
-
-*TODO — mini-exercițiu de 5-15 min pe o serie reală (SST, debit Dunăre, vânt).*
-
-!!! example "Mini-exercițiu"
-    Enunț: …
-
-    *Hint:* …
-
-## Resurse
-
-*TODO — linkuri către documentație și manuale.*
-
-- [Titlu](https://example.com)
+<iframe
+  src="../../assets/module4-statistics.html"
+  title="Modul 4 — Metode statistice (versiune interactivă)"
+  loading="lazy"
+  style="width:100%; height:90vh; min-height:700px; border:1px solid var(--md-default-fg-color--lightest); border-radius:10px; background:#06151a; margin-top:0.5rem;">
+</iframe>

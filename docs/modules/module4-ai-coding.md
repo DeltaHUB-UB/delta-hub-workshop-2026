@@ -1,6 +1,6 @@
-# Modul 3 — AI-assisted coding cu Python
+# Modul 4 — AI-assisted coding cu Python (hands-on)
 
-**Vineri 22 mai · 14:00-15:15**
+**Vineri 22 mai · 14:45-16:00**
 
 <div class="colab-launch" markdown>
 <div class="colab-text" markdown>
@@ -8,7 +8,7 @@
 
 Nu trebuie să instalezi nimic local. Doar un cont Google.
 </div>
-<a class="colab-button" href="https://colab.research.google.com/github/DeltaHUB-UB/delta-hub-workshop-2026/blob/main/notebooks/03_ai_coding.ipynb" target="_blank">Open in Colab</a>
+<a class="colab-button" href="https://colab.research.google.com/github/DeltaHUB-UB/delta-hub-workshop-2026/blob/main/notebooks/04_ai_coding.ipynb" target="_blank">Open in Colab</a>
 </div>
 
 !!! note "Pagină în pregătire"

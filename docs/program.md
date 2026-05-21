@@ -13,8 +13,8 @@
 | **11:00-11:45** | [**Modul 1 — Baze de date globale deschise**](modules/module1-databases.md) |
 | **11:45-13:00** | [**Modul 2 — Introducere în Python pentru analiza datelor de mediu**](modules/module2-python.md) (hands-on) |
 | **13:00-14:00** | *Prânz* |
-| **14:00-15:15** | [**Modul 3 — AI-assisted coding cu Python**](modules/module3-ai-coding.md) |
-| **15:15-16:00** | [**Modul 4 — Metode statistice de bază pentru date de mediu**](modules/module4-statistics.md) |
+| **14:00-14:45** | [**Modul 3 — Metode statistice de bază pentru date de mediu**](modules/module3-statistics.md) |
+| **14:45-16:00** | [**Modul 4 — AI-assisted coding cu Python**](modules/module4-ai-coding.md) (hands-on) |
 | **16:00-16:20** | *Coffee Break* |
 | **16:20-17:00** | **Alegerea seturilor de date și a întrebărilor de cercetare** — definirea proiectelor individuale pentru sâmbătă. |
 

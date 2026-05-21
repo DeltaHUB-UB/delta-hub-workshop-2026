@@ -143,7 +143,7 @@ Deschide un fișier `.ipynb`. Click pe selectorul de kernel (dreapta sus) → *S
 
 ## AI-assisted coding în Colab
 
-Colab are integrare nativă cu **Gemini** (gratuit cu cont Google). Pentru ce vom discuta în [Modul 3](modules/module3-ai-coding.md), concluziile sunt valabile pentru **orice asistent** (Gemini, Claude, GitHub Copilot, ChatGPT).
+Colab are integrare nativă cu **Gemini** (gratuit cu cont Google). Pentru ce vom discuta în [Modul 4](modules/module4-ai-coding.md), concluziile sunt valabile pentru **orice asistent** (Gemini, Claude, GitHub Copilot, ChatGPT).
 
 Dacă vrei să folosești **Claude** în paralel: [claude.ai](https://claude.ai) (gratuit pentru uz limitat).
 
@@ -287,7 +287,7 @@ Toate instrumentele de mai jos au **tier gratuit** și pot fi folosite fără ca
     Folosind xarray, calculează media lunară a temperaturii dintr-un Dataset
     cu dimensiunile (time, lat, lon) și salvează rezultatul ca NetCDF.
     ```
-    Vezi [Modul 3](modules/module3-ai-coding.md) pentru strategii complete de prompting.
+    Vezi [Modul 4](modules/module4-ai-coding.md) pentru strategii complete de prompting.
 
 ---
 

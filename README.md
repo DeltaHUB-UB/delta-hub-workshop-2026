@@ -144,8 +144,8 @@ delta-hub-workshop-2026/
 │   ├── modules/
 │   │   ├── module1-databases.md     # ← fully built
 │   │   ├── module2-python.md        # ← skeleton
-│   │   ├── module3-ai-coding.md     # ← fully built
-│   │   └── module4-statistics.md    # ← skeleton
+│   │   ├── module3-statistics.md    # ← fully built (interactive HTML)
+│   │   └── module4-ai-coding.md     # ← skeleton
 │   ├── stylesheets/
 │   │   └── extra.css                # Danube Delta theme
 │   └── assets/

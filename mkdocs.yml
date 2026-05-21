@@ -113,8 +113,8 @@ nav:
   - Module:
       - modules/module1-databases.md
       - modules/module2-python.md
-      - modules/module3-ai-coding.md
-      - modules/module4-statistics.md
+      - modules/module3-statistics.md
+      - modules/module4-ai-coding.md
   - Proiecte: projects.md
   - Resurse: resources.md
 

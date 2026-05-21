@@ -176,11 +176,11 @@ html, body { background:#0c1719; margin:0; }
           <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="#3a525a">
             <text x="34" y="184">Bazin de drenaj</text><text x="186" y="185">Câmpie aluvială</text>
             <text x="318" y="150">Deltă subaeriană</text><text x="452" y="198" fill="#0e3346">Front deltaic</text>
-            <text x="548" y="230" fill="#0e3346">Prodeltă</text><text x="620" y="258" fill="#0e3346">Evantai submarin</text>
+            <text x="548" y="230" fill="#0e3346">Prodeltă</text><text x="620" y="258" fill="#0e3346">Con submarin</text>
             <text x="604" y="159" fill="#0e3346">Nivelul mării</text>
           </g>
         </svg>
-        <figcaption class="dl-figcap">Fig. 1 — Sistemul sursă-spre-bazin: de la bazinul de drenaj la evantaiul submarin de adâncime.</figcaption>
+        <figcaption class="dl-figcap">Fig. 1 — Sistemul sursă-spre-bazin: de la bazinul de drenaj la conul submarin de adâncime.</figcaption>
       </figure>
 
       <p style="margin-top:30px;">Forma deltelor în plan rezultă din echilibrul a trei forțe — <strong>fluviu, valuri, maree</strong>. Anthony preferă „influența" în locul „dominanței" (după Galloway, 1975): deltele reale se află pe un continuum, nu în trei categorii rigide.</p>
@@ -194,7 +194,7 @@ html, body { background:#0c1719; margin:0; }
           </svg>
           <span class="dl-tag">Influență fluvială</span>
           <h4>Construite de fluviu</h4>
-          <p>Aport fluvial puternic și grinduri submarine ce împing delta spre larg, în „picior de pasăre" — ex. Mississippi.</p>
+          <p>Aport fluvial puternic și grinduri submarine ce împing delta spre larg, în „bird-foot" (ex. Mississippi).</p>
         </div>
         <div class="dl-card w">
           <svg class="icon" viewBox="0 0 240 120" aria-hidden="true">
@@ -217,7 +217,7 @@ html, body { background:#0c1719; margin:0; }
           </svg>
           <span class="dl-tag">Influența mareei</span>
           <h4>Modelate de maree</h4>
-          <p>Pomparea mareică și maximul de turbiditate rețin sedimentul în canale-pâlnie — Gange-Brahmaputra.</p>
+          <p>Curenții mareici și maximul de turbiditate rețin sedimentul în canale-pâlnie (ex. Gange-Brahmaputra).</p>
         </div>
       </div>
 
@@ -240,10 +240,14 @@ html, body { background:#0c1719; margin:0; }
           <path d="M450,72 C476,80 500,74 516,62" stroke="#cdb78f" stroke-width="5" fill="none" stroke-linecap="round"/>
           <path d="M560,40 C600,44 645,46 690,42 L690,52 C645,56 600,54 560,50 Z" fill="#cdb78f"/><path d="M625,12 L625,44" stroke="#1f7ab0" stroke-width="2.5" fill="none"/>
           <g font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a525a" text-anchor="middle">
-            <text x="90" y="126">fluvial-dominat (Chilia)</text><text x="270" y="126">lobat</text><text x="450" y="126">deflectat + săgeată</text><text x="625" y="126">țărm îndreptat</text>
+            <text x="90" y="124">fluvial-dominat (Chilia)</text><text x="270" y="124">lobat</text><text x="450" y="124">deflectat + săgeată</text><text x="625" y="124">țărm îndreptat</text>
           </g>
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="#1f7ab0" text-anchor="middle" font-weight="600">
+            <text x="90" y="138">Si ≪ 1</text><text x="270" y="138">Si ~ 0,5</text><text x="450" y="138">Si ~ 1</text><text x="625" y="138">Si ≫ 1</text>
+          </g>
+          <text x="360" y="20" font-family="JetBrains Mono, monospace" font-size="11" fill="#0e3346" text-anchor="middle">Si = Q<tspan font-size="8" baseline-shift="sub">longshore (valuri)</tspan> / Q<tspan font-size="8" baseline-shift="sub">river (sediment fluvial)</tspan></text>
         </svg>
-        <figcaption class="dl-figcap">Fig. 2 — Continuumul de forme: de la deltă fluvial-dominată (guri multiple, ex. Chilia) la țărm îndreptat, pe măsură ce crește Si și puterea valurilor (Preoteasa et al., 2018).</figcaption>
+        <figcaption class="dl-figcap">Fig. 2 — Continuumul de forme controlat de Si: de la deltă fluvial-dominată (guri multiple, ex. Chilia) la țărm îndreptat, pe măsură ce valurile devin dominante (Preoteasa et al., 2018).</figcaption>
       </figure>
 
       <div class="dl-si" style="margin-top:18px;">
@@ -264,11 +268,26 @@ html, body { background:#0c1719; margin:0; }
           <path d="M0,30 L300,24 C400,34 460,64 452,92 C540,128 540,150 470,176 C440,230 470,250 455,300 C440,332 410,352 360,362 L0,362 Z" fill="#e6d8bd"/>
           <g stroke="#cdb78f" stroke-width="2" opacity="0.7"><path d="M300,210 L440,250"/><path d="M300,230 L432,272"/><path d="M300,250 L420,290"/><path d="M300,270 L406,308"/></g>
           <path d="M0,150 C80,150 132,160 182,166" fill="none" stroke="#1f7ab0" stroke-width="6" stroke-linecap="round"/>
-          <g fill="none" stroke="#1f7ab0" stroke-width="3" stroke-linecap="round"><path d="M182,166 C222,118 300,72 430,60"/><path d="M300,90 L360,72"/><path d="M322,100 L382,92"/><path d="M342,112 L402,108"/></g>
+          <!-- Chilia: trunchi principal + 4 distributare (bird-foot fluvial-dominat) -->
+          <g fill="none" stroke="#1f7ab0" stroke-linecap="round">
+            <path d="M182,166 C222,118 300,72 430,60" stroke-width="3"/>
+            <path d="M310,82 Q345,50 365,30" stroke-width="2.4"/>
+            <path d="M355,72 Q385,46 412,36" stroke-width="2.4"/>
+            <path d="M395,66 Q425,54 452,58" stroke-width="2.4"/>
+            <path d="M422,60 Q440,56 460,72" stroke-width="2"/>
+          </g>
           <path d="M182,166 C300,168 420,170 520,172" fill="none" stroke="#1f7ab0" stroke-width="4" stroke-linecap="round"/>
           <path d="M182,168 C282,200 382,250 455,300" fill="none" stroke="#1f7ab0" stroke-width="4" stroke-linecap="round"/>
           <path d="M455,300 C448,330 430,350 405,362" fill="none" stroke="#cdb78f" stroke-width="7" stroke-linecap="round"/>
-          <g stroke="#0e3346" stroke-width="2" opacity="0.45" stroke-linecap="round"><path d="M602,250 L586,236"/><path d="M612,256 L596,242"/><path d="M622,262 L606,248"/><path d="M602,300 L586,286"/><path d="M612,306 L596,292"/><path d="M622,312 L606,298"/></g>
+          <!-- Valuri ofshore în Marea Neagră (creste de val) -->
+          <g fill="none" stroke="#1f7ab0" stroke-width="1.8" opacity="0.55" stroke-linecap="round">
+            <path d="M540 200 q 5 -4 10 0 t 10 0 t 10 0"/>
+            <path d="M590 232 q 5 -4 10 0 t 10 0 t 10 0"/>
+            <path d="M555 282 q 5 -4 10 0 t 10 0 t 10 0"/>
+            <path d="M610 322 q 5 -4 10 0 t 10 0 t 10 0"/>
+            <path d="M640 265 q 5 -4 10 0 t 10 0 t 10 0"/>
+            <path d="M625 195 q 5 -4 10 0 t 10 0 t 10 0"/>
+          </g>
           <g stroke="#3a525a" fill="#3a525a"><path d="M684,72 L684,32" stroke-width="2"/><path d="M678,42 L684,30 L690,42 Z"/></g>
           <g font-family="JetBrains Mono, monospace" font-size="12" fill="#13262e">
             <text x="20" y="142">Dunărea</text><text x="246" y="58" fill="#2e9e6b">Chilia · fluvial</text><text x="360" y="160">Sulina</text>
@@ -290,6 +309,7 @@ html, body { background:#0c1719; margin:0; }
           <rect width="720" height="320" fill="#ffffff"/>
           <g stroke="#e2d6bd" stroke-width="1"><line x1="70" y1="270" x2="690" y2="270"/><line x1="70" y1="212" x2="690" y2="212"/><line x1="70" y1="155" x2="690" y2="155"/><line x1="70" y1="97" x2="690" y2="97"/></g>
           <line x1="70" y1="40" x2="690" y2="40" stroke="#c0532f" stroke-width="1.4" stroke-dasharray="6 4" opacity="0.8"/>
+          <line x1="70" y1="201" x2="690" y2="201" stroke="#2e9e6b" stroke-width="1.4" stroke-dasharray="3 3" opacity="0.9"/>
           <line x1="70" y1="40" x2="70" y2="270" stroke="#3a525a" stroke-width="1.2"/>
           <path d="M70,270 C320,266 480,236 690,190 L690,74 C450,165 300,258 70,270 Z" fill="#1f7ab0" opacity="0.07"/>
           <path d="M70,270 C320,266 480,236 690,190" fill="none" stroke="#1f7ab0" stroke-width="2.4"/>
@@ -299,8 +319,16 @@ html, body { background:#0c1719; margin:0; }
           <path d="M70,270 C300,258 450,162 690,74" fill="none" stroke="#9b3520" stroke-width="2.6"/>
           <g font-family="JetBrains Mono, monospace" font-size="10" fill="#3a525a" text-anchor="end"><text x="62" y="274">0</text><text x="62" y="216">0,5</text><text x="62" y="159">1,0</text><text x="62" y="101">1,5</text><text x="62" y="44">2,0 m</text></g>
           <g font-family="JetBrains Mono, monospace" font-size="10" fill="#3a525a" text-anchor="middle"><text x="70" y="286">2000</text><text x="280" y="286">2050</text><text x="490" y="286">2100</text><text x="690" y="286">2150</text></g>
-          <g font-family="JetBrains Mono, monospace" font-size="10"><text x="540" y="80" fill="#9b3520">SSP5-8.5</text><text x="540" y="118" fill="#c0532f">SSP3-7.0</text><text x="540" y="150" fill="#d98b3a">SSP2-4.5</text><text x="540" y="178" fill="#2e8fae">SSP1-2.6</text><text x="540" y="204" fill="#1f7ab0">SSP1-1.9</text></g>
+          <!-- SSP labels aliniate la capătul fiecărei linii (x≈690), text-anchor=end -->
+          <g font-family="JetBrains Mono, monospace" font-size="10" text-anchor="end">
+            <text x="685" y="70" fill="#9b3520">SSP5-8.5</text>
+            <text x="685" y="105" fill="#c0532f">SSP3-7.0</text>
+            <text x="685" y="139" fill="#d98b3a">SSP2-4.5</text>
+            <text x="685" y="162" fill="#2e8fae">SSP1-2.6</text>
+            <text x="685" y="186" fill="#1f7ab0">SSP1-1.9</text>
+          </g>
           <text x="78" y="34" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#c0532f">≈ nivelul câmpiei deltaice (sub 2 m)</text>
+          <text x="78" y="196" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#2e9e6b">≈ înălțimea medie Delta Dunării (0,6 m)</text>
         </svg>
         <figcaption class="dl-figcap">Fig. 4 — Creșterea nivelului mării pe scenarii SSP (schematic, valori ilustrative după Anthony et al., 2024). Sub scenariile extreme, câmpia deltaică este depășită.</figcaption>
       </figure>
@@ -418,11 +446,11 @@ html, body { background:#0c1719; margin:0; }
             <rect x="18" y="30" width="204" height="52" fill="#3fa6a0" opacity="0.16"/>
             <path d="M222,82 L222,52 L66,80 Z" fill="#1f7ab0" opacity="0.5"/>
             <path d="M150,64 L120,70" stroke="#0e3346" stroke-width="2" fill="none"/><path d="M132,62 L120,70 L132,76" stroke="#0e3346" stroke-width="2" fill="none"/>
-            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#0e3346"><text x="26" y="44">apă dulce</text><text x="150" y="50">pană de sare</text></g>
+            <g font-family="JetBrains Mono, monospace" font-size="9"><text x="26" y="44" fill="#0e3346">apă dulce</text><text x="180" y="96" fill="#1f7ab0" font-weight="600" text-anchor="middle">pană salină</text></g>
           </svg>
           <span class="dl-tag" style="color:var(--blue)">Salinitate</span>
           <h4>Intruziunea salină</h4>
-          <p>Debitul mic plus creșterea nivelului mării împing <strong>pana de sare</strong> în amonte, pe brațe și în pânza freatică — salinizarea solurilor și a apei dulci, o presiune lentă, dar cumulativă.</p>
+          <p>Debitul mic plus creșterea nivelului mării împing <strong>pana salină</strong> în amonte, pe brațe și în pânza freatică, salinizând solurile și apa dulce. O presiune lentă, dar cumulativă.</p>
         </div>
 
         <div class="dl-card" style="border-left-color:var(--flood)">

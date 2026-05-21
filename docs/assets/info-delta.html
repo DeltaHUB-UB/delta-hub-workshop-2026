@@ -16,6 +16,8 @@
    Ierarhie titluri: pagina gazdă păstrează <h1>; componenta începe la <h2>.
    ============================================================ */
 
+html, body { background:#0c1719; margin:0; }
+
 #delta-lecture{
   /* Hero + footer rămân pe dark gradient (sea-deep/sea) — definit explicit. */
   --sea-deep:#08202e; --sea:#0e3346; --water:#1d6e7c; --water-light:#6FA68F;
@@ -140,7 +142,7 @@
   <header class="dl-hero">
     <p class="dl-kicker">Prelegere invitată · 22 mai 2026 · București</p>
     <h2>Cum funcționează deltele — <em>procesele</em> care le modelează</h2>
-    <p class="dl-lead">O deltă este locul în care un fluviu își predă sedimentele mării. Ceea ce se întâmplă la acest schimb — disputa dintre debitul fluvial, valuri și maree — decide forma unei delte, unde crește și cum supraviețuiește într-o lume care se încălzește. Repere din prelegerea de deschidere a lui Edward Anthony, în pregătirea lucrului cu date.</p>
+    <p class="dl-lead">O deltă este locul în care un fluviu își varsă sedimentele mării. Disputa dintre debitul fluvial, valuri și maree decide forma unei delte, unde crește și cum supraviețuiește într-o lume care se încălzește. Repere din prelegerea de deschidere a lui Edward Anthony, în pregătirea lucrului cu date.</p>
     <p class="dl-by">Prelegere susținută de <b>Prof. Edward Anthony</b> · CEREGE, Aix-Marseille Université &amp; ICUB, Universitatea din București</p>
     <div class="dl-strata" aria-hidden="true">
       <svg viewBox="0 0 1200 200" preserveAspectRatio="none">
@@ -220,11 +222,11 @@
       </div>
 
       <div class="dl-pull">
-        <p>Bara de gură este șablonul: raportul dintre debitul fluvial și transportul longitudinal al valurilor decide dacă o deltă crește simetric și proeminent sau este deflectată și netezită în avalul derivei.</p>
+        <p>Bara gurii este localizată la interacțiune. Raportul dintre debitul fluvial și transportul longitudinal al valurilor decide dacă o deltă crește simetric și proeminent sau este deflectată și netezită în avalul derivei.</p>
         <cite>Anthony, 2015, Marine Geology · model conceptual</cite>
       </div>
 
-      <p style="margin-top:30px;">Acest tablou calitativ devine acum <strong>cantitativ</strong> prin modelare numerică. <strong>Indicele sedimentar (Si)</strong> — raportul dintre transportul longitudinal de sedimente și debitul solid al fluviului — transformă echilibrul fluviu–val într-un singur număr.</p>
+      <p style="margin-top:30px;">Acest tablou calitativ devine acum <strong>cantitativ</strong> prin modelare numerică. Forma deltelor poate fi înțeleasă prin parametrul <strong>Si</strong> (raportul dintre transportul longitudinal de sedimente și debitul solid al fluviului), care transformă echilibrul fluviu–val într-un singur număr (Preoteasa et al., 2018).</p>
 
       <figure class="dl-fig">
         <svg viewBox="0 0 720 140" role="img" aria-label="Continuum morfologic în funcție de indicele Si: de la deltă fluvial-dominată cu guri multiple la țărm îndreptat">
@@ -241,11 +243,11 @@
             <text x="90" y="126">fluvial-dominat (Chilia)</text><text x="270" y="126">lobat</text><text x="450" y="126">deflectat + săgeată</text><text x="625" y="126">țărm îndreptat</text>
           </g>
         </svg>
-        <figcaption class="dl-figcap">Fig. 2 — Continuumul de forme: de la deltă fluvial-dominată (guri multiple, ex. Chilia) la țărm îndreptat, pe măsură ce crește Si.</figcaption>
+        <figcaption class="dl-figcap">Fig. 2 — Continuumul de forme: de la deltă fluvial-dominată (guri multiple, ex. Chilia) la țărm îndreptat, pe măsură ce crește Si și puterea valurilor (Preoteasa et al., 2018).</figcaption>
       </figure>
 
       <div class="dl-si" style="margin-top:18px;">
-        <div class="dl-si-bar"><span>◀ MAI MULT SEDIMENT FLUVIAL</span><span>Si — indice sedimentar</span><span>VALURI MAI PUTERNICE ▶</span></div>
+        <div class="dl-si-bar"><span>◀ MAI MULT SEDIMENT FLUVIAL</span><span>Si · control fluviu/val</span><span>VALURI MAI PUTERNICE ▶</span></div>
         <div class="dl-si-foot">
           <span><b>Si mic:</b> lobi simetrici, proeminenți; sediment reținut la gură; brațe distributare multiple (ex. Dunărea–Chilia).</span>
           <span class="right"><b>Si mare:</b> linii de țărm deflectate, îndreptate; sedimentul scapă în aval, în săgeți și cordoane.</span>
@@ -253,7 +255,7 @@
       </div>
 
       <p style="margin-top:28px;font-size:.98rem;">
-        <strong>Dunărea ca manual viu:</strong> în aceeași deltă, lobul adăpostit, cu influență fluvială, <strong>Chilia</strong> și lobul expus, cu influența valurilor, <strong>Sf. Gheorghe</strong> stau alături — diferența fiind dată de fetch-ul valurilor din Marea Neagră (Zăinescu et al., 2019, 2024).
+        <strong>Dunărea ca manual viu:</strong> în aceeași deltă, lobul adăpostit, cu influență fluvială, <strong>Chilia</strong> și lobul expus, cu influența valurilor, <strong>Sf. Gheorghe</strong> stau alături, diferența fiind dată de fetch-ul valurilor din Marea Neagră și de aportul mai intens de sedimente pe Chilia (Zăinescu et al., 2019, 2024).
       </p>
 
       <figure class="dl-fig">
@@ -281,7 +283,7 @@
     <article class="dl-chapter flood" id="schimbari-climatice">
       <div class="dl-num flood">02 · Schimbări climatice</div>
       <h3>Încălzirea globală amenință deltele — dar inegal</h3>
-      <p>Majoritatea câmpiilor deltaice se află sub 2 m deasupra nivelului mării, deci sunt extrem de sensibile la două presiuni: <strong>creșterea relativă a nivelului mării</strong> și <strong>subsidența terenului</strong>. Supraviețuirea depinde la fel de mult de management și de aportul sedimentar, cât și de scenariul climatic în sine.</p>
+      <p>Majoritatea câmpiilor deltaice se află sub 2 m deasupra nivelului mării (Delta Dunării are o înălțime medie de doar 0,6 m), deci sunt extrem de sensibile la două presiuni: <strong>creșterea relativă a nivelului mării</strong> și <strong>subsidența terenului</strong>. Supraviețuirea depinde la fel de mult de management și de aportul sedimentar, cât și de scenariul climatic în sine.</p>
 
       <figure class="dl-fig">
         <svg viewBox="0 0 720 320" role="img" aria-label="Scenarii SSP de creștere a nivelului mării până în 2150">
@@ -465,7 +467,7 @@
       </div>
 
       <div class="dl-pull" style="border-left-color:var(--warm);background:linear-gradient(90deg,rgba(217,139,58,.10),transparent);">
-        <p>Acești parametri nu acționează izolat: un debit mai mic întărește intruziunea salină, apa mai caldă întărește stratificarea și hipoxia, iar un alt regim de furtuni reașează sedimentul și stresează vegetația — efectele se compun.</p>
+        <p>Acești parametri nu acționează izolat: un debit mai mic întărește intruziunea salină, apa mai caldă întărește stratificarea și hipoxia, iar un alt regim de furtuni reașează sedimentul și stresează vegetația. Efectele se amplifică reciproc.</p>
         <cite>Sinteză · interacțiuni fluviu–deltă–Marea Neagră</cite>
       </div>
     </article>
@@ -473,7 +475,7 @@
     <!-- ===================== 4 · DATE & METODE ===================== -->
     <article class="dl-chapter" id="date-metode">
       <div class="dl-num">04 · Date &amp; metode</div>
-      <h3>Deltele lasă semnale care pot fi citite — în imagini, batimetrie și senzori</h3>
+      <h3>Deltele lasă semnale care pot fi citite în imagini, batimetrie, senzori și date din modele (valuri, vânt, debite)</h3>
       <p>Deltele sunt sisteme dinamice, reactive, care își înregistrează propriul comportament. Metodele de mai jos acoperă exact sursele de date din modulele workshop-ului — de la <strong>baze de date globale deschise</strong> la <strong>măsurători de teren</strong> — și se cuplează firesc cu modelarea numerică și cu IA.</p>
 
       <div class="dl-grid">
@@ -503,9 +505,9 @@
           <p>Seriile de debit (Q, Qs), ERA5 pentru vânt și val, plus temperatura mării (SST) leagă forțarea climatică de răspunsul deltei — datele care „alimentează" parametrii din capitolul 03.</p>
         </div>
         <div class="dl-card">
-          <span class="dl-tag">Modelare &amp; IA</span>
+          <span class="dl-tag">Modelare numerică</span>
           <h4>De la date la proces</h4>
-          <p>Delft3D și MIKE 21 cuantifică contribuțiile fluviu–val–maree, conectivitatea și răspunsul la creșterea nivelului mării — tot mai mult integrate cu învățarea automată.</p>
+          <p><strong>Delft3D</strong> și <strong>MIKE 21</strong> sunt platforme numerice de hidrodinamică și morfodinamică: rezolvă ecuațiile de curgere, transport sedimentar și evoluția patului (2D/3D). Cuantifică contribuțiile fluviu–val–maree, conectivitatea canalelor și răspunsul deltelor la creșterea nivelului mării.</p>
         </div>
       </div>
 
@@ -525,7 +527,7 @@
     <h3>Trei idei de reținut pentru lucrul cu date</h3>
     <ul class="dl-take">
       <li><span><b>Deltele trăiesc pe un continuum.</b> Fluviu, val și maree se <em>influențează</em> — nu domină rigid — iar bara de gură este șablonul care decide forma și linia țărmului.</span></li>
-      <li><span><b>Clima schimbă mai mult decât nivelul mării.</b> Debitul, temperatura apei, salinitatea, climatul valurilor, nutrienții și vegetația se modifică simultan și se compun — pentru Dunăre, deficitul sedimentar și subsidența rămân presiunile-cheie.</span></li>
+      <li><span><b>Clima schimbă mai mult decât nivelul mării.</b> Debitul, temperatura apei, salinitatea, climatul valurilor, nutrienții și vegetația se modifică simultan și se amplifică reciproc. Pentru Dunăre, deficitul sedimentar și subsidența rămân presiunile-cheie.</span></li>
       <li><span><b>Semnalele pot fi citite.</b> Bazele de date satelitare (inclusiv NDVI), batimetria și senzorii de teren — plus modelarea și IA — ne permit să cuantificăm cum se schimbă o deltă, chiar azi.</span></li>
     </ul>
 

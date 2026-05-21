@@ -21,7 +21,7 @@ hide:
   src="../assets/info-delta.html"
   title="InfoDelta — Cum funcționează deltele (versiune interactivă)"
   scrolling="no"
-  style="width:100%; height:800px; border:1px solid var(--md-default-fg-color--lightest); border-radius:10px; background:#0c1719; margin-top:0.5rem; display:block;">
+  style="width:100%; height:800px; border:none; background:#0c1719; margin-top:0.5rem; display:block;">
 </iframe>
 
 <script>

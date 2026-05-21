@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cum funcționează deltele — repere din prelegere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   IZOLAT sub #delta-lecture — se poate insera în MkDocs Material
+   (sau orice pagină) fără conflict cu tema. Pentru inserare:
+   copiază blocul <section id="delta-lecture">...</section>
+   împreună cu acest bloc <style> într-o pagină markdown, ca HTML brut.
+   Ierarhie titluri: pagina gazdă păstrează <h1>; componenta începe la <h2>.
+   ============================================================ */
+
+#delta-lecture{
+  --sea-deep:#08202e; --sea:#0e3346; --water:#1d6e7c; --water-light:#3fa6a0;
+  --sand:#e6d8bd; --sand-deep:#cdb78f; --paper:#f6f1e6;
+  --ink:#13262e; --ink-soft:#3a525a;
+  --green:#2e9e6b; --blue:#1f7ab0; --flood:#c0532f; --warm:#d98b3a; --veg:#5a8f1f;
+  --line:rgba(19,38,46,.14);
+  font-family:"Spectral",Georgia,serif; color:var(--ink); background:var(--paper);
+  line-height:1.6; max-width:1080px; margin:0 auto; border-radius:18px;
+  overflow:hidden; box-shadow:0 30px 80px -40px rgba(8,32,46,.6);
+  -webkit-font-smoothing:antialiased;
+}
+#delta-lecture *{box-sizing:border-box;}
+
+#delta-lecture .dl-hero{
+  position:relative; padding:64px 48px 220px; color:var(--paper); overflow:hidden;
+  background:radial-gradient(120% 90% at 80% -10%, rgba(63,166,160,.35), transparent 60%),
+             linear-gradient(180deg,var(--sea-deep) 0%, var(--sea) 100%);
+}
+#delta-lecture .dl-kicker{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--water-light);margin:0 0 18px;}
+#delta-lecture .dl-hero h2{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(2.1rem,5.2vw,3.7rem);line-height:1.02;letter-spacing:-.015em;margin:0 0 18px;max-width:18ch;color:#fff;}
+#delta-lecture .dl-hero h2 em{font-style:italic;color:var(--water-light);}
+#delta-lecture .dl-lead{font-size:clamp(1.02rem,1.7vw,1.22rem);max-width:62ch;color:rgba(246,241,230,.86);margin:0;}
+#delta-lecture .dl-by{margin-top:26px;font-family:"JetBrains Mono",monospace;font-size:.78rem;letter-spacing:.04em;color:rgba(246,241,230,.6);}
+#delta-lecture .dl-by b{color:var(--paper);font-weight:600;}
+#delta-lecture .dl-strata{position:absolute;left:0;right:0;bottom:0;height:200px;pointer-events:none;}
+#delta-lecture .dl-strata svg{width:100%;height:100%;display:block;}
+
+#delta-lecture .dl-body{padding:0 48px 56px;}
+#delta-lecture .dl-chapter{padding:56px 0;border-bottom:1px solid var(--line);scroll-margin-top:80px;}
+#delta-lecture .dl-chapter:last-child{border-bottom:0;}
+#delta-lecture .dl-num{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:600;display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+#delta-lecture .dl-num::before{content:"";width:34px;height:2px;background:var(--blue);display:inline-block;}
+#delta-lecture .dl-num.flood{color:var(--flood);}#delta-lecture .dl-num.flood::before{background:var(--flood);}
+#delta-lecture .dl-num.warm{color:var(--warm);}#delta-lecture .dl-num.warm::before{background:var(--warm);}
+#delta-lecture .dl-chapter h3{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.08;letter-spacing:-.01em;margin:0 0 14px;color:var(--ink);}
+#delta-lecture .dl-chapter > p{font-size:1.06rem;max-width:70ch;color:var(--ink-soft);margin:0 0 26px;}
+#delta-lecture .dl-chapter > p strong{color:var(--ink);font-weight:600;}
+
+#delta-lecture .dl-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
+#delta-lecture .dl-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 22px 24px;position:relative;transition:transform .25s ease, box-shadow .25s ease;}
+#delta-lecture .dl-card:hover{transform:translateY(-3px);box-shadow:0 18px 36px -22px rgba(8,32,46,.45);}
+#delta-lecture .dl-card h4{font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem;margin:0 0 8px;color:var(--ink);}
+#delta-lecture .dl-card p{margin:0;font-size:.96rem;color:var(--ink-soft);}
+#delta-lecture .dl-tag{font-family:"JetBrains Mono",monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--water);margin-bottom:10px;display:block;}
+#delta-lecture .dl-card svg.icon{width:100%;height:auto;display:block;margin-bottom:14px;border-radius:9px;background:#fbf7ee;border:1px solid var(--line);}
+
+#delta-lecture .dl-rwt{display:grid;gap:14px;grid-template-columns:repeat(3,1fr);margin-top:8px;}
+#delta-lecture .dl-rwt .dl-card{border-top:3px solid;}
+#delta-lecture .dl-rwt .r{border-top-color:var(--green);}#delta-lecture .dl-rwt .w{border-top-color:var(--flood);}#delta-lecture .dl-rwt .t{border-top-color:var(--blue);}
+#delta-lecture .dl-param .dl-card{border-left:3px solid var(--line);}
+
+#delta-lecture .dl-fig{margin:28px 0 4px;}
+#delta-lecture .dl-fig svg{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--line);border-radius:14px;}
+#delta-lecture .dl-figcap{font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.04em;color:var(--ink-soft);margin-top:9px;text-transform:uppercase;}
+
+#delta-lecture .dl-pull{margin:30px 0 6px;padding:24px 26px;border-left:4px solid var(--flood);background:linear-gradient(90deg,rgba(192,83,47,.08),transparent);border-radius:0 12px 12px 0;}
+#delta-lecture .dl-pull p{font-family:"Fraunces",serif;font-style:italic;font-size:1.18rem;line-height:1.35;margin:0;color:var(--ink);}
+#delta-lecture .dl-pull cite{display:block;margin-top:10px;font-style:normal;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.06em;color:var(--ink-soft);}
+
+#delta-lecture .dl-si{margin-top:8px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;}
+#delta-lecture .dl-si-bar{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;color:#fff;font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.08em;background:linear-gradient(90deg,var(--green) 0%, var(--water) 42%, var(--blue) 60%, var(--flood) 100%);}
+#delta-lecture .dl-si-foot{display:flex;justify-content:space-between;gap:16px;padding:16px 22px;font-size:.92rem;color:var(--ink-soft);}
+#delta-lecture .dl-si-foot span{flex:1;}#delta-lecture .dl-si-foot .right{text-align:right;}
+
+#delta-lecture .dl-threat{display:grid;gap:18px;margin-top:8px;}
+#delta-lecture .dl-meter{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;}
+#delta-lecture .dl-meter .lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;}
+#delta-lecture .dl-meter .lab b{font-size:.95rem;color:var(--ink);letter-spacing:0;text-transform:none;font-family:"Fraunces",serif;}
+#delta-lecture .dl-track{height:10px;border-radius:6px;background:#eadfc8;overflow:hidden;}
+#delta-lecture .dl-fill{height:100%;border-radius:6px;}
+
+#delta-lecture .dl-danube{margin-top:30px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbf6ec);}
+#delta-lecture .dl-danube-head{padding:20px 26px;background:linear-gradient(120deg,var(--sea) 0%, var(--water) 100%);color:#fff;}
+#delta-lecture .dl-danube-head h4{font-family:"Fraunces",serif;font-weight:600;font-size:1.35rem;margin:0;color:#fff;}
+#delta-lecture .dl-danube-head span{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--water-light);display:block;margin-bottom:6px;}
+#delta-lecture .dl-danube-grid{display:grid;gap:1px;background:var(--line);grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+#delta-lecture .dl-danube-grid > div{background:#fff;padding:20px 22px;}
+#delta-lecture .dl-danube-grid h5{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;margin:0 0 6px;color:var(--ink);display:flex;align-items:center;gap:9px;}
+#delta-lecture .dl-danube-grid h5 .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;}
+#delta-lecture .dl-danube-grid p{margin:0;font-size:.93rem;color:var(--ink-soft);}
+
+#delta-lecture .dl-chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:6px;}
+#delta-lecture .dl-chip{font-family:"JetBrains Mono",monospace;font-size:.74rem;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);}
+#delta-lecture .dl-chip b{color:var(--blue);font-weight:600;}
+
+#delta-lecture .dl-foot{background:linear-gradient(180deg,var(--sea) 0%,var(--sea-deep) 100%);color:var(--paper);padding:46px 48px;}
+#delta-lecture .dl-foot h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.5rem;margin:0 0 18px;color:#fff;}
+#delta-lecture .dl-foot ul.dl-take{list-style:none;padding:0;margin:0;display:grid;gap:12px;}
+#delta-lecture .dl-foot ul.dl-take li{display:flex;gap:14px;align-items:flex-start;font-size:1.02rem;color:rgba(246,241,230,.84);}
+#delta-lecture .dl-foot ul.dl-take li b{color:var(--water-light);}
+#delta-lecture .dl-foot ul.dl-take li::before{content:"→";color:var(--water-light);font-family:"JetBrains Mono",monospace;flex:0 0 auto;margin-top:2px;}
+#delta-lecture .dl-refs{margin-top:38px;padding-top:26px;border-top:1px solid rgba(246,241,230,.16);}
+#delta-lecture .dl-refs h4{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--water-light);margin:0 0 16px;}
+#delta-lecture .dl-reflist{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:11px;}
+#delta-lecture .dl-reflist li{font-size:.92rem;color:rgba(246,241,230,.72);line-height:1.55;padding-left:18px;position:relative;}
+#delta-lecture .dl-reflist li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:rgba(63,166,160,.5);}
+#delta-lecture .dl-reflist li.feat{color:rgba(246,241,230,.95);}
+#delta-lecture .dl-reflist li.feat::before{background:var(--water-light);width:8px;height:8px;top:8px;left:-1px;}
+#delta-lecture .dl-reflist .ttl{font-style:italic;}
+#delta-lecture .dl-reflist a{color:var(--water-light);text-decoration:none;border-bottom:1px solid rgba(63,166,160,.45);word-break:break-word;}
+#delta-lecture .dl-reflist a:hover{border-bottom-color:var(--water-light);color:#fff;}
+#delta-lecture .dl-reflist .jrn{color:rgba(246,241,230,.55);}
+
+@media (max-width:680px){
+  #delta-lecture .dl-hero{padding:44px 26px 150px;}
+  #delta-lecture .dl-strata{height:140px;}
+  #delta-lecture .dl-body{padding:0 26px 40px;}
+  #delta-lecture .dl-foot{padding:38px 26px;}
+  #delta-lecture .dl-rwt{grid-template-columns:1fr;}
+  #delta-lecture .dl-si-foot{flex-direction:column;}#delta-lecture .dl-si-foot .right{text-align:left;}
+}
+</style>
+</head>
+<body>
+
+<section id="delta-lecture">
+
+  <!-- ===================== HERO ===================== -->
+  <header class="dl-hero">
+    <p class="dl-kicker">Prelegere invitată · 22 mai 2026 · București</p>
+    <h2>Cum funcționează deltele — <em>procesele</em> care le modelează</h2>
+    <p class="dl-lead">O deltă este locul în care un fluviu își predă sedimentele mării. Ceea ce se întâmplă la acest schimb — disputa dintre debitul fluvial, valuri și maree — decide forma unei delte, unde crește și cum supraviețuiește într-o lume care se încălzește. Repere din prelegerea de deschidere a lui Edward Anthony, în pregătirea lucrului cu date.</p>
+    <p class="dl-by">Prelegere susținută de <b>Prof. Edward Anthony</b> · CEREGE, Aix-Marseille Université &amp; ICUB, Universitatea din București</p>
+    <div class="dl-strata" aria-hidden="true">
+      <svg viewBox="0 0 1200 200" preserveAspectRatio="none">
+        <path d="M0,120 C200,90 380,150 560,118 C760,82 960,150 1200,110 L1200,200 L0,200 Z" fill="#0e3346"/>
+        <path d="M0,150 C220,128 420,168 600,148 C800,126 1000,170 1200,142 L1200,200 L0,200 Z" fill="#1d6e7c" opacity=".55"/>
+        <path d="M540,118 C560,140 580,158 600,200 L600,200 L600,118 Z" fill="#3fa6a0" opacity=".5"/>
+        <path d="M0,178 C300,160 600,190 900,172 C1050,164 1130,182 1200,176 L1200,200 L0,200 Z" fill="#08202e"/>
+      </svg>
+    </div>
+  </header>
+
+  <div class="dl-body">
+
+    <!-- ===================== 1 · FLUVIU · MARE ===================== -->
+    <article class="dl-chapter" id="fluviu-mare">
+      <div class="dl-num">01 · Fluviu · Mare</div>
+      <h3>Deltele sunt punctul de întâlnire dintre un fluviu și mare</h3>
+      <p>Deltele sunt acumulări costiere 3D de sedimente preponderent <strong>de origine fluvială</strong>, construite la gurile de vărsare — și veriga cea mai importantă din sistemul global <strong>sursă-spre-bazin</strong> (source-to-sink), care transportă sedimente de pe continente, prin râuri, spre ocean.</p>
+
+      <figure class="dl-fig">
+        <svg viewBox="0 0 720 300" role="img" aria-label="Secțiune sursă-spre-bazin: de la bazinul de drenaj la evantaiul submarin">
+          <rect width="720" height="300" fill="#ffffff"/>
+          <path d="M430,165 L720,165 L720,300 L430,300 Z" fill="#1d6e7c" opacity="0.16"/>
+          <path d="M0,300 L0,168 L16,150 L30,70 L44,108 L58,52 L74,104 L92,74 L112,120 L150,152 L240,158 L330,161 L430,166 L510,214 L620,240 L690,266 L720,272 L720,300 Z" fill="#e6d8bd"/>
+          <path d="M430,166 L510,214 L620,240 L690,266 L720,272 L720,300 L430,300 Z" fill="#cdb78f" opacity="0.55"/>
+          <ellipse cx="678" cy="282" rx="42" ry="12" fill="#0e3346" opacity="0.32"/>
+          <path d="M16,150 L30,70 L44,108 L58,52 L74,104 L92,74 L112,120 L150,152 Z" fill="#cdb78f" opacity="0.45"/>
+          <path d="M58,60 C92,112 132,150 232,158 C322,164 382,165 430,166" fill="none" stroke="#1f7ab0" stroke-width="3" stroke-linecap="round"/>
+          <path d="M44,108 C70,122 82,138 112,150" fill="none" stroke="#1f7ab0" stroke-width="1.5" opacity="0.7"/>
+          <line x1="300" y1="165" x2="720" y2="165" stroke="#0e3346" stroke-width="1" stroke-dasharray="5 4" opacity="0.5"/>
+          <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="#3a525a">
+            <text x="34" y="184">Bazin de drenaj</text><text x="186" y="185">Câmpie aluvială</text>
+            <text x="318" y="150">Deltă subaeriană</text><text x="452" y="198" fill="#0e3346">Front deltaic</text>
+            <text x="548" y="230" fill="#0e3346">Prodeltă</text><text x="620" y="258" fill="#0e3346">Evantai submarin</text>
+            <text x="604" y="159" fill="#0e3346">Nivelul mării</text>
+          </g>
+        </svg>
+        <figcaption class="dl-figcap">Fig. 1 — Sistemul sursă-spre-bazin: de la bazinul de drenaj la evantaiul submarin de adâncime.</figcaption>
+      </figure>
+
+      <p style="margin-top:30px;">Forma deltelor în plan rezultă din echilibrul a trei forțe — <strong>fluviu, valuri, maree</strong>. Anthony preferă „influența" în locul „dominanței" (după Galloway, 1975): deltele reale se află pe un continuum, nu în trei categorii rigide.</p>
+
+      <div class="dl-rwt">
+        <div class="dl-card r">
+          <svg class="icon" viewBox="0 0 240 120" aria-hidden="true">
+            <rect width="240" height="120" fill="#1d6e7c" opacity="0.14"/><rect width="240" height="40" fill="#e6d8bd"/>
+            <g stroke="#d8c7a3" stroke-width="9" fill="none" stroke-linecap="round"><path d="M120,40 L86,104"/><path d="M120,40 L120,110"/><path d="M120,40 L154,104"/></g>
+            <g stroke="#1f7ab0" stroke-width="3" fill="none" stroke-linecap="round"><path d="M120,16 L120,40"/><path d="M120,40 L86,104"/><path d="M120,40 L120,110"/><path d="M120,40 L154,104"/></g>
+          </svg>
+          <span class="dl-tag">Influență fluvială</span>
+          <h4>Construite de fluviu</h4>
+          <p>Aport fluvial puternic și grinduri submarine ce împing delta spre larg, în „picior de pasăre" — ex. Mississippi.</p>
+        </div>
+        <div class="dl-card w">
+          <svg class="icon" viewBox="0 0 240 120" aria-hidden="true">
+            <rect width="240" height="120" fill="#1d6e7c" opacity="0.14"/>
+            <path d="M0,0 H240 V44 C200,46 168,64 120,78 C92,86 64,52 40,48 C24,46 12,46 0,46 Z" fill="#e6d8bd"/>
+            <path d="M120,12 L120,78" stroke="#1f7ab0" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M120,78 C150,86 176,80 198,64" stroke="#cdb78f" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <g stroke="#0e3346" stroke-width="2" opacity="0.5" stroke-linecap="round"><path d="M150,116 L162,102"/><path d="M160,116 L172,102"/><path d="M170,116 L182,102"/></g>
+          </svg>
+          <span class="dl-tag">Influența valurilor</span>
+          <h4>Netezite de valuri</h4>
+          <p>Valurile redistribuie sedimentul în cordoane și săgeți — lobul Sf. Gheorghe al Dunării, Ronul, Ebro.</p>
+        </div>
+        <div class="dl-card t">
+          <svg class="icon" viewBox="0 0 240 120" aria-hidden="true">
+            <rect width="240" height="120" fill="#1d6e7c" opacity="0.14"/>
+            <path d="M0,0 H120 V40 C90,60 72,86 72,120 H0 Z" fill="#e6d8bd"/><path d="M240,0 H120 V40 C150,60 168,86 168,120 H240 Z" fill="#e6d8bd"/>
+            <g fill="#cdb78f"><ellipse cx="120" cy="72" rx="6" ry="22"/><ellipse cx="101" cy="88" rx="5" ry="17"/><ellipse cx="139" cy="88" rx="5" ry="17"/></g>
+            <g stroke="#1f7ab0" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M92,110 L92,96"/><path d="M88,100 L92,96 L96,100"/><path d="M148,96 L148,110"/><path d="M144,106 L148,110 L152,106"/></g>
+          </svg>
+          <span class="dl-tag">Influența mareei</span>
+          <h4>Modelate de maree</h4>
+          <p>Pomparea mareică și maximul de turbiditate rețin sedimentul în canale-pâlnie — Gange-Brahmaputra.</p>
+        </div>
+      </div>
+
+      <div class="dl-pull">
+        <p>Bara de gură este șablonul: raportul dintre debitul fluvial și transportul longitudinal al valurilor decide dacă o deltă crește simetric și proeminent sau este deflectată și netezită în avalul derivei.</p>
+        <cite>Anthony, 2015, Marine Geology · model conceptual</cite>
+      </div>
+
+      <p style="margin-top:30px;">Acest tablou calitativ devine acum <strong>cantitativ</strong> prin modelare numerică. <strong>Indicele sedimentar (Si)</strong> — raportul dintre transportul longitudinal de sedimente și debitul solid al fluviului — transformă echilibrul fluviu–val într-un singur număr.</p>
+
+      <figure class="dl-fig">
+        <svg viewBox="0 0 720 140" role="img" aria-label="Continuum morfologic în funcție de indicele Si: de la deltă fluvial-dominată cu guri multiple la țărm îndreptat">
+          <rect width="720" height="140" fill="#ffffff"/><rect width="720" height="34" fill="#e6d8bd"/>
+          <rect y="34" width="720" height="106" fill="#1d6e7c" opacity="0.12"/>
+          <path d="M44,34 C58,74 74,98 90,106 C106,98 122,74 136,34 Z" fill="#e6d8bd"/>
+          <g stroke="#d8c7a3" stroke-width="6" fill="none" stroke-linecap="round"><path d="M90,40 L64,100"/><path d="M90,40 L82,106"/><path d="M90,40 L100,106"/><path d="M90,40 L118,98"/></g>
+          <g stroke="#1f7ab0" stroke-width="2.2" fill="none" stroke-linecap="round"><path d="M90,12 L90,40"/><path d="M90,40 L64,100"/><path d="M90,40 L82,106"/><path d="M90,40 L100,106"/><path d="M90,40 L118,98"/></g>
+          <path d="M205,34 C245,46 252,82 270,82 C288,82 295,46 335,34 Z" fill="#e6d8bd"/><path d="M270,12 L270,82" stroke="#1f7ab0" stroke-width="2.5" fill="none"/>
+          <path d="M385,34 C420,42 432,72 450,72 C470,72 480,46 515,34 Z" fill="#e6d8bd"/><path d="M450,12 L450,72" stroke="#1f7ab0" stroke-width="2.5" fill="none"/>
+          <path d="M450,72 C476,80 500,74 516,62" stroke="#cdb78f" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M560,40 C600,44 645,46 690,42 L690,52 C645,56 600,54 560,50 Z" fill="#cdb78f"/><path d="M625,12 L625,44" stroke="#1f7ab0" stroke-width="2.5" fill="none"/>
+          <g font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a525a" text-anchor="middle">
+            <text x="90" y="126">fluvial-dominat (Chilia)</text><text x="270" y="126">lobat</text><text x="450" y="126">deflectat + săgeată</text><text x="625" y="126">țărm îndreptat</text>
+          </g>
+        </svg>
+        <figcaption class="dl-figcap">Fig. 2 — Continuumul de forme: de la deltă fluvial-dominată (guri multiple, ex. Chilia) la țărm îndreptat, pe măsură ce crește Si.</figcaption>
+      </figure>
+
+      <div class="dl-si" style="margin-top:18px;">
+        <div class="dl-si-bar"><span>◀ MAI MULT SEDIMENT FLUVIAL</span><span>Si — indice sedimentar</span><span>VALURI MAI PUTERNICE ▶</span></div>
+        <div class="dl-si-foot">
+          <span><b>Si mic:</b> lobi simetrici, proeminenți; sediment reținut la gură; brațe distributare multiple (ex. Dunărea–Chilia).</span>
+          <span class="right"><b>Si mare:</b> linii de țărm deflectate, îndreptate; sedimentul scapă în aval, în săgeți și cordoane.</span>
+        </div>
+      </div>
+
+      <p style="margin-top:28px;font-size:.98rem;">
+        <strong>Dunărea ca manual viu:</strong> în aceeași deltă, lobul adăpostit, cu influență fluvială, <strong>Chilia</strong> și lobul expus, cu influența valurilor, <strong>Sf. Gheorghe</strong> stau alături — diferența fiind dată de fetch-ul valurilor din Marea Neagră (Zăinescu et al., 2019, 2024).
+      </p>
+
+      <figure class="dl-fig">
+        <svg viewBox="0 0 720 380" role="img" aria-label="Schema Deltei Dunării: Chilia cu influență fluvială și Sf. Gheorghe cu influența valurilor">
+          <rect width="720" height="380" fill="#ffffff"/><rect width="720" height="380" fill="#1d6e7c" opacity="0.14"/>
+          <path d="M0,30 L300,24 C400,34 460,64 452,92 C540,128 540,150 470,176 C440,230 470,250 455,300 C440,332 410,352 360,362 L0,362 Z" fill="#e6d8bd"/>
+          <g stroke="#cdb78f" stroke-width="2" opacity="0.7"><path d="M300,210 L440,250"/><path d="M300,230 L432,272"/><path d="M300,250 L420,290"/><path d="M300,270 L406,308"/></g>
+          <path d="M0,150 C80,150 132,160 182,166" fill="none" stroke="#1f7ab0" stroke-width="6" stroke-linecap="round"/>
+          <g fill="none" stroke="#1f7ab0" stroke-width="3" stroke-linecap="round"><path d="M182,166 C222,118 300,72 430,60"/><path d="M300,90 L360,72"/><path d="M322,100 L382,92"/><path d="M342,112 L402,108"/></g>
+          <path d="M182,166 C300,168 420,170 520,172" fill="none" stroke="#1f7ab0" stroke-width="4" stroke-linecap="round"/>
+          <path d="M182,168 C282,200 382,250 455,300" fill="none" stroke="#1f7ab0" stroke-width="4" stroke-linecap="round"/>
+          <path d="M455,300 C448,330 430,350 405,362" fill="none" stroke="#cdb78f" stroke-width="7" stroke-linecap="round"/>
+          <g stroke="#0e3346" stroke-width="2" opacity="0.45" stroke-linecap="round"><path d="M602,250 L586,236"/><path d="M612,256 L596,242"/><path d="M622,262 L606,248"/><path d="M602,300 L586,286"/><path d="M612,306 L596,292"/><path d="M622,312 L606,298"/></g>
+          <g stroke="#3a525a" fill="#3a525a"><path d="M684,72 L684,32" stroke-width="2"/><path d="M678,42 L684,30 L690,42 Z"/></g>
+          <g font-family="JetBrains Mono, monospace" font-size="12" fill="#13262e">
+            <text x="20" y="142">Dunărea</text><text x="246" y="58" fill="#2e9e6b">Chilia · fluvial</text><text x="360" y="160">Sulina</text>
+            <text x="232" y="332" fill="#c0532f">Sf. Gheorghe · valuri</text><text x="566" y="206" fill="#0e3346">Marea Neagră</text><text x="676" y="88" fill="#3a525a">N</text>
+          </g>
+        </svg>
+        <figcaption class="dl-figcap">Fig. 3 — Delta Dunării: Chilia (influență fluvială) și Sf. Gheorghe (influența valurilor) în același sistem.</figcaption>
+      </figure>
+    </article>
+
+    <!-- ===================== 2 · SCHIMBĂRI CLIMATICE ===================== -->
+    <article class="dl-chapter flood" id="schimbari-climatice">
+      <div class="dl-num flood">02 · Schimbări climatice</div>
+      <h3>Încălzirea globală amenință deltele — dar inegal</h3>
+      <p>Majoritatea câmpiilor deltaice se află sub 2 m deasupra nivelului mării, deci sunt extrem de sensibile la două presiuni: <strong>creșterea relativă a nivelului mării</strong> și <strong>subsidența terenului</strong>. Supraviețuirea depinde la fel de mult de management și de aportul sedimentar, cât și de scenariul climatic în sine.</p>
+
+      <figure class="dl-fig">
+        <svg viewBox="0 0 720 320" role="img" aria-label="Scenarii SSP de creștere a nivelului mării până în 2150">
+          <rect width="720" height="320" fill="#ffffff"/>
+          <g stroke="#e2d6bd" stroke-width="1"><line x1="70" y1="270" x2="690" y2="270"/><line x1="70" y1="212" x2="690" y2="212"/><line x1="70" y1="155" x2="690" y2="155"/><line x1="70" y1="97" x2="690" y2="97"/></g>
+          <line x1="70" y1="40" x2="690" y2="40" stroke="#c0532f" stroke-width="1.4" stroke-dasharray="6 4" opacity="0.8"/>
+          <line x1="70" y1="40" x2="70" y2="270" stroke="#3a525a" stroke-width="1.2"/>
+          <path d="M70,270 C320,266 480,236 690,190 L690,74 C450,165 300,258 70,270 Z" fill="#1f7ab0" opacity="0.07"/>
+          <path d="M70,270 C320,266 480,236 690,190" fill="none" stroke="#1f7ab0" stroke-width="2.4"/>
+          <path d="M70,270 C320,264 480,222 690,166" fill="none" stroke="#2e8fae" stroke-width="2.4"/>
+          <path d="M70,270 C320,262 470,205 690,143" fill="none" stroke="#d98b3a" stroke-width="2.4"/>
+          <path d="M70,270 C300,260 460,185 690,109" fill="none" stroke="#c0532f" stroke-width="2.4"/>
+          <path d="M70,270 C300,258 450,162 690,74" fill="none" stroke="#9b3520" stroke-width="2.6"/>
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="#3a525a" text-anchor="end"><text x="62" y="274">0</text><text x="62" y="216">0,5</text><text x="62" y="159">1,0</text><text x="62" y="101">1,5</text><text x="62" y="44">2,0 m</text></g>
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="#3a525a" text-anchor="middle"><text x="70" y="286">2000</text><text x="280" y="286">2050</text><text x="490" y="286">2100</text><text x="690" y="286">2150</text></g>
+          <g font-family="JetBrains Mono, monospace" font-size="10"><text x="540" y="80" fill="#9b3520">SSP5-8.5</text><text x="540" y="118" fill="#c0532f">SSP3-7.0</text><text x="540" y="150" fill="#d98b3a">SSP2-4.5</text><text x="540" y="178" fill="#2e8fae">SSP1-2.6</text><text x="540" y="204" fill="#1f7ab0">SSP1-1.9</text></g>
+          <text x="78" y="34" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#c0532f">≈ nivelul câmpiei deltaice (sub 2 m)</text>
+        </svg>
+        <figcaption class="dl-figcap">Fig. 4 — Creșterea nivelului mării pe scenarii SSP (schematic, valori ilustrative după Anthony et al., 2024). Sub scenariile extreme, câmpia deltaică este depășită.</figcaption>
+      </figure>
+
+      <div class="dl-grid" style="margin-top:8px;">
+        <div class="dl-card">
+          <span class="dl-tag">Factor A · marea urcă</span>
+          <h4>Creșterea nivelului mării</h4>
+          <p>În scenariile cu emisii reduse (SSP1-1.9/2.6), deltele bine gestionate pot ține pasul. În scenariile extreme (SSP3-7.0, SSP5-8.5), o creștere de 1–1,4 m produce inundare la scară largă.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Factor B · terenul se lasă</span>
+          <h4>Subsidența</h4>
+          <p>Compactarea naturală este accelerată de om: extracția de apă subterană și hidrocarburi, drenajul, încărcarea cu construcții. Delta Padului s-a lăsat cu metri într-un secol din cauza extracției de metan.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Pârghia pe care o avem</span>
+          <h4>Management &amp; sedimente</h4>
+          <p>Managementul sedimentelor, controlul subsidenței și adaptarea mută o deltă între „amenințată" și „sustenabilă" — alegerile umane contează la fel de mult ca traiectoria de emisii.</p>
+        </div>
+      </div>
+
+      <div class="dl-threat">
+        <div class="dl-meter">
+          <div class="lab"><b>Subsidență (rate locale)</b><span>imediat · până la &gt;30 mm/an</span></div>
+          <div class="dl-track"><div class="dl-fill" style="width:90%;background:linear-gradient(90deg,var(--flood),#e08a5a);"></div></div>
+        </div>
+        <div class="dl-meter">
+          <div class="lab"><b>Creșterea globală a nivelului mării (azi)</b><span>mai lent · ~4–5 mm/an</span></div>
+          <div class="dl-track"><div class="dl-fill" style="width:22%;background:linear-gradient(90deg,var(--blue),var(--water-light));"></div></div>
+        </div>
+        <p class="dl-figcap" style="margin-top:6px;">Comparație ilustrativă a magnitudinii relative; ratele locale de subsidență după Ohenhen et al., 2026 (40 de delte; max. în Delta Mississippi &gt;30 mm/an).</p>
+      </div>
+
+      <div class="dl-pull">
+        <p>În majoritatea marilor delte ale lumii, subsidența accelerată este o amenințare mai imediată la înecarea deltei decât creșterea nivelului mării în sine.</p>
+        <cite>după Ohenhen et al., 2026, Nature · subsidența depășește SLR local în 18 din 40 de delte</cite>
+      </div>
+
+      <div class="dl-danube">
+        <div class="dl-danube-head">
+          <span>Aplicație · context regional</span>
+          <h4>Ce înseamnă acest lucru pentru Delta Dunării și Marea Neagră</h4>
+        </div>
+        <div class="dl-danube-grid">
+          <div>
+            <h5><span class="dot" style="background:var(--flood)"></span>Deficit sedimentar</h5>
+            <p>Barajele de pe Dunăre (în special Porțile de Fier) au redus drastic aportul de sedimente. O deltă „înfometată" nu mai poate compensa nici subsidența, nici creșterea nivelului mării.</p>
+          </div>
+          <div>
+            <h5><span class="dot" style="background:var(--flood)"></span>Eroziunea țărmului</h5>
+            <p>Lobul expus Sf. Gheorghe și sectoarele din avalul derivei pierd sediment prin transport longitudinal. Cu aport fluvial diminuat, balanța înclină spre retragerea țărmului.</p>
+          </div>
+          <div>
+            <h5><span class="dot" style="background:var(--blue)"></span>Altitudine joasă &amp; subsidență</h5>
+            <p>Câmpia deltaică este aproape de nivelul mării: o subsidență locală modestă produce inundare marină și salinizare înainte ca semnalul global să devină dominant.</p>
+          </div>
+          <div>
+            <h5><span class="dot" style="background:var(--blue)"></span>Marea Neagră: valuri &amp; furtuni</h5>
+            <p>Fetch limitat în nord (contrastul Chilia vs. Sf. Gheorghe), dar furtunile redistribuie energic sedimentul. Aceleași țărmuri pot acumula la viitură și eroda la furtună (Zăinescu et al., 2019).</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:24px;font-size:.98rem;color:var(--ink-soft);">Concluzia pentru Dunăre și pentru workshop: monitorizarea <em>mișcării verticale a terenului</em> și a <em>bilanțurilor sedimentare</em> este prima linie de apărare a supraviețuirii deltei.</p>
+    </article>
+
+    <!-- ===================== 3 · ALȚI PARAMETRI DE CONTROL ===================== -->
+    <article class="dl-chapter" id="parametri">
+      <div class="dl-num warm">03 · Alți parametri de control</div>
+      <h3>Dincolo de nivelul mării: parametrii fizici și biologici pe care clima îi schimbă în paralel</h3>
+      <p>Forma și sănătatea unei delte — și starea mării din fața ei — sunt reglate de un set de variabile care evoluează simultan cu clima și se amplifică reciproc. Trei apar explicit ca <strong>parametri de intrare în modelele numerice</strong>: debitul lichid (Q), debitul solid (Qs) și înălțimea valurilor (Hs).</p>
+
+      <div class="dl-grid dl-param">
+
+        <div class="dl-card" style="border-left-color:var(--blue)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <line x1="18" y1="84" x2="226" y2="84" stroke="#e2d6bd"/>
+            <path d="M22,74 C44,66 62,30 84,30 C108,30 120,52 140,60 C166,70 196,72 226,74" fill="none" stroke="#1f7ab0" stroke-width="2.5"/>
+            <path d="M22,72 C40,58 56,40 70,40 C92,40 108,60 130,68 C158,76 196,76 226,78" fill="none" stroke="#1f7ab0" stroke-width="2" stroke-dasharray="4 3" opacity="0.7"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#3a525a"><text x="20" y="96">iarnă</text><text x="120" y="96">vară</text><text x="120" y="20" fill="#1f7ab0">azi · viitor</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--blue)">Debit lichid · Q</span>
+          <h4>Regimul hidrologic</h4>
+          <p>Topirea mai timpurie a zăpezii alpine și precipitațiile mai variabile deplasează vârful și accentuează contrastul viituri ↔ secete. Debit mic = mai puțin sediment livrat și pană de sare mai sus în brațe.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--flood)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <line x1="18" y1="84" x2="226" y2="84" stroke="#e2d6bd"/>
+            <path d="M18,84 L18,34 L84,34 L84,64 L222,64 L222,84 Z" fill="#c0532f" opacity="0.22"/>
+            <path d="M18,34 L84,34 L84,64 L222,64" fill="none" stroke="#c0532f" stroke-width="2"/>
+            <line x1="84" y1="22" x2="84" y2="84" stroke="#3a525a" stroke-width="1.4" stroke-dasharray="3 3"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#3a525a"><text x="56" y="18">baraj</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--flood)">Debit solid · Qs</span>
+          <h4>Aportul de sedimente</h4>
+          <p>Eroziunea din bazin răspunde la precipitații, dar pe Dunăre <strong>barajele rămân controlul dominant</strong>. Rezultă un aport redus și mai puțin previzibil — esențial pentru balanța Si.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--warm)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <line x1="18" y1="84" x2="226" y2="84" stroke="#e2d6bd"/>
+            <path d="M18,60 L60,57 L100,50 L140,47 L180,40 L222,33" fill="none" stroke="#d98b3a" stroke-width="2.4"/>
+            <path d="M18,72 L60,67 L100,62 L140,55 L180,49 L222,43" fill="none" stroke="#1f7ab0" stroke-width="2.4"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9"><text x="150" y="30" fill="#d98b3a">râu</text><text x="150" y="56" fill="#1f7ab0">Marea Neagră</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--warm)">Temperatură · fluviu &amp; mare</span>
+          <h4>Apa se încălzește</h4>
+          <p>Marea Neagră se încălzește la suprafață → <strong>stratificare mai puternică</strong>, efecte asupra oxigenării și ecosistemelor, valuri de căldură marine. Apa fluvială mai caldă reduce regimul de gheață iarna pe Dunăre.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--blue)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <rect x="18" y="30" width="204" height="52" fill="#3fa6a0" opacity="0.16"/>
+            <path d="M222,82 L222,52 L66,80 Z" fill="#1f7ab0" opacity="0.5"/>
+            <path d="M150,64 L120,70" stroke="#0e3346" stroke-width="2" fill="none"/><path d="M132,62 L120,70 L132,76" stroke="#0e3346" stroke-width="2" fill="none"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#0e3346"><text x="26" y="44">apă dulce</text><text x="150" y="50">pană de sare</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--blue)">Salinitate</span>
+          <h4>Intruziunea salină</h4>
+          <p>Debitul mic plus creșterea nivelului mării împing <strong>pana de sare</strong> în amonte, pe brațe și în pânza freatică — salinizarea solurilor și a apei dulci, o presiune lentă, dar cumulativă.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--flood)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <g stroke="#cdb78f" stroke-width="0.8" fill="none" opacity="0.7"><circle cx="120" cy="52" r="14"/><circle cx="120" cy="52" r="26"/><circle cx="120" cy="52" r="38"/></g>
+            <g stroke="#1f7ab0" stroke-width="6" stroke-linecap="round" opacity="0.85"><line x1="120" y1="52" x2="154" y2="52"/><line x1="120" y1="52" x2="141" y2="33"/><line x1="120" y1="52" x2="120" y2="33"/><line x1="120" y1="52" x2="138" y2="70"/><line x1="120" y1="52" x2="120" y2="66"/><line x1="120" y1="52" x2="112" y2="63"/><line x1="120" y1="52" x2="106" y2="52"/><line x1="120" y1="52" x2="110" y2="44"/></g>
+            <circle cx="120" cy="52" r="2.4" fill="#0e3346"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#3a525a"><text x="120" y="96" text-anchor="middle">direcție · energie val</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--flood)">Climatul valurilor · Hs</span>
+          <h4>Valuri &amp; furtuni</h4>
+          <p>Energia și direcția valurilor controlează transportul longitudinal și forma țărmului (motorul Si). Schimbările regimului de furtuni peste Marea Neagră pot reorienta deriva și accelera eroziunea.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--green)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <rect x="18" y="22" width="204" height="60" fill="#3fa6a0" opacity="0.14"/>
+            <rect x="18" y="70" width="204" height="12" fill="#0e3346" opacity="0.4"/>
+            <g fill="#2e9e6b"><circle cx="46" cy="34" r="3"/><circle cx="78" cy="30" r="3.4"/><circle cx="110" cy="36" r="3"/><circle cx="150" cy="31" r="3.4"/><circle cx="190" cy="35" r="3"/></g>
+            <g stroke="#2e9e6b" stroke-width="1.4" opacity="0.6"><path d="M78,36 L78,60"/><path d="M150,37 L150,60"/></g>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#0e3346"><text x="24" y="48">alge</text><text x="160" y="80" fill="#f6f1e6">hipoxie</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--green)">Nutrienți · oxigenare</span>
+          <h4>Dunăre → Marea Neagră</h4>
+          <p>Dunărea livrează nutrienți pe platforma nord-vestică. Încălzirea și stratificarea amplifică riscul de <strong>eutrofizare și hipoxie</strong> — o buclă în care fluviul și marea se influențează reciproc.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--veg)">
+          <svg class="icon" viewBox="0 0 240 110" aria-hidden="true">
+            <line x1="18" y1="80" x2="226" y2="80" stroke="#e2d6bd"/>
+            <path d="M18,70 C58,68 80,30 120,26 C160,22 182,60 226,68" fill="none" stroke="#2e9e6b" stroke-width="2.6"/>
+            <path d="M18,73 C58,71 92,52 120,48 C150,44 190,66 226,73" fill="none" stroke="#9b7a3a" stroke-width="2" stroke-dasharray="4 3" opacity="0.8"/>
+            <defs><linearGradient id="ndvi" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9c6b3a"/><stop offset="0.5" stop-color="#d9c44a"/><stop offset="1" stop-color="#2e9e6b"/></linearGradient></defs>
+            <rect x="18" y="92" width="208" height="9" rx="2" fill="url(#ndvi)"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#3a525a"><text x="120" y="20" text-anchor="middle" fill="#2e9e6b">NDVI</text><text x="18" y="90">0</text><text x="226" y="90" text-anchor="end">1</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--veg)">Vegetație · NDVI</span>
+          <h4>Stuf, plauri &amp; biogeomorfologie</h4>
+          <p>Vegetația — stufărișurile Dunării sunt printre cele mai întinse din lume — stabilizează sedimentul; vegetația de mal intensifică formarea grindurilor. <strong>NDVI</strong> urmărește vigoarea, fenologia și extinderea ei, plus răspunsul la inundare, secetă și salinizare (curba punctată = vegetație sub stres, ilustrativ).</p>
+        </div>
+
+      </div>
+
+      <div class="dl-pull" style="border-left-color:var(--warm);background:linear-gradient(90deg,rgba(217,139,58,.10),transparent);">
+        <p>Acești parametri nu acționează izolat: un debit mai mic întărește intruziunea salină, apa mai caldă întărește stratificarea și hipoxia, iar un alt regim de furtuni reașează sedimentul și stresează vegetația — efectele se compun.</p>
+        <cite>Sinteză · interacțiuni fluviu–deltă–Marea Neagră</cite>
+      </div>
+    </article>
+
+    <!-- ===================== 4 · DATE & METODE ===================== -->
+    <article class="dl-chapter" id="date-metode">
+      <div class="dl-num">04 · Date &amp; metode</div>
+      <h3>Deltele lasă semnale care pot fi citite — în imagini, batimetrie și senzori</h3>
+      <p>Deltele sunt sisteme dinamice, reactive, care își înregistrează propriul comportament. Metodele de mai jos acoperă exact sursele de date din modulele workshop-ului — de la <strong>baze de date globale deschise</strong> la <strong>măsurători de teren</strong> — și se cuplează firesc cu modelarea numerică și cu IA.</p>
+
+      <div class="dl-grid">
+        <div class="dl-card">
+          <span class="dl-tag">Teledetecție satelitară</span>
+          <h4>Imagini, apă &amp; vegetație</h4>
+          <p>Landsat, Sentinel, MODIS, SPOT, WorldView oferă morfologie, dinamica țărmului, cartare uscat/apă și <strong>indici spectrali (NDVI / NDWI)</strong>. <strong>SWOT</strong> (lansat nov. 2022) redă ocurența și conectivitatea apei pe delte întregi.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Altimetrie &amp; subsidență</span>
+          <h4>LiDAR &amp; InSAR</h4>
+          <p>LiDAR aeropurtat și de dronă (2,5–10 cm) și scanarea laser terestră construiesc MDE de înaltă rezoluție; interferometria SAR cartografiază ratele de subsidență pe decenii.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Batimetrie</span>
+          <h4>Sub apă</h4>
+          <p>Sonar multifascicul &amp; side-scan — acum portabile pe nave fără echipaj (USV) — și LiDAR batimetric redau barele de gură, fața plajei și schimbările de canal pentru bilanțuri 3D.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Hidrodinamică de teren</span>
+          <h4>Curenți, valuri, turbiditate</h4>
+          <p>ADCP &amp; ADV (viteză, nivel, backscatter→turbiditate), curentmetre electromagnetice, geamanduri de val, senzori de presiune și OBS măsoară procesele reale — viitură vs. furtună.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Hidro-meteo &amp; reanaliză</span>
+          <h4>Debite, vânt, val, SST</h4>
+          <p>Seriile de debit (Q, Qs), ERA5 pentru vânt și val, plus temperatura mării (SST) leagă forțarea climatică de răspunsul deltei — datele care „alimentează" parametrii din capitolul 03.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Modelare &amp; IA</span>
+          <h4>De la date la proces</h4>
+          <p>Delft3D și MIKE 21 cuantifică contribuțiile fluviu–val–maree, conectivitatea și răspunsul la creșterea nivelului mării — tot mai mult integrate cu învățarea automată.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:30px;font-size:.98rem;"><strong>Cum se leagă de workshop:</strong></p>
+      <div class="dl-chips">
+        <span class="dl-chip"><b>Modul 1</b> · Copernicus · Sentinel/Landsat · ERA5 · GEE · SWOT · NDVI</span>
+        <span class="dl-chip"><b>Modul 2</b> · Python · xarray · geospațial</span>
+        <span class="dl-chip"><b>Modul 3</b> · AI-assisted coding</span>
+        <span class="dl-chip"><b>Modul 4</b> · trend · regresie · incertitudine</span>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ===================== CONCLUZII + REFERINȚE ===================== -->
+  <footer class="dl-foot" id="referinte">
+    <h3>Trei idei de reținut pentru lucrul cu date</h3>
+    <ul class="dl-take">
+      <li><span><b>Deltele trăiesc pe un continuum.</b> Fluviu, val și maree se <em>influențează</em> — nu domină rigid — iar bara de gură este șablonul care decide forma și linia țărmului.</span></li>
+      <li><span><b>Clima schimbă mai mult decât nivelul mării.</b> Debitul, temperatura apei, salinitatea, climatul valurilor, nutrienții și vegetația se modifică simultan și se compun — pentru Dunăre, deficitul sedimentar și subsidența rămân presiunile-cheie.</span></li>
+      <li><span><b>Semnalele pot fi citite.</b> Bazele de date satelitare (inclusiv NDVI), batimetria și senzorii de teren — plus modelarea și IA — ne permit să cuantificăm cum se schimbă o deltă, chiar azi.</span></li>
+    </ul>
+
+    <div class="dl-refs">
+      <h4>Referințe &amp; resurse</h4>
+      <ul class="dl-reflist">
+        <li class="feat">
+          Anthony, E.J. et al. (2024). <span class="ttl">Delta sustainability from the Holocene to the Anthropocene and envisioning the future.</span> <span class="jrn">Nature Sustainability.</span><br>
+          <a href="https://www.nature.com/articles/s41893-024-01426-3" target="_blank" rel="noopener">nature.com/articles/s41893-024-01426-3</a>
+        </li>
+        <li class="feat">
+          Zăinescu, F. et al. (2024). <span class="ttl">Wave-influenced delta morphodynamics, long-term sediment bypass and trapping controlled by relative magnitudes of riverine and wave-driven sediment transport.</span> <span class="jrn">Geophysical Research Letters, 51, e2024GL111069.</span><br>
+          <a href="https://doi.org/10.1029/2024GL111069" target="_blank" rel="noopener">doi.org/10.1029/2024GL111069</a>
+        </li>
+      </ul>
+      <ul class="dl-reflist">
+        <li>
+          Ohenhen, L.O. et al. (2026). <span class="ttl">Global subsidence of river deltas.</span> <span class="jrn">Nature, 649, 894–901.</span>
+          <a href="https://www.nature.com/articles/s41586-025-09928-6" target="_blank" rel="noopener">doi.org/10.1038/s41586-025-09928-6</a>
+        </li>
+        <li>
+          Anthony, E.J. et al. (2025). <span class="ttl">A 7000-year record of human influence on global river deltas: geomorphology, stratigraphy, the Anthropocene overprint and future.</span> <span class="jrn">Earth-Science Reviews.</span>
+          <a href="https://www.sciencedirect.com/science/article/pii/S0012825225002636" target="_blank" rel="noopener">sciencedirect.com/…/S0012825225002636</a>
+        </li>
+        <li>
+          Anthony, E.J. (2015). <span class="ttl">Wave influence in the construction, shaping and destruction of river deltas: a review.</span> <span class="jrn">Marine Geology, 361, 53–78.</span>
+          <a href="https://doi.org/10.1016/j.margeo.2014.12.004" target="_blank" rel="noopener">doi.org/10.1016/j.margeo.2014.12.004</a>
+        </li>
+        <li>
+          Zăinescu, F. et al. (2019). <span class="ttl">Flood deposition and storm removal of sediments in front of a deltaic wave-influenced river mouth.</span> <span class="jrn">Marine Geology, 417, 106015.</span>
+          <a href="https://doi.org/10.1016/j.margeo.2019.106015" target="_blank" rel="noopener">doi.org/10.1016/j.margeo.2019.106015</a>
+        </li>
+        <li>
+          Branß, T., Núñez-González, F. &amp; Aberle, J. (2022). <span class="ttl">Fluvial levees in compound channels: a review on formation processes and the impact of bedforms and vegetation.</span> <span class="jrn">Environmental Fluid Mechanics, 22, 559–585.</span>
+          <a href="https://doi.org/10.1007/s10652-022-09850-9" target="_blank" rel="noopener">doi.org/10.1007/s10652-022-09850-9</a>
+        </li>
+        <li>Galloway, W.E. (1975). <span class="ttl">Process framework for describing the morphologic and stratigraphic evolution of deltaic depositional systems.</span> <span class="jrn">În: Broussard, M.L. (Ed.), Deltas: Models for Exploration. Houston Geological Society, 87–98.</span></li>
+        <li>Miron, A. &amp; Zăinescu, F. (2025). <span class="ttl">Cartarea ocurenței și conectivității apei în delte cu SWOT.</span> <span class="jrn">SWOT Science Team Meeting (prezentare).</span></li>
+      </ul>
+    </div>
+  </footer>
+
+</section>
+
+</body>
+</html>

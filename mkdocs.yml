@@ -110,6 +110,7 @@ markdown_extensions:
 nav:
   - Acasă: index.md
   - Program: program.md
+  - InfoDelta: info-delta.md
   - Module:
       - modules/module1-databases.md
       - modules/module2-python.md

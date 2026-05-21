@@ -20,6 +20,7 @@ La finalul sesiunii vei putea:
 - [x] Înțelege ce este un **CRS** și diferența dintre coordonate geografice și proiectate
 - [x] Recunoaște tipurile de date geospațiale: **raster** și **vector**
 - [x] Citi și scrie date în 5 formate: **GeoJSON, GPKG, NetCDF, GeoTIFF, Zarr**
+- [x] Crea grafice **statice** (matplotlib) și **interactive** (Plotly): serii temporale, heatmaps raster, hărți vectoriale
 
 ## Plan de sesiune
 
@@ -28,7 +29,8 @@ La finalul sesiunii vei putea:
 | 0–20 | **Python de la zero** | variabile, liste, dicționare, funcții, NumPy | Python · NumPy |
 | 20–45 | **Geodate** | coordonate, CRS, conversii, raster vs vector | pyproj · matplotlib |
 | 45–65 | **Formate de fișiere** | citit/scris GeoJSON, GPKG, NetCDF, GeoTIFF, Zarr | geopandas · xarray · rioxarray |
-| 65–75 | **Exercițiu** | lucru independent | — |
+| 65–75 | **Vizualizare** | figuri statice (matplotlib) + interactive (Plotly) | matplotlib · plotly |
+| 75–80 | **Exercițiu** | lucru independent | — |
 
 ---
 
@@ -41,14 +43,15 @@ La finalul sesiunii vei putea:
 | `import math` | — | Matematică standard Python: `sqrt`, `cos`, `radians` |
 | `import numpy as np` | `np` | Array-uri numerice N-dimensionale, operații vectorizate, statistici |
 | `import pandas as pd` | `pd` | Tabele cu etichete (DataFrame), serii temporale, citit/scris CSV |
-| `import matplotlib.pyplot as plt` | `plt` | Grafice 2D: linii, bare, hărți raster, scatter |
+| `import matplotlib.pyplot as plt` | `plt` | Grafice 2D **statice**: linii, bare, hărți raster, scatter — ideal pentru publicații |
+| `import plotly.express as px` | `px` | Grafice **interactive** HTML: line, bar, imshow, scatter_mapbox — hover și zoom inclus |
 | `import geopandas as gpd` | `gpd` | Date **vectoriale** geospațiale — extinde pandas cu coloana `geometry` |
 | `from shapely.geometry import Point` | — | Geometrii discrete: `Point`, `LineString`, `Polygon` |
 | `from pyproj import Transformer` | — | Conversii precise între sisteme de coordonate (CRS) |
 | `import xarray as xr` | `xr` | Array-uri N-dimensionale cu **etichete** pe dimensiuni (`time`, `lat`, `lon`) |
 | `import rioxarray` | — | Extinde xarray cu operații raster: CRS, clip, reproject, GeoTIFF |
 
-> **Convenție:** aliasurile `np`, `pd`, `plt`, `gpd`, `xr` sunt standarde în comunitate — le vei vedea în orice tutorial sau documentație.
+> **Convenție:** aliasurile `np`, `pd`, `plt`, `gpd`, `xr`, `px` sunt standarde în comunitate — le vei vedea în orice tutorial sau documentație.
 
 ---
 
@@ -406,6 +409,113 @@ t_aug = ds_z['t2m'].sel(time='2024-08').mean(dim=['lat', 'lon'])
 
 ---
 
+## Etapa 4 · Vizualizare — matplotlib + Plotly interactiv
+
+| Bibliotecă | Output | Interactiv? | Cel mai bun pentru |
+|:---|:---:|:---:|:---|
+| `matplotlib` | PNG / PDF | ✗ | Publicații, rapoarte, figuri finale |
+| `plotly.express` | HTML widget | ✓ | Explorare date, prezentări, dashboards |
+
+### 4.1 Matplotlib — anatomia unei figuri
+
+```python
+from matplotlib.dates import DateFormatter
+
+# fig = "pânza" întreagă  |  axes = array de sisteme de coordonate
+fig, axes = plt.subplots(1, 2, figsize=(13, 4))
+
+# Serie temporală — ax stânga
+t_s = ds['t2m'].sel(lat=45.1, lon=29.6, method='nearest').to_pandas()
+axes[0].plot(t_s.index, t_s.values, color='#6FB3D8', linewidth=0.7, label='Zilnic')
+axes[0].plot(t_s.resample('ME').mean().index,
+             t_s.resample('ME').mean().values, color='#E85D2F', linewidth=2, label='Lunar')
+axes[0].set_title('Serie temporală — Sulina 2024')
+axes[0].set_ylabel('°C')
+axes[0].xaxis.set_major_formatter(DateFormatter('%b'))
+axes[0].legend(); axes[0].grid(alpha=0.25)
+
+# Bare sezoniere — ax dreapta
+t_lunare = ds['t2m'].mean(dim=['lat','lon']).resample(time='1ME').mean().to_pandas()
+culori   = ['#6FB3D8' if v < 15 else '#E85D2F' for v in t_lunare.values]
+axes[1].bar(range(12), t_lunare.values, color=culori, edgecolor='white')
+axes[1].set_xticks(range(12))
+axes[1].set_xticklabels(['Ian','Feb','Mar','Apr','Mai','Iun',
+                         'Iul','Aug','Sep','Oct','Nov','Dec'], fontsize=9)
+axes[1].set_title('Ciclu sezonier — Delta Dunării 2024')
+axes[1].set_ylabel('°C'); axes[1].grid(axis='y', alpha=0.25)
+
+plt.tight_layout(); plt.show()
+```
+
+### 4.2 Plotly Express — serie temporală interactivă
+
+```python
+import plotly.express as px, pandas as pd
+
+t_s = ds['t2m'].sel(lat=45.1, lon=29.6, method='nearest').to_pandas()
+df  = pd.DataFrame({'data': t_s.index, 'zilnic': t_s.values,
+                    'medie_7z': t_s.rolling(7, center=True).mean().values})
+
+fig = px.line(df, x='data', y=['zilnic', 'medie_7z'],
+              title='Temperatura la Sulina — 2024',
+              labels={'data': 'Dată', 'value': '°C', 'variable': 'Serie'},
+              color_discrete_map={'zilnic': '#6FB3D8', 'medie_7z': '#E85D2F'})
+fig.update_layout(hovermode='x unified')
+fig.show()   # → HTML interactiv cu hover, zoom, pan
+```
+
+### 4.3 Heatmap interactiv — date raster
+
+```python
+# px.imshow → heatmap interactiv cu hover pe fiecare pixel
+t_iulie = ds['t2m'].sel(time='2024-07').mean(dim='time')
+
+fig = px.imshow(t_iulie.values,
+                x=lons.tolist(), y=lats.tolist(),
+                color_continuous_scale='RdYlBu_r', origin='lower',
+                title='Temperatura medie iulie 2024',
+                labels={'x': 'Lon (°E)', 'y': 'Lat (°N)', 'color': '°C'})
+fig.show()
+
+# Animație: array 3D (12, lat, lon) → slider per lună
+t_monthly = ds['t2m'].resample(time='1ME').mean()
+fig_anim  = px.imshow(t_monthly.values,
+                      x=lons.tolist(), y=lats.tolist(),
+                      animation_frame=0,          # prima dim = luni
+                      color_continuous_scale='RdYlBu_r',
+                      zmin=-5, zmax=30, origin='lower')
+fig_anim.show()   # ▶ Play sau slider
+```
+
+### 4.4 Hartă interactivă — date vectoriale
+
+```python
+# px.scatter_mapbox → puncte pe hartă tile OSM (fără API key)
+gdf_plot       = gdf.copy()
+gdf_plot['lat'] = gdf.geometry.y
+gdf_plot['lon'] = gdf.geometry.x
+
+fig = px.scatter_mapbox(
+    gdf_plot, lat='lat', lon='lon',
+    color='temp_iulie', size='populatie',
+    hover_name='name',
+    hover_data={'tip': True, 'populatie': True, 'temp_iulie': True,
+                'lat': False, 'lon': False},
+    color_continuous_scale='RdYlBu_r',
+    mapbox_style='open-street-map',
+    zoom=8, center=dict(lat=45.1, lon=29.5),
+    title='Stații Delta Dunării',
+)
+fig.show()
+```
+
+!!! tip "Matplotlib vs Plotly — când să folosești ce"
+    - **Matplotlib** → figuri finale pentru PDF, publicații, slide-uri statice
+    - **Plotly** → explorare interactivă: zoom, pan, hover, animații
+    - Le poți combina: matplotlib pentru vizualizare rapidă, Plotly pentru prezentare live
+
+---
+
 ## Capcane frecvente
 
 !!! warning "CRS lipsă sau greșit"
@@ -438,6 +548,7 @@ t_aug = ds_z['t2m'].sel(time='2024-08').mean(dim=['lat', 'lon'])
     2. **NumPy** — câte zile din 2024 au temperatura medie spațială > 20°C? (`ds['t2m'].mean(dim=['lat','lon'])`)
     3. **CRS** — convertește stația Crișan (45.02°N, 29.42°E) din EPSG:4326 în EPSG:32635.
     4. **NetCDF** — salvează temperatura medie din august ca `temp_august_2024.nc`.
+    5. **Plotly** — creează un `px.bar` cu temperatura medie lunară pentru toate cele 5 stații (iterează prin `gdf`, selectează cu `method='nearest'` și construiește un DataFrame cu `statie`, `luna`, `temp`).
 
     ??? tip "Hint"
         ```python
@@ -453,6 +564,18 @@ t_aug = ds_z['t2m'].sel(time='2024-08').mean(dim=['lat', 'lon'])
         ds['t2m'].sel(time='2024-08').mean(dim='time') \
                  .to_dataset(name='t2m') \
                  .to_netcdf('temp_august_2024.nc')
+
+        # 5
+        import plotly.express as px, pandas as pd
+        luni = ['Ian','Feb','Mar','Apr','Mai','Iun','Iul','Aug','Sep','Oct','Nov','Dec']
+        rows = []
+        for _, row in gdf.iterrows():
+            vals = ds['t2m'].sel(lat=row.geometry.y, lon=row.geometry.x,
+                                 method='nearest').resample(time='1ME').mean().values
+            for i, v in enumerate(vals):
+                rows.append({'statie': row['name'], 'luna': luni[i], 'temp': float(v)})
+        px.bar(pd.DataFrame(rows), x='luna', y='temp', color='statie',
+               barmode='group', title='Ciclu sezonier per stație').show()
         ```
 
 ---
@@ -465,4 +588,6 @@ t_aug = ds_z['t2m'].sel(time='2024-08').mean(dim=['lat', 'lon'])
 - [xarray — getting started](https://docs.xarray.dev/en/stable/getting-started-guide/quick-overview.html)
 - [rioxarray — overview](https://corteva.github.io/rioxarray/stable/getting_started/getting_started.html)
 - [zarr — documentation](https://zarr.readthedocs.io/en/stable/)
+- [plotly express — documentație](https://plotly.com/python/plotly-express/)
+- [plotly — scatter mapbox](https://plotly.com/python/scattermapbox/)
 - [epsg.io](https://epsg.io/) — caută orice cod EPSG

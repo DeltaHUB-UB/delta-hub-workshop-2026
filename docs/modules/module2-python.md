@@ -15,7 +15,7 @@ Nu trebuie să instalezi nimic local. Doar un cont Google.
 
 La finalul sesiunii vei putea:
 
-- [x] Scrie cod Python de bază: variabile, liste, dicționare, bucle, funcții
+- [x] Scrie cod Python de bază: variabile, liste, dicționare, loops, funcții
 - [x] Utiliza **NumPy** pentru calcul vectorizat pe array-uri și grile 2D
 - [x] Înțelege ce este un **CRS** și diferența dintre coordonate geografice și proiectate
 - [x] Recunoaște tipurile de date geospațiale: **raster** și **vector**
@@ -139,7 +139,7 @@ for statie, coord in statii_info.items():
     print(f'{statie}: {coord["lat"]}°N')
 ```
 
-### 1.4 Bucle și condiții
+### 1.4 Loops și condiții
 
 ```python
 temperaturi = [22.3, 18.5, 25.1, 30.4, 15.0]
@@ -176,7 +176,7 @@ print(descrie_statie('Sulina', 45.15, 29.65, 'port'))
 
 ### 1.6 NumPy — calcul numeric rapid
 
-**NumPy** adaugă tipul `array` — operații matematice pe întreg vectorul fără buclă.
+**NumPy** adaugă tipul `array` — operații matematice pe întreg vectorul fără loop.
 
 ```python
 import numpy as np
@@ -421,7 +421,7 @@ t_aug = ds_z['t2m'].sel(time='2024-08').mean(dim=['lat', 'lon'])
 ```python
 from matplotlib.dates import DateFormatter
 
-# fig = "pânza" întreagă  |  axes = array de sisteme de coordonate
+# Figure = suprafața pe care se desenează  |  Axes = subplot cu coordonate
 fig, axes = plt.subplots(1, 2, figsize=(13, 4))
 
 # Serie temporală — ax stânga

@@ -428,7 +428,6 @@
     <a href="#verificare">Verificarea rezultatelor</a>
     <a href="#capcane">Capcane frecvente</a>
     <a href="#modele">Modele AI</a>
-    <a href="#exercitiu">Exercițiu</a>
     <a href="#resurse">Resurse</a>
   </nav>
 
@@ -814,34 +813,9 @@ doar rioxarray / xarray / numpy, fără apeluri GDAL directe.</pre>
       </div>
     </section>
 
-    <!-- ========== EXERCITIU ========== -->
-    <section id="exercitiu">
-      <div class="eyebrow"><span class="num">8</span> Exercițiu</div>
-      <h2 class="sec">Mini-exercițiu cu un asistent</h2>
-      <div class="exercise">
-        <span class="tag">15–20 min · Claude / Gemini / Copilot</span>
-        <h3>De la prompt la cod verificat</h3>
-        <p>Punctul de plecare (rulează în Colab — generează o serie sintetică de debit, ca să nu depinzi de fișiere externe):</p>
-        <pre class="code"><span class="cm">import</span> numpy <span class="cm">as</span> np, pandas <span class="cm">as</span> pd
-rng = np.random.default_rng(42)
-t = pd.date_range('2023-01-01', '2024-12-31', freq='D')
-<span class="cm"># debit Dunăre stilizat: sezonalitate + zgomot, în m³/s</span>
-q = 6000 + 2500*np.sin((np.arange(len(t)) - 60)*2*np.pi/365) + rng.normal(0, 400, len(t))
-discharge = pd.Series(q, index=t, name='discharge_m3s')</pre>
-        <p>Dă-i unui asistent <b>un singur prompt</b> (folosește rețeta!) care, pornind de la <b>discharge</b>:</p>
-        <ol>
-          <li>calculează media lunară și o medie mobilă de 30 de zile;</li>
-          <li>marchează lunile de <b>viitură</b> (media lunară &gt; percentila 90 a mediilor lunare);</li>
-          <li>produce un grafic cu axe etichetate (Debit m³/s, dată) și lunile de viitură evidențiate.</li>
-        </ol>
-        <p>Apoi <b>aplică checklist-ul</b>: găsește cel puțin o problemă (unități? funcție inventată? percentila calculată pe seria zilnică în loc de cea lunară? NaN la marginea mediei mobile?) și <b>re-promptează</b> ca s-o repare.</p>
-        <div class="final">🎯 <b>Cerință finală:</b> explică în <b>2 propoziții</b> ce face fiecare bloc de cod — cu cuvintele tale, nu copiate de la asistent.</div>
-      </div>
-    </section>
-
     <!-- ========== RESURSE ========== -->
     <section id="resurse">
-      <div class="eyebrow"><span class="num">9</span> Resurse</div>
+      <div class="eyebrow"><span class="num">8</span> Resurse</div>
       <h2 class="sec">Pentru aprofundare</h2>
       <div class="res">
         <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener">

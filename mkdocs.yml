@@ -19,23 +19,9 @@ theme:
   favicon: assets/favicon.svg
 
   palette:
-    # Light mode
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: custom
-      accent: custom
-      toggle:
-        icon: material/weather-sunny
-        name: Mod întunecat
-
-    # Dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: custom
-      accent: custom
-      toggle:
-        icon: material/weather-night
-        name: Mod luminos
+    scheme: slate
+    primary: custom
+    accent: custom
 
   font:
     text: Space Grotesk
@@ -110,6 +96,7 @@ markdown_extensions:
 nav:
   - Acasă: index.md
   - Program: program.md
+  - InfoDelta: info-delta.md
   - Module:
       - modules/module1-databases.md
       - modules/module2-python.md

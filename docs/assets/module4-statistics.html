@@ -6,29 +6,29 @@
 <title>Modul 4 — Metode statistice pentru date de mediu · DELTA-Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#06151a; --bg2:#0a2129; --surface:#0e2b34; --surface-hi:#123640;
-    --line:#1c3e48; --ink:#eef5f3; --muted:#90aab0; --muted-dim:#5f7e85;
-    --sand:#e0b878; --foam:#5fc9bb; --coral:#df9a82; --blue:#7fa8e0; --green:#9cbf6e;
-    --code-bg:#04181d;
+    --bg:#0c1719; --bg2:#0f1e22; --surface:#13252a; --surface-hi:#1a3036;
+    --line:#2a3a3e; --ink:#F4EFE5; --muted:#b9c4c8; --muted-dim:#8a979b;
+    --sand:#D4A574; --foam:#6FA68F; --coral:#FFB59A; --blue:#7fa8e0; --green:#9cbf6e;
+    --code-bg:#0a1417;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;
+    background:var(--bg);color:var(--ink);font-family:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;
     line-height:1.6;-webkit-font-smoothing:antialiased;
     background-image:
-      radial-gradient(ellipse 80% 50% at 15% -10%, rgba(95,201,187,0.10), transparent 60%),
-      radial-gradient(ellipse 70% 40% at 95% 4%, rgba(224,184,120,0.07), transparent 55%);
+      radial-gradient(ellipse 80% 50% at 15% -10%, rgba(111,166,143,0.10), transparent 60%),
+      radial-gradient(ellipse 70% 40% at 95% 4%, rgba(212,165,116,0.07), transparent 55%);
     background-attachment:fixed;
   }
   .wrap{max-width:920px;margin:0 auto;padding:0 28px}
 
   /* Header */
   header{padding:70px 0 30px}
-  .kicker{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.3em;
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.3em;
     text-transform:uppercase;color:var(--foam);margin-bottom:20px;display:flex;align-items:center;gap:14px}
   .kicker::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--line),transparent)}
   h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.2rem,5.5vw,3.8rem);
@@ -36,7 +36,7 @@
   h1 em{font-style:italic;font-weight:500;color:var(--sand)}
   .sub{color:var(--muted);font-size:1.05rem;max-width:64ch}
   .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-  .pill{font-family:'IBM Plex Mono',monospace;font-size:.74rem;padding:6px 13px;border-radius:999px;
+  .pill{font-family:'JetBrains Mono',monospace;font-size:.74rem;padding:6px 13px;border-radius:999px;
     border:1px solid var(--line);color:var(--muted)}
   .pill b{color:var(--foam);font-weight:500}
 
@@ -51,14 +51,14 @@
   .agenda .t{flex:1}
   .agenda .t b{font-weight:600;font-size:1rem}
   .agenda .t span{display:block;color:var(--muted-dim);font-size:.84rem}
-  .agenda .min{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--sand)}
+  .agenda .min{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--sand)}
 
   /* Sections */
   section{padding:42px 0;border-top:1px solid var(--line);scroll-margin-top:20px}
   .stag{display:flex;align-items:center;gap:14px;margin-bottom:8px}
-  .stag .num{font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.18em;
+  .stag .num{font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.18em;
     text-transform:uppercase;color:var(--foam)}
-  .stag .dur{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--muted-dim);
+  .stag .dur{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted-dim);
     margin-left:auto;padding:3px 10px;border:1px solid var(--line);border-radius:999px}
   h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.85rem;letter-spacing:-.01em;
     margin-bottom:16px;line-height:1.1}
@@ -73,28 +73,28 @@
   ul.clean li::before{content:"›";position:absolute;left:4px;color:var(--foam);font-weight:700}
 
   /* Delta callout */
-  .delta{border-left:3px solid var(--coral);background:rgba(223,154,130,.07);
+  .delta{border-left:3px solid var(--coral);background:rgba(255,181,154,.07);
     padding:14px 18px;border-radius:0 12px 12px 0;margin:18px 0;font-size:.95rem}
-  .delta .lab{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;
+  .delta .lab{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.16em;
     text-transform:uppercase;color:var(--coral);display:block;margin-bottom:5px}
 
   /* Concept figure */
   .fig{margin:20px 0;text-align:center}
   .fig svg{max-width:100%;height:auto}
-  .fig figcaption{font-size:.82rem;color:var(--muted-dim);margin-top:8px;font-family:'IBM Plex Mono',monospace}
+  .fig figcaption{font-size:.82rem;color:var(--muted-dim);margin-top:8px;font-family:'JetBrains Mono',monospace}
 
   /* Code (collapsible) */
   details.code{margin:16px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;
     background:var(--code-bg)}
   details.code summary{cursor:pointer;list-style:none;padding:11px 16px;
-    font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--foam);
-    display:flex;align-items:center;gap:10px;background:rgba(95,201,187,.05);user-select:none}
+    font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--foam);
+    display:flex;align-items:center;gap:10px;background:rgba(111,166,143,.05);user-select:none}
   details.code summary::-webkit-details-marker{display:none}
   details.code summary::before{content:"▸";transition:transform .2s ease;color:var(--foam)}
   details.code[open] summary::before{transform:rotate(90deg)}
   details.code summary .py{margin-left:auto;font-size:.68rem;color:var(--muted-dim);
     border:1px solid var(--line);border-radius:5px;padding:2px 7px}
-  pre{margin:0;padding:16px 18px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;
+  pre{margin:0;padding:16px 18px;overflow-x:auto;font-family:'JetBrains Mono',monospace;
     font-size:.82rem;line-height:1.65;color:#cfe3df}
   pre .c{color:var(--muted-dim);font-style:italic}      /* comment */
   pre .k{color:var(--coral)}                            /* keyword */
@@ -110,16 +110,16 @@
   .pit p{font-size:.9rem;margin:0;color:var(--muted)}
 
   /* inline code */
-  code{font-family:'IBM Plex Mono',monospace;font-size:.86em;background:rgba(95,201,187,.10);
+  code{font-family:'JetBrains Mono',monospace;font-size:.86em;background:rgba(111,166,143,.10);
     color:var(--foam);padding:1px 6px;border-radius:5px}
 
   /* info box + definition list */
   .box{border:1px solid var(--line);border-radius:12px;padding:16px 19px;margin:18px 0;
     background:linear-gradient(160deg,var(--surface),var(--bg2))}
-  .box .lab{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;
+  .box .lab{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.16em;
     text-transform:uppercase;color:var(--foam);display:block;margin-bottom:10px}
   .dl{display:grid;grid-template-columns:auto 1fr;gap:9px 16px;font-size:.93rem;margin:0}
-  .dl dt{color:var(--sand);font-family:'IBM Plex Mono',monospace;font-size:.82rem;padding-top:2px}
+  .dl dt{color:var(--sand);font-family:'JetBrains Mono',monospace;font-size:.82rem;padding-top:2px}
   .dl dd{color:#d5e2e0;margin:0}
 
   /* method grid (extended toolkit) */
@@ -127,7 +127,7 @@
   .mcard{border:1px solid var(--line);border-radius:13px;padding:17px 18px;position:relative;overflow:hidden;
     background:linear-gradient(160deg,var(--surface),var(--bg2))}
   .mcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--mc,var(--foam))}
-  .mcard .tag{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.13em;
+  .mcard .tag{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.13em;
     text-transform:uppercase;color:var(--mc,var(--muted-dim));display:block;margin-bottom:9px}
   .mcard h4{font-family:'Fraunces',serif;font-size:1.08rem;font-weight:600;margin-bottom:6px;line-height:1.15}
   .mcard p{font-size:.85rem;color:var(--muted);margin:0 0 9px;line-height:1.5}
@@ -138,20 +138,20 @@
   /* advanced subsection header */
   .subh{font-family:'Fraunces',serif;font-size:1.32rem;font-weight:600;color:var(--ink);
     margin:34px 0 4px;display:flex;align-items:baseline;gap:12px;line-height:1.15}
-  .subh .mk{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.12em;
+  .subh .mk{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.12em;
     color:var(--foam);flex-shrink:0}
   .subh + p{margin-top:6px}
 
   /* method ladder badge inside h2 area */
-  .ladder{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.64rem;
+  .ladder{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.64rem;
     letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:999px;margin-bottom:14px}
-  .lv1{background:rgba(95,201,187,.12);color:var(--foam)}
+  .lv1{background:rgba(111,166,143,.12);color:var(--foam)}
   .lv2{background:rgba(127,168,224,.12);color:var(--blue)}
-  .lv3{background:rgba(224,184,120,.14);color:var(--sand)}
-  .lv4{background:rgba(223,154,130,.14);color:var(--coral)}
+  .lv3{background:rgba(212,165,116,.14);color:var(--sand)}
+  .lv4{background:rgba(255,181,154,.14);color:var(--coral)}
 
   footer{border-top:1px solid var(--line);padding:34px 0 70px;color:var(--muted-dim);font-size:.85rem}
-  footer .mono{font-family:'IBM Plex Mono',monospace}
+  footer .mono{font-family:'JetBrains Mono',monospace}
   footer a{color:var(--foam)}
 
   @media(max-width:600px){header{padding:46px 0 20px}.wrap{padding:0 18px}}

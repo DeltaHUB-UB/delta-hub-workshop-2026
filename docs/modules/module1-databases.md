@@ -372,5 +372,24 @@ Fiecare participant lucrează cu **un singur set de date**, din Copernicus Clima
     - **SWOT** (*Surface Water and Ocean Topography*, NASA/CNES, 2022–) — altimetrie 2D de înaltă rezoluție pentru nivelul mării și al apelor continentale (râuri, lacuri, zone umede). Util pentru hidrologia Dunării și dinamica nivelului pe șelful nord-vest al Mării Negre. [swot.jpl.nasa.gov](https://swot.jpl.nasa.gov){ target="_blank" }
     - **GEDI** (*Global Ecosystem Dynamics Investigation*, NASA, ISS, 2019–) — lidar spațial pentru structura 3D a vegetației (înălțime canopy, biomasă). Util pentru păduri-galerie, stuf și zone forestiere din deltă. [gedi.umd.edu](https://gedi.umd.edu){ target="_blank" }
 
+!!! abstract "Mențiune specială — teleconexiuni climatice (NAO, ENSO ș.a.)"
+    **Ce sunt teleconexiunile?** Tipare recurente de variabilitate a presiunii / temperaturii la suprafață care leagă regiuni îndepărtate ale planetei printr-un singur „semnal" climatic. Sunt cuantificate prin **indici** — serii temporale lunare/zilnice, adimensionale — care explică o parte importantă a variabilității interanuale a vremii peste Europa, inclusiv în bazinul Mării Negre și Delta Dunării (debit Dunăre, regim de furtuni, ierni blânde vs. reci).
+
+    Cei mai relevanți pentru regiunea noastră:
+
+    - **NAO** — *North Atlantic Oscillation*: diferența de presiune între Azore (anticiclon) și Islanda (depresiune). Faza pozitivă → ierni blânde, umede și cu mai multe furtuni în nord-vestul Europei; faza negativă → ierni reci și uscate în Europa de Est. Driver dominant al climei iernii în Europa.
+    - **ENSO** — *El Niño / Southern Oscillation*: cuplaj ocean-atmosferă în Pacificul tropical (indici **Niño 3.4**, **ONI**, **MEI**, **SOI**). Influență mai indirectă în Europa, dar detectabilă în precipitații și debite.
+    - **AO** (*Arctic Oscillation*), **EA** (*East Atlantic*), **EA/WR** (*East Atlantic / Western Russia*), **SCAND** (*Scandinavia pattern*), **AMO** (*Atlantic Multidecadal Oscillation*) — relevante pentru tendințe pe scări multi-anuale și decadale.
+
+    **De unde le descarci (toate gratuite, fără cont):**
+
+    - **NOAA CPC — Teleconnection indices** (NAO, AO, EA, EA/WR, SCAND, PNA ș.a., lunar/zilnic): [cpc.ncep.noaa.gov/data/teledoc/telecontents.shtml](https://www.cpc.ncep.noaa.gov/data/teledoc/telecontents.shtml){ target="_blank" }
+    - **NOAA PSL — Climate Indices** (catalog complet: NAO, ENSO/Niño 3.4, ONI, MEI, AMO, PDO, SOI, ASCII direct): [psl.noaa.gov/data/climateindices/list](https://psl.noaa.gov/data/climateindices/list/){ target="_blank" }
+    - **NOAA CPC — ENSO (Niño 3.4, ONI, SOI)**: [cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_v5.php](https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_v5.php){ target="_blank" }
+    - **NCAR / UCAR — Hurrell NAO Index** (versiunea „de referință" pe bază de PCA): [climatedataguide.ucar.edu/climate-data/hurrell-north-atlantic-oscillation-nao-index-pc-based](https://climatedataguide.ucar.edu/climate-data/hurrell-north-atlantic-oscillation-nao-index-pc-based){ target="_blank" }
+    - **KNMI Climate Explorer** (extragere și plot online, regresie pe indici, export CSV/NetCDF): [climexp.knmi.nl](https://climexp.knmi.nl/start.cgi){ target="_blank" }
+
+    *Idee de exercițiu:* corelează NAO de iarnă (DJF) cu debitul Dunării la Ceatal Izmail sau cu înălțimea valurilor pe coasta românească din reanaliza CMEMS — vezi cât din varianță explică.
+
 !!! note "Surse & note"
     Surse: Copernicus (CDS, Marine, CLMS), Google Earth Engine, NOAA NCEI și GRDC. Acoperirile și variabilele sunt orientative — verifică pagina fiecărui produs pentru combinațiile exacte de modele, scenarii și perioade disponibile per variabilă.

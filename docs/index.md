@@ -56,17 +56,7 @@ Vineri este dedicat trainingului structurat; sâmbătă, participanții lucreaz�
 
     [:octicons-arrow-right-24: Deschide modulul](modules/module2-python.md)
 
--   :material-robot:{ .lg .middle } __Modul 3 · Vineri 14:00__
-
-    ---
-
-    **AI-assisted coding cu Python**
-
-    Strategii de prompting, verificarea rezultatelor, capcane frecvente, reproductibilitate.
-
-    [:octicons-arrow-right-24: Deschide modulul](modules/module3-ai-coding.md)
-
--   :material-chart-line:{ .lg .middle } __Modul 4 · Vineri 15:15__
+-   :material-chart-line:{ .lg .middle } __Modul 3 · Vineri 14:00__
 
     ---
 
@@ -74,7 +64,17 @@ Vineri este dedicat trainingului structurat; sâmbătă, participanții lucreaz�
 
     Statistici descriptive, corelație și regresie, detecția trendului și incertitudine.
 
-    [:octicons-arrow-right-24: Deschide modulul](modules/module4-statistics.md)
+    [:octicons-arrow-right-24: Deschide modulul](modules/module3-statistics.md)
+
+-   :material-robot:{ .lg .middle } __Modul 4 · Vineri 14:45__
+
+    ---
+
+    **AI-assisted coding cu Python** (hands-on)
+
+    Strategii de prompting, verificarea rezultatelor, capcane frecvente, reproductibilitate.
+
+    [:octicons-arrow-right-24: Deschide modulul](modules/module4-ai-coding.md)
 
 </div>
 

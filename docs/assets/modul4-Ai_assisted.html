@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul 4 — AI-assisted coding cu Python · DELTA-Hub 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16242e; --ink-soft:#46596a; --faint:#7c8d99;
+    --paper:#f1f4f3; --card:#ffffff; --line:#dde6e7;
+    --teal:#0e7d88; --teal-deep:#0a4f5a; --teal-ink:#073942;
+    --sand:#c4762a;
+    --c-cod:#2563a8; --c-soc:#bf7327; --c-hw:#6b5dd3; --c-med:#1f8a98; --c-fut:#2f9c6a;
+    --maxw:1180px;
+    --r:14px;
+    --shadow:0 1px 2px rgba(16,40,50,.04), 0 8px 30px rgba(16,40,50,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    font-size:16.5px; line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:rgba(14,125,136,.22)}
+  h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif; line-height:1.12; font-weight:600; letter-spacing:-.01em}
+  a{color:var(--teal)}
+  code,pre{font-family:"JetBrains Mono",monospace}
+
+  /* progress bar */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0;
+    background:linear-gradient(90deg,var(--teal),var(--c-fut)); z-index:60; transition:width .08s linear}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative; overflow:hidden; color:#eaf4f4;
+    background:radial-gradient(120% 130% at 80% 0%, #0d6470 0%, #0a4f5a 45%, #073942 100%);}
+  .hero .contours{position:absolute; inset:0; opacity:.16; pointer-events:none}
+  .hero-inner{position:relative; max-width:var(--maxw); margin:0 auto; padding:84px 28px 70px}
+  .kicker{font-size:13px; letter-spacing:3px; font-weight:600; text-transform:uppercase;
+    color:#7fd3d8; margin:0 0 22px}
+  .hero h1{font-size:clamp(34px,6vw,62px); margin:0; color:#fbfdfd; font-weight:600}
+  .hero h1 .accent{font-style:italic; color:#8fe0e2; font-weight:500}
+  .hero .lede{max-width:640px; margin:22px 0 0; font-size:clamp(16px,2.2vw,19px); color:#bfe0e1; line-height:1.55}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:14px 26px; align-items:center; margin-top:34px; font-size:14.5px; color:#a9d4d6}
+  .hero-meta b{color:#eaf4f4; font-weight:600}
+  .colab{display:inline-flex; align-items:center; gap:9px; background:#f9ab00; color:#3a2c00;
+    text-decoration:none; font-weight:600; font-size:14.5px; padding:11px 18px; border-radius:10px;
+    box-shadow:0 6px 20px rgba(249,171,0,.28); transition:transform .15s, box-shadow .15s}
+  .colab:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(249,171,0,.36)}
+
+  /* ---------- LAYOUT ---------- */
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;
+    display:grid; grid-template-columns:230px 1fr; gap:54px; align-items:start}
+  nav.toc{position:sticky; top:24px; padding-top:54px; font-size:14px}
+  nav.toc .tlabel{font-size:11.5px; letter-spacing:2px; text-transform:uppercase; color:var(--faint); font-weight:600; margin-bottom:14px}
+  nav.toc a{display:block; color:var(--ink-soft); text-decoration:none; padding:6px 0 6px 14px;
+    border-left:2px solid var(--line); transition:.15s}
+  nav.toc a:hover{color:var(--ink)}
+  nav.toc a.active{color:var(--teal-deep); border-left-color:var(--teal); font-weight:600}
+  main{min-width:0; padding:54px 0 40px}
+
+  section{scroll-margin-top:20px; margin-bottom:62px}
+  .eyebrow{display:flex; align-items:center; gap:11px; font-size:12.5px; letter-spacing:2px;
+    text-transform:uppercase; color:var(--teal); font-weight:600; margin-bottom:14px}
+  .eyebrow .num{display:grid; place-items:center; width:25px; height:25px; border-radius:50%;
+    background:var(--teal); color:#fff; font-family:"Space Grotesk"; font-size:12px; font-weight:600}
+  h2.sec{font-size:clamp(26px,3.6vw,34px); margin:0 0 18px}
+  p{margin:0 0 16px}
+  .prose{max-width:720px}
+
+  /* ---------- TIMELINE ---------- */
+  .story-lede{max-width:720px; font-size:17.5px; color:var(--ink-soft); font-style:italic;
+    border-left:3px solid var(--teal); padding-left:18px; margin-bottom:34px}
+  .tl{position:relative; margin-left:6px}
+  .tl::before{content:""; position:absolute; left:7px; top:8px; bottom:8px; width:2px; background:var(--line)}
+  .era{margin:34px 0 18px; display:flex; align-items:center; gap:12px}
+  .era:first-child{margin-top:6px}
+  .era .bar{width:6px; height:26px; border-radius:3px}
+  .era .name{font-family:"Space Grotesk"; font-weight:700; letter-spacing:2px; font-size:14px}
+  .era .yrs{color:var(--faint); font-size:13px; font-weight:500}
+  .ev{position:relative; padding:0 0 4px 38px; margin-bottom:14px}
+  .ev .dot{position:absolute; left:0; top:5px; width:16px; height:16px; border-radius:50%;
+    background:#fff; border:3px solid var(--c); box-shadow:0 0 0 4px var(--paper); transition:transform .18s}
+  .ev .dot::after{content:""; position:absolute; inset:4px; border-radius:50%; background:var(--c); opacity:0; transition:opacity .18s}
+  .card{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--c);
+    border-radius:12px; padding:15px 18px 16px; box-shadow:var(--shadow); transition:transform .18s, box-shadow .18s, border-color .18s}
+  .ev:hover .card{transform:translateX(4px); box-shadow:0 4px 10px rgba(16,40,50,.06),0 16px 40px rgba(16,40,50,.10)}
+  .ev:hover .dot{transform:scale(1.15)}
+  .ev:hover .dot::after{opacity:1}
+  .card .top{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:5px}
+  .card .yr{font-size:13px; font-weight:700; color:var(--c); letter-spacing:.3px}
+  .pill{font-size:10.5px; font-weight:700; letter-spacing:1.2px; padding:3px 9px; border-radius:20px;
+    background:color-mix(in srgb, var(--c) 13%, white); color:var(--c)}
+  .card h4{font-size:18px; margin:2px 0 6px; color:var(--ink); line-height:1.25}
+  .card p{margin:0; font-size:14.5px; color:var(--ink-soft); line-height:1.5}
+
+  /* ---------- CALLOUTS ---------- */
+  .callout{border-radius:12px; padding:16px 18px; margin:22px 0; font-size:15.5px; border:1px solid; line-height:1.55}
+  .callout .ct{font-weight:700; margin-bottom:5px; display:flex; align-items:center; gap:8px; font-size:15px}
+  .callout p{margin:0}
+  .c-warn{background:#fdf6ec; border-color:#f0d9b0; color:#6b4a14}
+  .c-warn .ct{color:#9a6b15}
+  .c-tip{background:#eaf6f3; border-color:#bfe3da; color:#13564a}
+  .c-tip .ct{color:#0e7d88}
+  .c-danger{background:#fcefec; border-color:#f1cabd; color:#7a3322}
+  .c-danger .ct{color:#b5482f}
+  .c-note{background:#eef2f6; border-color:#d4e0e8; color:#33495a}
+  .c-note .ct{color:#2563a8}
+
+  /* ---------- OBJECTIVES ---------- */
+  .objs{display:grid; gap:10px; max-width:760px}
+  .obj{display:flex; gap:13px; align-items:flex-start; background:var(--card); border:1px solid var(--line);
+    border-radius:11px; padding:13px 16px; box-shadow:var(--shadow)}
+  .obj .ck{flex:none; width:24px; height:24px; border-radius:7px; background:var(--teal); color:#fff;
+    display:grid; place-items:center; font-size:14px; margin-top:1px}
+  .obj span{font-size:15.5px}
+
+  /* ---------- TABLE ---------- */
+  .tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); background:var(--card)}
+  table{border-collapse:collapse; width:100%; font-size:14.5px; min-width:560px}
+  th,td{text-align:left; padding:12px 16px; border-bottom:1px solid var(--line)}
+  th{background:#eef3f3; font-family:"Space Grotesk"; font-weight:600; color:var(--teal-ink); font-size:12.5px; letter-spacing:.4px; text-transform:uppercase}
+  tr:last-child td{border-bottom:none}
+  td.min{font-variant-numeric:tabular-nums; font-weight:600; color:var(--teal-deep); white-space:nowrap}
+  tbody tr:hover{background:#f6faf9}
+
+  /* ---------- CONCEPT CARDS ---------- */
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px}
+  .concept{background:var(--card); border:1px solid var(--line); border-radius:var(--r);
+    padding:20px; box-shadow:var(--shadow); transition:transform .18s, box-shadow .18s}
+  .concept:hover{transform:translateY(-3px); box-shadow:0 6px 14px rgba(16,40,50,.07),0 20px 44px rgba(16,40,50,.10)}
+  .concept .ic{width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#0e7d88,#0a4f5a);
+    display:grid; place-items:center; margin-bottom:13px; color:#fff; font-size:20px}
+  .concept h4{margin:0 0 7px; font-size:18.5px}
+  .concept p{margin:0; font-size:14.5px; color:var(--ink-soft); line-height:1.55}
+  .concept code{background:#eef3f3; padding:1px 5px; border-radius:5px; font-size:12.5px}
+
+  /* ---------- TABS ---------- */
+  .ex{margin:18px 0 26px}
+  .ex h3{font-size:19px; margin:0 0 10px; color:var(--teal-ink)}
+  .tabs{display:inline-flex; background:#e7eeee; border-radius:10px; padding:4px; gap:4px; margin-bottom:0}
+  .tabs button{border:none; background:none; cursor:pointer; font-family:"Space Grotesk"; font-weight:600;
+    font-size:14px; padding:7px 16px; border-radius:7px; color:var(--ink-soft); transition:.15s}
+  .tabs button.bad.on{background:#fcefec; color:#b5482f}
+  .tabs button.good.on{background:#eaf6f3; color:#0e7d88}
+  .panel{display:none; margin-top:10px}
+  .panel.on{display:block; animation:fade .25s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)}to{opacity:1; transform:none}}
+  pre.prompt{margin:0; padding:16px 18px; border-radius:11px; font-size:13.5px; line-height:1.6;
+    white-space:pre-wrap; word-break:break-word; border:1px solid}
+  pre.bad{background:#fdf3f1; border-color:#f1cabd; color:#5e2a1c}
+  pre.good{background:#eef7f4; border-color:#c4e4dc; color:#0d4a40}
+  .why{font-size:13.5px; color:var(--faint); margin:8px 2px 0; font-style:italic}
+
+  /* recipe strip */
+  .recipe{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0 24px; font-size:14px}
+  .recipe .step{background:#fff; border:1px solid var(--line); border-radius:20px; padding:6px 14px; font-weight:600; color:var(--teal-ink); box-shadow:var(--shadow)}
+  .recipe .arr{color:var(--faint)}
+
+  /* checklist */
+  .check{display:grid; gap:9px; max-width:780px; margin-bottom:18px}
+  .check li{list-style:none; display:flex; gap:12px; align-items:flex-start; background:var(--card);
+    border:1px solid var(--line); border-radius:10px; padding:12px 15px; box-shadow:var(--shadow)}
+  .check .box{flex:none; width:20px; height:20px; border:2px solid var(--teal); border-radius:5px; margin-top:2px; position:relative}
+  .check .box::after{content:"✓"; position:absolute; inset:-2px 0 0 1px; color:var(--teal); font-size:14px; font-weight:700}
+  .check b{color:var(--ink)}
+  .check span{font-size:15px; color:var(--ink-soft)}
+  ul.check{padding:0; margin:0 0 18px}
+
+  details{background:var(--card); border:1px solid var(--line); border-radius:11px; margin:10px 0;
+    box-shadow:var(--shadow); overflow:hidden}
+  details summary{cursor:pointer; padding:14px 18px; font-weight:600; color:var(--teal-ink); list-style:none; display:flex; gap:10px; align-items:center}
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{content:"+"; color:var(--teal); font-weight:700; font-size:18px; width:16px}
+  details[open] summary::before{content:"–"}
+  details .body{padding:0 18px 16px 44px; font-size:14.5px; color:var(--ink-soft)}
+  details .body code{background:#eef3f3; padding:1px 5px; border-radius:5px; font-size:12.5px}
+
+  .danger-list{background:#fcefec; border:1px solid #f1cabd; border-radius:12px; padding:18px 22px}
+  .danger-list .ct{color:#b5482f; font-weight:700; margin-bottom:10px; display:flex; gap:8px; align-items:center}
+  .danger-list ul{margin:0; padding-left:20px}
+  .danger-list li{margin:7px 0; color:#7a3322}
+  .danger-list li b{color:#5e2419}
+
+  /* exercise */
+  .exercise{background:linear-gradient(180deg,#0d6470,#0a4f5a); color:#eaf4f4; border-radius:var(--r); padding:26px 28px; box-shadow:0 14px 40px rgba(10,79,90,.25)}
+  .exercise .tag{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#8fe0e2; font-weight:600}
+  .exercise h3{color:#fff; margin:8px 0 14px; font-size:23px}
+  .exercise p,.exercise li{color:#cfe7e7; font-size:15px}
+  .exercise ol{margin:10px 0 16px; padding-left:22px}
+  .exercise b{color:#fff}
+  pre.code{background:#06262c; border:1px solid #15545e; border-radius:10px; padding:15px 17px; overflow-x:auto;
+    color:#cfeaea; font-size:13px; line-height:1.6; margin:6px 0 16px}
+  pre.code .cm{color:#6fae9f}
+  .exercise .final{background:rgba(255,255,255,.08); border-radius:10px; padding:13px 16px; font-size:14.5px}
+
+  /* resources */
+  .res{display:grid; gap:10px; max-width:780px}
+  .res a{display:flex; gap:13px; align-items:center; background:var(--card); border:1px solid var(--line);
+    border-radius:11px; padding:14px 16px; text-decoration:none; color:var(--ink); box-shadow:var(--shadow); transition:.16s}
+  .res a:hover{border-color:var(--teal); transform:translateX(3px)}
+  .res .ar{margin-left:auto; color:var(--teal); font-size:18px}
+  .res .rt{font-weight:600}
+  .res .rd{font-size:13.5px; color:var(--faint)}
+
+  footer{border-top:1px solid var(--line); margin-top:30px}
+  .foot{max-width:var(--maxw); margin:0 auto; padding:26px 28px; display:flex; flex-wrap:wrap;
+    justify-content:space-between; gap:12px; font-size:13px; color:var(--faint)}
+
+  @media(max-width:880px){
+    .wrap{grid-template-columns:1fr; gap:0}
+    nav.toc{display:none}
+    main{padding-top:36px}
+    .hero-inner{padding:60px 22px 48px}
+    .wrap{padding:0 22px}
+    section{scroll-margin-top:58px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+  }
+
+  /* ---------- ENHANCEMENTS ---------- */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1; transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none; transition:none}}
+
+  .hero .glow{position:absolute; width:560px; height:560px; border-radius:50%; right:-140px; top:-180px;
+    background:radial-gradient(circle, rgba(143,224,226,.22), transparent 68%); pointer-events:none}
+  .hero .grain{position:absolute; inset:0; opacity:.05; pointer-events:none; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .hero .contours{animation:breathe 13s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.13}50%{opacity:.22}}
+  @media(prefers-reduced-motion:reduce){.hero .contours{animation:none}}
+
+  .tools{position:fixed; top:14px; right:16px; z-index:62}
+  .tbtn{width:40px; height:40px; border-radius:11px; border:1px solid var(--line); background:var(--card);
+    color:var(--ink); cursor:pointer; font-size:17px; box-shadow:var(--shadow); display:grid; place-items:center; transition:transform .15s}
+  .tbtn:hover{transform:translateY(-2px)}
+
+  .mbar{position:fixed; top:0; left:0; right:0; z-index:55; background:var(--card); border-bottom:1px solid var(--line);
+    padding:10px 16px; display:none; align-items:center; gap:9px; font-size:13px; font-weight:600;
+    color:var(--teal-deep); transform:translateY(-100%); transition:transform .25s; box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  .mbar.show{transform:none}
+  .mbar .dotm{width:8px; height:8px; border-radius:50%; background:var(--teal)}
+  @media(max-width:880px){.mbar{display:flex}}
+
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:6px 0 30px}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:17px 17px 15px;
+    box-shadow:var(--shadow); position:relative; overflow:hidden}
+  .stat::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--c,var(--teal))}
+  .stat .n{font-family:"Fraunces",serif; font-weight:600; font-size:30px; color:var(--ink); line-height:1; font-variant-numeric:tabular-nums}
+  .stat .n .pre,.stat .n .suf{font-size:18px; color:var(--c,var(--teal)); font-weight:600}
+  .stat .u{font-size:12.8px; color:var(--ink-soft); margin-top:8px; line-height:1.42}
+
+  .codewrap{position:relative}
+  .copybtn{position:absolute; top:8px; right:8px; border:1px solid var(--line); background:var(--card);
+    color:var(--ink-soft); font-family:"Space Grotesk",sans-serif; font-size:12px; font-weight:600; padding:5px 11px;
+    border-radius:7px; cursor:pointer; opacity:0; transition:opacity .15s, color .15s, border-color .15s; box-shadow:var(--shadow)}
+  .codewrap:hover .copybtn,.copybtn:focus{opacity:1}
+  .copybtn.ok{color:var(--c-fut); border-color:var(--c-fut)}
+
+  .legend{display:flex; flex-wrap:wrap; gap:8px; margin:2px 0 24px}
+  .legend button{display:inline-flex; align-items:center; gap:7px; border:1px solid var(--line); background:var(--card);
+    border-radius:20px; padding:6px 13px; font-family:"Space Grotesk",sans-serif; font-size:12.5px; font-weight:600;
+    color:var(--ink-soft); cursor:pointer; box-shadow:var(--shadow); transition:.15s}
+  .legend button .sw{width:10px; height:10px; border-radius:50%; background:var(--c)}
+  .legend button:hover{color:var(--ink); transform:translateY(-1px)}
+  .legend button.off{opacity:.4}
+  .tl.filtered .ev{opacity:.16; filter:grayscale(.7); transition:opacity .2s, filter .2s}
+  .tl.filtered .ev.match{opacity:1; filter:none}
+
+  [data-theme=dark]{
+    --ink:#F4EFE5; --ink-soft:#b9c4c8; --faint:#8a979b;
+    --paper:#0c1719; --card:#13252a; --line:#2a3a3e;
+    --teal:#6FA68F; --teal-deep:#9CC4B2; --teal-ink:#B7D3C5;
+    --sand:#D4A574;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.36);
+  }
+  [data-theme=dark] body{background:var(--paper)}
+  [data-theme=dark] th{background:#1b2c33; color:var(--teal-deep)}
+  [data-theme=dark] tbody tr:hover{background:#1a2a31}
+  [data-theme=dark] .concept code,[data-theme=dark] details .body code,[data-theme=dark] .check code{background:#1f3138 !important}
+  [data-theme=dark] .tabs{background:#1a2a31}
+  [data-theme=dark] .recipe .step{background:#16242a}
+  [data-theme=dark] .c-note{background:#15252e; border-color:#274457; color:#bcd2e0}
+  [data-theme=dark] .c-note .ct{color:#74b2e2}
+  [data-theme=dark] .c-tip{background:#10302d; border-color:#27514a; color:#9fd8cc}
+  [data-theme=dark] .c-tip .ct{color:#3fb6c0}
+  [data-theme=dark] .c-warn{background:#2a2113; border-color:#4d3c1c; color:#e3c894}
+  [data-theme=dark] .c-warn .ct{color:#d9a445}
+  [data-theme=dark] .danger-list{background:#2a1714; border-color:#4d2920}
+  [data-theme=dark] .danger-list li{color:#e3b3a4}
+  [data-theme=dark] .danger-list li b{color:#f3d2c8}
+  [data-theme=dark] pre.bad{background:#2a1714; border-color:#4d2920; color:#e6bdb0}
+  [data-theme=dark] pre.good{background:#10302a; border-color:#27514a; color:#a8e0d0}
+  [data-theme=dark] .pill{background:color-mix(in srgb, var(--c) 24%, #16242a)}
+  [data-theme=dark] .obj .ck,[data-theme=dark] .eyebrow .num{color:#06262c}
+  [data-theme=dark] .check .box::after{color:var(--teal)}
+
+  @media print{
+    #progress,.tools,.mbar,nav.toc,.colab,.copybtn,.legend{display:none !important}
+    body{font-size:11pt; background:#fff}
+    .wrap{display:block; max-width:100%; padding:0}
+    .hero{color:#0a4f5a; background:#fff; border-bottom:2px solid #0a4f5a}
+    .hero .glow,.hero .grain,.hero .contours{display:none}
+    .hero h1,.hero .kicker,.hero .lede,.hero-meta{color:#0a4f5a !important}
+    .reveal{opacity:1 !important; transform:none !important}
+    section{break-inside:avoid; margin-bottom:24px}
+    .card,.concept,.obj,details,.exercise{box-shadow:none}
+    .exercise{background:#f1f4f3 !important; color:#16242e !important; border:1px solid #ccc}
+    .exercise h3,.exercise b,.exercise p,.exercise li,.exercise .tag{color:#16242e !important}
+    pre.code{background:#f4f6f5 !important; color:#16242e !important; border-color:#ccc}
+    a{color:#0a4f5a; text-decoration:underline}
+  }
+
+  /* ---------- v3 GRAPHICS ---------- */
+  .step-n{display:grid; place-items:center; width:26px; height:26px; border-radius:50%; background:var(--teal);
+    color:#fff; font-size:12.5px; font-weight:600; font-family:"Space Grotesk",sans-serif}
+  td.stepcell,th.stepcell{width:46px}
+  tr.phase-hands .step-n{background:var(--c-fut)}
+  tr.phasehead td{background:#e7eeee; font-size:11px; letter-spacing:1.6px; text-transform:uppercase;
+    color:var(--teal-deep); font-weight:700; padding:8px 16px}
+  tr.phasehead.hands td{color:var(--c-fut)}
+  tr.phasehead:hover td{background:#e7eeee}
+  [data-theme=dark] tr.phasehead td{background:#1b2c33}
+
+  .concept .vis{width:100%; height:auto; display:block; margin-bottom:14px; border-radius:9px;
+    background:#f5faf8; border:1px solid var(--line)}
+  [data-theme=dark] .concept .vis{background:#10201f}
+  .vis .ln{stroke:var(--line); fill:none; stroke-width:1.5}
+  .vis .ax{stroke:var(--faint); fill:none; stroke-width:1.1}
+  .vis .mut{fill:var(--faint)} .vis .mutf{fill:var(--line)}
+  .vis .ink{fill:var(--ink)}
+  .vis .ac{fill:var(--c)} .vis .acs{stroke:var(--c); fill:none; stroke-width:2.2} .vis .acf{fill:var(--c); opacity:.15}
+  .vis .red{fill:#d05a3f} .vis .redf{fill:#d05a3f; opacity:.16} .vis .grn{fill:var(--c-fut)} .vis .grnf{fill:var(--c-fut); opacity:.16}
+  .vis text{font-family:"Space Grotesk",sans-serif; font-weight:600}
+  .concept .key{margin-top:11px; font-size:13px; color:var(--c); font-weight:600; line-height:1.4}
+
+  .compare{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px}
+  @media(max-width:680px){.compare{grid-template-columns:1fr}}
+  .compare .col{border-radius:12px; padding:16px 18px; border:1px solid; box-shadow:var(--shadow)}
+  .compare .good{background:#eef7f4; border-color:#c4e4dc}
+  .compare .bad{background:#fdf3f1; border-color:#f1cabd}
+  .compare .ch{font-weight:700; margin-bottom:9px; font-size:15px}
+  .compare .good .ch{color:#0e7d88} .compare .bad .ch{color:#b5482f}
+  .compare ul{margin:0; padding-left:18px}
+  .compare li{margin:6px 0; font-size:14.5px; line-height:1.45}
+  .compare .good li{color:#13564a} .compare .bad li{color:#7a3322}
+  [data-theme=dark] .compare .good{background:#10302a; border-color:#27514a}
+  [data-theme=dark] .compare .good li{color:#a8e0d0}
+  [data-theme=dark] .compare .good .ch{color:#3fb6c0}
+  [data-theme=dark] .compare .bad{background:#2a1714; border-color:#4d2920}
+  [data-theme=dark] .compare .bad li{color:#e6bdb0}
+
+  .anatomy{margin:8px 0 26px; display:grid; gap:8px}
+  .anatomy .lbl{font-size:13.5px; color:var(--ink-soft); margin-bottom:2px}
+  .anatomy .aseg{display:flex; gap:13px; align-items:flex-start; background:var(--card); border:1px solid var(--line);
+    border-left:4px solid var(--c); border-radius:10px; padding:11px 14px; box-shadow:var(--shadow)}
+  .anatomy .atag{flex:none; font-size:10.5px; font-weight:700; letter-spacing:.8px; color:var(--c);
+    background:color-mix(in srgb, var(--c) 13%, white); padding:4px 9px; border-radius:6px; white-space:nowrap; margin-top:2px}
+  [data-theme=dark] .anatomy .atag{background:color-mix(in srgb, var(--c) 26%, #16242a)}
+  .anatomy code{font-family:"JetBrains Mono",monospace; font-size:12.8px; color:var(--ink-soft); line-height:1.5}
+
+  /* models section */
+  .swvwrap{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 18px 12px; box-shadow:var(--shadow); margin:6px 0 8px}
+  .swv{width:100%; height:auto; display:block}
+  .swv .trk{fill:var(--line)} .swv .fr{fill:var(--c-cod)} .swv .lo{fill:var(--c-fut)}
+  .swv text{fill:var(--ink-soft); font-family:"Space Grotesk",sans-serif; font-weight:600}
+  .swv .ti{fill:var(--ink)} .swv .val{fill:var(--ink)}
+  .cap{font-size:12.5px; color:var(--faint); margin:8px 2px 0}
+  .modelgrid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:18px 0}
+  @media(max-width:680px){.modelgrid{grid-template-columns:1fr}}
+  .mcard{border-radius:12px; padding:16px 18px; border:1px solid; box-shadow:var(--shadow)}
+  .mcard.cloud{background:#eef4fb; border-color:#cfe0f0}
+  .mcard.local{background:#eef7f1; border-color:#c8e6d3}
+  .mcard .mh{font-weight:700; font-size:15.5px; margin-bottom:9px}
+  .mcard.cloud .mh{color:#2563a8} .mcard.local .mh{color:#2f9c6a}
+  .mcard ul{margin:0 0 8px; padding-left:18px}
+  .mcard li{margin:6px 0; font-size:14.5px; line-height:1.45; color:var(--ink-soft)}
+  .mcard li b{color:var(--ink)}
+  .mcard .mn{margin:0; font-size:13px; color:var(--faint)}
+  .mcard code{font-family:"JetBrains Mono",monospace; background:rgba(0,0,0,.05); padding:1px 5px; border-radius:5px; font-size:12.5px}
+  [data-theme=dark] .mcard.cloud{background:#13212e; border-color:#274457}
+  [data-theme=dark] .mcard.local{background:#10271c; border-color:#27513a}
+  [data-theme=dark] .mcard.cloud .mh{color:#74b2e2} [data-theme=dark] .mcard.local .mh{color:#4fc28a}
+  [data-theme=dark] .mcard code{background:rgba(255,255,255,.08)}
+  .bestway{display:grid; gap:10px; margin-top:6px}
+  .bw{display:flex; gap:13px; align-items:flex-start; background:var(--card); border:1px solid var(--line); border-radius:11px; padding:13px 16px; box-shadow:var(--shadow); font-size:14.5px; color:var(--ink-soft); line-height:1.5}
+  .bw b{color:var(--ink)}
+  .bw .bn{flex:none; width:26px; height:26px; border-radius:50%; background:var(--teal); color:#fff; display:grid; place-items:center; font-weight:600; font-size:13px; margin-top:1px}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="mbar" id="mbar"><span class="dotm"></span><span id="mbartext">Context</span></div>
+
+<header class="hero">
+  <div class="glow"></div>
+  <div class="grain"></div>
+  <svg class="contours" preserveAspectRatio="none" viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#bfe6e8" stroke-width="1.4">
+      <path d="M0,70 C220,30 380,120 600,80 C820,40 1000,130 1200,90"/>
+      <path d="M0,130 C220,90 380,180 600,140 C820,100 1000,190 1200,150"/>
+      <path d="M0,195 C220,155 380,245 600,205 C820,165 1000,255 1200,215"/>
+      <path d="M0,260 C220,220 380,310 600,270 C820,230 1000,320 1200,280"/>
+      <path d="M0,330 C220,290 380,380 600,340 C820,300 1000,390 1200,350"/>
+    </g>
+  </svg>
+  <div class="hero-inner">
+    <p class="kicker">DELTA-Hub 2026 · Data Science Workshop</p>
+    <h1>Modul 4 — <span class="accent">AI-assisted coding</span> cu Python</h1>
+    <p class="lede">Un asistent îți poate scrie 100 de linii de cod în câteva secunde — și la fel de ușor îți poate strecura un bug subtil care trece de prima rulare. Sesiunea asta e despre cum lucrezi cu el pe date reale de mediu: ce să-i ceri, ce să verifici și unde să nu ai încredere.</p>
+    <div class="hero-meta">
+      <a class="colab" href="https://colab.research.google.com/github/DeltaHUB-UB/delta-hub-workshop-2026/blob/main/notebooks/04_ai_coding.ipynb" target="_blank" rel="noopener">▶ Open in Colab</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="toc" id="toc">
+    <div class="tlabel">Cuprins</div>
+    <a href="#poveste">Context — o poveste</a>
+    <a href="#obiective">Obiective</a>
+    <a href="#plan">Plan de sesiune</a>
+    <a href="#concepte">Concepte cheie</a>
+    <a href="#exemple">Prompt slab vs bun</a>
+    <a href="#verificare">Verificarea rezultatelor</a>
+    <a href="#capcane">Capcane frecvente</a>
+    <a href="#modele">Modele AI</a>
+    <a href="#exercitiu">Exercițiu</a>
+    <a href="#resurse">Resurse</a>
+  </nav>
+
+  <main>
+    <!-- ========== POVESTE ========== -->
+    <section id="poveste">
+      <div class="eyebrow"><span class="num">★</span> Context</div>
+      <h2 class="sec">AI-ul care scrie cod: de la o formulă la o criză de apă</h2>
+      <p class="story-lede">Înainte să deschidem un asistent, hai să vedem de unde vine și ce pune în mișcare — pentru că povestea asta ne privește direct pe noi, cei care lucrăm cu apă, sedimente și deltă.</p>
+
+      <div class="stats">
+        <div class="stat" style="--c:var(--c-cod)"><div class="n"><span data-count="51">0</span><span class="suf">%</span></div><div class="u">din codul comis pe GitHub e generat sau asistat de AI</div></div>
+        <div class="stat" style="--c:var(--c-med)"><div class="n"><span data-count="519">0</span><span class="suf"> ml</span></div><div class="u">apă de răcire la o singură interogare de 100 de cuvinte</div></div>
+        <div class="stat" style="--c:var(--c-hw)"><div class="n"><span class="pre">+</span><span data-count="90">0</span><span class="suf">%</span></div><div class="u">preț DRAM într-un singur trimestru, din foamea data center-elor</div></div>
+      </div>
+
+      <div class="legend" id="legend">
+        <button data-cat="COD" style="--c:var(--c-cod)"><span class="sw"></span>Cod</button>
+        <button data-cat="SOCIETATE" style="--c:var(--c-soc)"><span class="sw"></span>Societate</button>
+        <button data-cat="HARDWARE" style="--c:var(--c-hw)"><span class="sw"></span>Hardware</button>
+        <button data-cat="MEDIU" style="--c:var(--c-med)"><span class="sw"></span>Mediu</button>
+        <button data-cat="VIITOR" style="--c:var(--c-fut)"><span class="sw"></span>Viitor</button>
+      </div>
+
+      <div class="tl" id="timeline"></div>
+
+      <div class="callout c-tip" style="margin-top:30px">
+        <div class="ct">💡 De ce contează pentru modulul ăsta</div>
+        <p>Dacă AI-ul scrie tot mai mult din cod, <b>valoarea ta nu mai e sintaxa</b>. E formularea clară a problemei și verificarea rezultatului — fix lucrurile pe care le exersăm în următoarele 45 de minute. Și, ca cercetători de mediu, suntem printre primii care ar trebui să folosească aceste unelte <i>conștient de amprenta lor</i>.</p>
+      </div>
+    </section>
+
+    <!-- ========== OBIECTIVE ========== -->
+    <section id="obiective">
+      <div class="eyebrow"><span class="num">1</span> Obiective</div>
+      <h2 class="sec">La finalul sesiunii vei putea</h2>
+      <div class="objs">
+        <div class="obj"><span class="ck">✓</span><span>Înțelege <b>ce este și ce nu este</b> un LLM când scrie cod — și când <i>nu</i> merită folosit</span></div>
+        <div class="obj"><span class="ck">✓</span><span>Scrie un prompt bun după rețeta <b>Context · Date · Sarcină · Format · Constrângeri</b></span></div>
+        <div class="obj"><span class="ck">✓</span><span>Recunoaște tiparele de eșec: funcții inventate, unități greșite, NaN tăcut, axă/CRS inversate</span></div>
+        <div class="obj"><span class="ck">✓</span><span>Aplica un <b>checklist de verificare</b> la orice cod generat, înainte să te bazezi pe el</span></div>
+        <div class="obj"><span class="ck">✓</span><span>Folosi bucla iterativă <i>prompt → rulează → citește eroarea → re-promptează</i> pentru debugging</span></div>
+      </div>
+    </section>
+
+    <!-- ========== PLAN ========== -->
+    <section id="plan">
+      <div class="eyebrow"><span class="num">2</span> Plan de sesiune</div>
+      <h2 class="sec">Cum decurge sesiunea</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th class="stepcell"></th><th>Etapă</th><th>Instrumente</th></tr></thead>
+          <tbody>
+            <tr class="phasehead"><td colspan="3">Predare</td></tr>
+            <tr class="phase-teach"><td class="stepcell"><span class="step-n">1</span></td><td>Model mental: LLM-ul ca <i>junior rapid, sigur pe el</i>. Când merită / când nu</td><td>demo</td></tr>
+            <tr class="phase-teach"><td class="stepcell"><span class="step-n">2</span></td><td>Anatomia unui prompt bun. Rețeta și bucla iterativă</td><td>Claude (live)</td></tr>
+            <tr class="phase-teach"><td class="stepcell"><span class="step-n">3</span></td><td>Verificarea rezultatelor: checklist-ul pe exemple reale din Deltă</td><td>Claude · Colab</td></tr>
+            <tr class="phase-teach"><td class="stepcell"><span class="step-n">4</span></td><td>Reproductibilitate și onestitate: versiuni, seed, citarea AI</td><td>—</td></tr>
+            <tr class="phasehead hands"><td colspan="3">Hands-on &amp; discuție</td></tr>
+            <tr class="phase-hands"><td class="stepcell"><span class="step-n">5</span></td><td>Exercițiu hands-on cu un asistent</td><td>Colab + asistent</td></tr>
+            <tr class="phase-hands"><td class="stepcell"><span class="step-n">6</span></td><td>Discuție și Q&amp;A</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========== CONCEPTE ========== -->
+    <section id="concepte">
+      <div class="eyebrow"><span class="num">3</span> Concepte cheie</div>
+      <h2 class="sec">Cinci idei de dus acasă</h2>
+      <div class="grid">
+
+        <div class="concept" style="--c:var(--c-cod)">
+          <svg class="vis" viewBox="0 0 280 96">
+            <line class="ax" x1="16" y1="80" x2="208" y2="80"/>
+            <rect class="ac"   x="22"  y="26" width="30" height="54" rx="3"/>
+            <rect class="mutf" x="60"  y="40" width="30" height="40" rx="3"/>
+            <rect class="mutf" x="98"  y="50" width="30" height="30" rx="3"/>
+            <rect class="mutf" x="136" y="60" width="30" height="20" rx="3"/>
+            <rect class="mutf" x="174" y="68" width="30" height="12" rx="3"/>
+            <text class="mut" x="224" y="40" font-size="10.5">cel mai</text>
+            <text class="mut" x="224" y="53" font-size="10.5">plauzibil</text>
+            <text class="red" x="224" y="73" font-size="10.5">≠ adevăr</text>
+          </svg>
+          <h4>Model mental</h4>
+          <p>Un LLM prezice <b>textul cel mai plauzibil</b>, nu adevărul. Nu rulează codul, nu-ți vede datele și nu știe versiunea ta de bibliotecă. E un coleg junior foarte rapid și foarte sigur pe el — care uneori inventează cu aceeași convingere cu care are dreptate.</p>
+          <p class="key">→ Tratează orice răspuns ca pe o <b>propunere</b>, nu ca pe un adevăr.</p>
+        </div>
+
+        <div class="concept" style="--c:var(--c-med)">
+          <svg class="vis" viewBox="0 0 280 100">
+            <line class="ln" x1="26" y1="50" x2="240" y2="14"/>
+            <line class="ln" x1="26" y1="50" x2="240" y2="32"/>
+            <line class="ln" x1="26" y1="50" x2="240" y2="68"/>
+            <line class="ln" x1="26" y1="50" x2="240" y2="86"/>
+            <line class="acs" x1="26" y1="50" x2="234" y2="50"/>
+            <circle class="ac" cx="26" cy="50" r="5"/>
+            <circle class="acs" cx="244" cy="50" r="8"/>
+            <circle class="ac" cx="244" cy="50" r="2.6"/>
+            <text class="mut" x="150" y="20" font-size="10" text-anchor="middle">fără context</text>
+            <text class="ac"  x="146" y="45" font-size="10" text-anchor="middle">cu context → țintă</text>
+          </svg>
+          <h4>Context &gt; formulare scurtă</h4>
+          <p><i>Garbage in, garbage out.</i> Fără context, modelul împrăștie; cu context, lovește ținta. Un prompt bun = Context + Date (formă, unități, CRS, nodata) + Sarcină + Format + Constrângeri.</p>
+          <p class="key">→ Două minute de context economisesc cinci iterații.</p>
+        </div>
+
+        <div class="concept" style="--c:var(--c-hw)">
+          <svg class="vis" viewBox="0 0 280 92">
+            <defs><marker id="ar3" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path class="ac" d="M0,0 L6,3 L0,6 Z"/></marker></defs>
+            <path class="acs" d="M240,44 C240,12 40,12 40,44" marker-end="url(#ar3)"/>
+            <rect class="acf" x="6"   y="44" width="56" height="26" rx="6"/><rect class="acs" x="6"   y="44" width="56" height="26" rx="6"/>
+            <rect class="acf" x="74"  y="44" width="56" height="26" rx="6"/><rect class="acs" x="74"  y="44" width="56" height="26" rx="6"/>
+            <rect class="acf" x="142" y="44" width="56" height="26" rx="6"/><rect class="acs" x="142" y="44" width="56" height="26" rx="6"/>
+            <rect class="acf" x="210" y="44" width="56" height="26" rx="6"/><rect class="acs" x="210" y="44" width="56" height="26" rx="6"/>
+            <text class="ink" x="34"  y="60.5" font-size="9" text-anchor="middle">Prompt</text>
+            <text class="ink" x="102" y="60.5" font-size="9" text-anchor="middle">Rulează</text>
+            <text class="ink" x="170" y="60.5" font-size="9" text-anchor="middle">Eroare</text>
+            <text class="ink" x="238" y="60.5" font-size="9" text-anchor="middle">Iterează</text>
+            <line class="acs" x1="62"  y1="57" x2="72"  y2="57" marker-end="url(#ar3)"/>
+            <line class="acs" x1="130" y1="57" x2="140" y2="57" marker-end="url(#ar3)"/>
+            <line class="acs" x1="198" y1="57" x2="208" y2="57" marker-end="url(#ar3)"/>
+          </svg>
+          <h4>Bucla iterativă</h4>
+          <p>Rar nimerești din prima. <i>Prompt → rulează → citește eroarea → re-promptează.</i> Lipește <b>eroarea completă</b> și un fragment din date, nu o reformulare a ei.</p>
+          <p class="key">→ Trei iterații țintite bat un prompt „perfect".</p>
+        </div>
+
+        <div class="concept" style="--c:var(--c-soc)">
+          <svg class="vis" viewBox="0 0 280 132">
+            <rect class="grnf" x="166" y="20" width="100" height="40"/>
+            <rect class="redf" x="166" y="60" width="100" height="40"/>
+            <g class="ln" stroke-width="1.5">
+              <line x1="66" y1="20" x2="266" y2="20"/><line x1="66" y1="60" x2="266" y2="60"/><line x1="66" y1="100" x2="266" y2="100"/>
+              <line x1="66" y1="20" x2="66" y2="100"/><line x1="166" y1="20" x2="166" y2="100"/><line x1="266" y1="20" x2="266" y2="100"/>
+            </g>
+            <text class="grn" x="216" y="44" font-size="11" text-anchor="middle">✓ corect</text>
+            <text class="red" x="216" y="77" font-size="10.5" text-anchor="middle">⚠ rulează,</text>
+            <text class="red" x="216" y="90" font-size="10.5" text-anchor="middle">dar greșit</text>
+            <text class="mut" x="116" y="44" font-size="12" text-anchor="middle">—</text>
+            <text class="mut" x="116" y="84" font-size="12" text-anchor="middle">—</text>
+            <text class="mut" x="58" y="44" font-size="9.5" text-anchor="end">corect</text>
+            <text class="mut" x="58" y="84" font-size="9.5" text-anchor="end">greșit</text>
+            <text class="mut" x="116" y="116" font-size="9.5" text-anchor="middle">nu rulează</text>
+            <text class="mut" x="216" y="116" font-size="9.5" text-anchor="middle">rulează</text>
+          </svg>
+          <h4>Verificarea e treaba ta</h4>
+          <p>Cod care <b>rulează</b> ≠ cod <b>corect</b>. Cea mai periculoasă căsuță e „rulează, dar greșit": niciun mesaj de eroare, dar rezultat fals. Tu rămâi recenzorul — tu cunoști unitățile, CRS-ul și ordinul de mărime.</p>
+          <p class="key">→ Codul tăcut și plauzibil e cel mai înșelător.</p>
+        </div>
+
+        <div class="concept" style="--c:var(--c-fut)">
+          <svg class="vis" viewBox="0 0 280 96">
+            <rect class="ln" x="14" y="10" width="252" height="22" rx="6" fill="none"/>
+            <rect class="ac" x="14" y="10" width="4" height="22" rx="2"/>
+            <circle class="ac" cx="30" cy="21" r="3"/>
+            <text class="ink" x="42" y="25" font-size="11">versiuni fixate · pip freeze</text>
+            <rect class="ln" x="14" y="38" width="252" height="22" rx="6" fill="none"/>
+            <rect class="ac" x="14" y="38" width="4" height="22" rx="2"/>
+            <circle class="ac" cx="30" cy="49" r="3"/>
+            <text class="ink" x="42" y="53" font-size="11">seed = 42 · rezultate identice</text>
+            <rect class="ln" x="14" y="66" width="252" height="22" rx="6" fill="none"/>
+            <rect class="ac" x="14" y="66" width="4" height="22" rx="2"/>
+            <circle class="ac" cx="30" cy="77" r="3"/>
+            <text class="ink" x="42" y="81" font-size="11">notezi că ai folosit un asistent</text>
+          </svg>
+          <h4>Reproductibilitate &amp; onestitate</h4>
+          <p>Fixează versiunile (<code>pip freeze</code>), pune un <code>seed</code>, notează că ai folosit un asistent. Nu lipi date nepublicate în prompt. LLM-ul <b>halucinează DOI-uri și referințe</b> — verifică orice citare.</p>
+          <p class="key">→ Dacă nu poți reproduce, nu poți publica.</p>
+        </div>
+
+      </div>
+
+      <h3 style="font-family:'Fraunces',serif; font-size:21px; margin:34px 0 4px; color:var(--teal-ink)">Când merită să folosești AI — și când nu</h3>
+      <div class="compare">
+        <div class="col good">
+          <div class="ch">✅ Folosește AI când…</div>
+          <ul>
+            <li>scrii cod repetitiv / boilerplate (citit-scris fișiere, plotări, parsing)</li>
+            <li>explorezi o bibliotecă sau un API nou</li>
+            <li>refactorizezi, adaugi docstrings sau comentarii</li>
+            <li>transformi pseudocod ori pași descriși în cod</li>
+            <li>scrii teste sau generezi date de exemplu</li>
+            <li>traduci cod dintr-un limbaj în altul</li>
+          </ul>
+        </div>
+        <div class="col bad">
+          <div class="ch">⛔ Evită sau fii prudent când…</div>
+          <ul>
+            <li>logica e științifică, critică și subtilă (fizica modelului, bugete de sediment)</li>
+            <li>ai date sensibile sau nepublicate în prompt</li>
+            <li>ai nevoie de o referință sau citare exactă</li>
+            <li>e o sarcină mică pe care o știi pe de rost (mai rapid manual)</li>
+            <li>codul intră direct în producție fără review</li>
+            <li>nu ai cum să verifici rezultatul</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== EXEMPLE ========== -->
+    <section id="exemple">
+      <div class="eyebrow"><span class="num">4</span> Exemple</div>
+      <h2 class="sec">Prompt slab vs prompt bun</h2>
+      <div class="callout c-note">
+        <div class="ct">🧩 Rețeta de prompt</div>
+        <p><b>Context</b> (ce ai deja) · <b>Date</b> (formă, dtype, unități, CRS, nodata) · <b>Sarcină</b> (ce vrei exact) · <b>Format</b> (ce să-ți returneze) · <b>Constrângeri</b> (ce biblioteci să folosească / evite). Dacă e o sarcină subtilă, adaugă și <b>un exemplu</b> input → output.</p>
+      </div>
+      <div class="recipe">
+        <span class="step">Context</span><span class="arr">→</span>
+        <span class="step">Date</span><span class="arr">→</span>
+        <span class="step">Sarcină</span><span class="arr">→</span>
+        <span class="step">Format</span><span class="arr">→</span>
+        <span class="step">Constrângeri</span>
+      </div>
+
+      <div class="anatomy">
+        <div class="lbl">Aceeași rețetă, aplicată pe un prompt real (exemplul cu Sulina):</div>
+        <div class="aseg" style="--c:var(--c-cod)"><span class="atag">CONTEXT + DATE</span><code>xarray.Dataset `ds`, var `t2m` (°C), dims (time, lat, lon), pas zilnic, EPSG:4326</code></div>
+        <div class="aseg" style="--c:var(--c-fut)"><span class="atag">SARCINĂ</span><code>extrage seria la Sulina (45.15°N, 29.65°E) prin interpolare, apoi media lunară</code></div>
+        <div class="aseg" style="--c:var(--c-med)"><span class="atag">FORMAT</span><code>pandas.Series lunară + grafic matplotlib cu axe etichetate</code></div>
+        <div class="aseg" style="--c:var(--c-soc)"><span class="atag">CONSTRÂNGERI</span><code>doar xarray + matplotlib; fără bucle for; comentează fiecare pas</code></div>
+      </div>
+
+      <div class="ex">
+        <h3>Exemplul 1 — serie de timp lunară la Sulina</h3>
+        <div class="tabs" data-ex="1">
+          <button class="bad on" data-t="1b">Slab</button>
+          <button class="good" data-t="1g">Mai bun</button>
+        </div>
+        <div class="panel on" id="1b">
+          <pre class="prompt bad">Scrie cod Python să-mi scoți temperatura pentru Sulina și să faci media lunară.</pre>
+          <p class="why">De ce e slab: nu spune ce structură de date are, ce unități, ce coordonate are Sulina sau ce să returneze. Asistentul ghicește — și de obicei greșit (citește un CSV inexistent, inventează coordonate, întoarce un array fără etichete).</p>
+        </div>
+        <div class="panel" id="1g">
+          <pre class="prompt good">Context: am un xarray.Dataset `ds` cu variabila `t2m` (temperatura aerului la 2 m,
+unități °C), dimensiuni (time, lat, lon), pas zilnic, CRS geografic EPSG:4326.
+lat crește spre nord, lon spre est.
+
+Sarcină: extrage seria de timp la Sulina (45.15°N, 29.65°E) prin interpolare
+biliniară, apoi agreg-o la medie lunară.
+
+Format: returnează un pandas.Series indexat pe lună + un grafic matplotlib cu
+axa Y etichetată „Temperatura (°C)" și titlu „Sulina — medie lunară".
+
+Constrângeri: folosește doar xarray (.interp, .resample) și matplotlib; fără
+bucle for peste timp; comentează fiecare pas pe o linie.</pre>
+        </div>
+      </div>
+
+      <div class="ex">
+        <h3>Exemplul 2 — mască de apă (NDWI) dintr-un GeoTIFF</h3>
+        <p class="why" style="font-style:normal; color:var(--ink-soft); margin-bottom:10px">Aici tocmai capcanele din Modulul 2 (CRS, nodata) sunt locul unde un LLM te poate duce frumos în șanț.</p>
+        <div class="tabs" data-ex="2">
+          <button class="bad on" data-t="2b">Slab</button>
+          <button class="good" data-t="2g">Mai bun</button>
+        </div>
+        <div class="panel on" id="2b">
+          <pre class="prompt bad">Calculează NDWI pentru imaginea mea satelitară.</pre>
+          <p class="why">De ce e slab: nu știe ce benzi sunt unde, ce reprezintă valorile, cum sunt marcați pixelii lipsă. Riști împărțire la zero pe nodata, NDWI pe benzile greșite și pierderea CRS-ului la salvare.</p>
+        </div>
+        <div class="panel" id="2g">
+          <pre class="prompt good">Context: am un GeoTIFF Sentinel-2 deschis cu rioxarray ca DataArray `da`, dimensiuni
+(band, y, x). Banda 1 = Verde (B3), banda 2 = NIR (B8), reflectanță în [0, 1].
+CRS = EPSG:32635 (UTM 35N). Pixelii lipsă sunt marcați cu nodata = 0.
+
+Sarcină: calculează NDWI = (Verde − NIR) / (Verde + NIR) și o mască binară apă/uscat
+(NDWI > 0). Maschează pixelii nodata ÎNAINTE de împărțire, ca să nu intre în calcul.
+
+Format: un DataArray `ndwi` (float32, păstrează CRS și transform) + un DataArray
+boolean `apa` + suprafața de apă în km² (din rezoluția pixelului).
+
+Constrângeri: păstrează metadatele rio; evită diviziunea la zero (np.where pe numitor);
+doar rioxarray / xarray / numpy, fără apeluri GDAL directe.</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== VERIFICARE ========== -->
+    <section id="verificare">
+      <div class="eyebrow"><span class="num">5</span> Verificare</div>
+      <h2 class="sec">Checklist pentru orice cod generat</h2>
+      <ul class="check">
+        <li><span class="box"></span><span><b>Dimensiuni și unități</b> — shape-ul e cel așteptat? °C sau K? m sau km? grade sau metri (CRS)?</span></li>
+        <li><span class="box"></span><span><b>NaN și valori-limită</b> — ce se întâmplă pe nodata, pe împărțire la zero, pe marginea grilei?</span></li>
+        <li><span class="box"></span><span><b>Funcții/biblioteci inventate</b> — există într-adevăr <code style="font-family:'IBM Plex Mono';background:#eef3f3;padding:1px 5px;border-radius:5px">xr.smooth()</code> sau <code style="font-family:'IBM Plex Mono';background:#eef3f3;padding:1px 5px;border-radius:5px">gpd.reproject_to_utm()</code>? (Spoiler: nu.)</span></li>
+        <li><span class="box"></span><span><b>Performanță plauzibilă</b> — ordinul de mărime e corect? O suprafață de apă de 10⁶ km² în Deltă e o alarmă.</span></li>
+        <li><span class="box"></span><span><b>Comparare cu un calcul manual</b> — rulează pe un caz mic, cunoscut, unde știi răspunsul.</span></li>
+      </ul>
+
+      <details><summary>Capcana CRS / orientarea axei (specific Deltei)</summary>
+        <div class="body">GeoTIFF stochează rândurile <b>nord → sud</b> (y descrescător). Un LLM îți poate da o hartă întoarsă pe verticală fără să clipească. Verifică <code>.rio.crs</code> și sensul axei <code>y</code> înainte de orice <code>clip</code>/<code>reproject</code>. Dacă harta apare răsturnată: <code>da.isel(y=slice(None, None, -1))</code> sau <code>origin='upper'</code> în <code>imshow</code>.</div>
+      </details>
+      <details><summary>resample vs isel — agregare sau selectare?</summary>
+        <div class="body"><code>resample(time='1ME').mean()</code> face <b>media</b> ferestrei (corect pentru climatologie). <code>isel(time=slice(None, None, 30))</code> doar <b>selectează</b> fiecare al 30-lea timestamp. Un LLM le confundă des — și ambele „rulează". Citește ce ți-a dat.</div>
+      </details>
+      <details><summary>Întreabă asistentul să se verifice singur</summary>
+        <div class="body"><i>„Identifică ce presupuneri ai făcut despre datele mele și unde codul ar putea da greș tăcut."</i> Adesea LLM-ul îți semnalează singur exact problema pe care urma s-o ai.</div>
+      </details>
+    </section>
+
+    <!-- ========== CAPCANE ========== -->
+    <section id="capcane">
+      <div class="eyebrow"><span class="num">6</span> Capcane</div>
+      <h2 class="sec">De evitat</h2>
+      <div class="danger-list">
+        <div class="ct">⚠️ Greșelile clasice</div>
+        <ul>
+          <li><b>Vibe coding pe orb</b> — lipești cod și-l rulezi fără să-l citești.</li>
+          <li><b>Accepți primul răspuns</b> la un prompt vag, în loc să dai context și să iterezi.</li>
+          <li><b>Nu dai versiunile</b> bibliotecilor → cod cu API vechi sau prea nou (xarray, pandas se schimbă).</li>
+          <li><b>Crezi numerele</b> fără sanity-check de unități și ordin de mărime.</li>
+          <li><b>Funcții care „sună bine"</b> dar nu există — verifică în documentația oficială.</li>
+          <li><b>Lipești date sensibile / nepublicate</b> în prompt (date de proiect, măsurători neîncărcate, GDPR).</li>
+          <li><b>Te bazezi pe LLM pentru fapte și citări</b> — halucinează referințe și DOI-uri convingător.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ========== MODELE ========== -->
+    <section id="modele">
+      <div class="eyebrow"><span class="num">7</span> Modele AI</div>
+      <h2 class="sec">Ce model? Și cum codezi cu el acum</h2>
+      <p class="prose">În mai 2026, modelele „de frontieră" (Claude, GPT, Gemini) sunt foarte apropiate pe sarcini de cod — toate în jur de 80% pe <b>SWE-bench Verified</b>, testul standard pe probleme reale din GitHub. Diferențele dintre ele contează azi mai puțin decât <b>unealta (agentul)</b> în care le folosești.</p>
+
+      <div class="swvwrap">
+        <svg class="swv" viewBox="0 0 680 248">
+          <text class="ti" x="0" y="22" font-size="13">SWE-bench Verified — orientativ (mai 2026)</text>
+          <text x="188" y="56" font-size="12.5" text-anchor="end">GPT-5.x / Codex</text>
+          <rect class="trk" x="196" y="42" width="420" height="18" rx="4"/><rect class="fr" x="196" y="42" width="349" height="18" rx="4"/>
+          <text class="val" x="553" y="56" font-size="12">~83%</text>
+          <text x="188" y="94" font-size="12.5" text-anchor="end">Claude Opus 4.7</text>
+          <rect class="trk" x="196" y="80" width="420" height="18" rx="4"/><rect class="fr" x="196" y="80" width="344" height="18" rx="4"/>
+          <text class="val" x="548" y="94" font-size="12">~82%</text>
+          <text x="188" y="132" font-size="12.5" text-anchor="end">Gemini 3.1 Pro</text>
+          <rect class="trk" x="196" y="118" width="420" height="18" rx="4"/><rect class="fr" x="196" y="118" width="328" height="18" rx="4"/>
+          <text class="val" x="532" y="132" font-size="12">~78%</text>
+          <text x="188" y="170" font-size="12.5" text-anchor="end">DeepSeek V4 · local</text>
+          <rect class="trk" x="196" y="156" width="420" height="18" rx="4"/><rect class="lo" x="196" y="156" width="319" height="18" rx="4"/>
+          <text class="val" x="523" y="170" font-size="12">~76%</text>
+          <text x="188" y="208" font-size="12.5" text-anchor="end">Qwen3-Coder · local</text>
+          <rect class="trk" x="196" y="194" width="420" height="18" rx="4"/><rect class="lo" x="196" y="194" width="298" height="18" rx="4"/>
+          <text class="val" x="502" y="208" font-size="12">~71%</text>
+          <rect class="fr" x="196" y="232" width="12" height="12" rx="2"/><text x="214" y="242" font-size="11.5">frontieră (cloud)</text>
+          <rect class="lo" x="338" y="232" width="12" height="12" rx="2"/><text x="356" y="242" font-size="11.5">local (open-weight)</text>
+        </svg>
+        <p class="cap">Cifre orientative (mai 2026). Benchmark-urile sunt zgomotoase și parțial „contaminate" — citește-le ca direcție, nu ca verdict.</p>
+      </div>
+
+      <div class="modelgrid">
+        <div class="mcard cloud">
+          <div class="mh">☁️ În cloud (API / chat)</div>
+          <ul>
+            <li><b>Claude</b> (Opus 4.7) — puternic pe cod multi-fișier și agenți; ancora workshop-ului.</li>
+            <li><b>GPT</b> (5.x / Codex) — agentic, „computer use", context de 1M token.</li>
+            <li><b>Gemini</b> (3.1 Pro) — cel mai ieftin la nivel de frontieră + 1M context; nativ în Colab.</li>
+          </ul>
+          <p class="mn">Cea mai bună calitate — dar codul tău pleacă spre un furnizor extern.</p>
+        </div>
+        <div class="mcard local">
+          <div class="mh">💻 Local, pe mașina ta</div>
+          <ul>
+            <li><b>Qwen3-Coder-Next</b> — făcut pentru agenți de cod; rulează pe hardware consumer puternic.</li>
+            <li><b>Gemma 4</b> (Google, Apache-2.0) — cel mai practic default local; intră în ~8 GB VRAM.</li>
+            <li><b>DeepSeek V4 · GLM · Kimi</b> — aproape de frontieră pe sarcini bine definite.</li>
+          </ul>
+          <p class="mn">Le rulezi cu <code>Ollama</code> / <code>llama.cpp</code> / LM Studio — gratis, offline, datele rămân la tine.</p>
+        </div>
+      </div>
+
+      <div class="callout c-note">
+        <div class="ct">📈 Modelele locale prind din urmă</div>
+        <p>Acum un an, modelele open-weight erau „experimente". Azi sunt la <b>~10 puncte</b> de cele mari și se folosesc în pipeline-uri reale — un model local poate egala generația precedentă de frontieră, dar gratis și privat. Ritmul e amețitor: complexitatea sarcinilor pe care le duce un agent se cam <b>dublează la fiecare ~6 luni</b>.</p>
+      </div>
+
+      <h3 style="font-family:'Fraunces',serif; font-size:21px; margin:30px 0 8px; color:var(--teal-ink)">Cel mai bun mod de a coda cu AI acum</h3>
+      <div class="bestway">
+        <div class="bw"><span class="bn">1</span><div><b>Unealta contează mai mult decât modelul.</b> Același model variază 20–50 de puncte după agentul în care e folosit. Alege un agent bun (Claude Code, Cursor, Codex, Gemini CLI; local: Qwen Code sau Aider + Ollama), nu doar „cel mai mare model".</div></div>
+        <div class="bw"><span class="bn">2</span><div><b>Lucrează „agentic", nu autocomplete.</b> Lasă agentul să-ți citească tot proiectul, să ruleze codul, să vadă eroarea și să itereze singur — apoi tu revizuiești.</div></div>
+        <div class="bw"><span class="bn">3</span><div><b>Hibrid.</b> Model de frontieră (cloud) pentru sarcini grele; model local pentru date sensibile sau nepublicate — exact datele tale de teren din Deltă.</div></div>
+        <div class="bw"><span class="bn">4</span><div><b>Spec + verificare în buclă.</b> Dă un context/spec clar (rețeta!), lasă agentul să itereze contra testelor, iar tu validezi rezultatul. Testele și CI sunt plasa de siguranță.</div></div>
+        <div class="bw"><span class="bn">5</span><div><b>Omul rămâne în buclă.</b> Pentru cercetare, tu garantezi corectitudinea științifică și reproductibilitatea. Modelul scrie; tu semnezi.</div></div>
+      </div>
+    </section>
+
+    <!-- ========== EXERCITIU ========== -->
+    <section id="exercitiu">
+      <div class="eyebrow"><span class="num">8</span> Exercițiu</div>
+      <h2 class="sec">Mini-exercițiu cu un asistent</h2>
+      <div class="exercise">
+        <span class="tag">15–20 min · Claude / Gemini / Copilot</span>
+        <h3>De la prompt la cod verificat</h3>
+        <p>Punctul de plecare (rulează în Colab — generează o serie sintetică de debit, ca să nu depinzi de fișiere externe):</p>
+        <pre class="code"><span class="cm">import</span> numpy <span class="cm">as</span> np, pandas <span class="cm">as</span> pd
+rng = np.random.default_rng(42)
+t = pd.date_range('2023-01-01', '2024-12-31', freq='D')
+<span class="cm"># debit Dunăre stilizat: sezonalitate + zgomot, în m³/s</span>
+q = 6000 + 2500*np.sin((np.arange(len(t)) - 60)*2*np.pi/365) + rng.normal(0, 400, len(t))
+discharge = pd.Series(q, index=t, name='discharge_m3s')</pre>
+        <p>Dă-i unui asistent <b>un singur prompt</b> (folosește rețeta!) care, pornind de la <b>discharge</b>:</p>
+        <ol>
+          <li>calculează media lunară și o medie mobilă de 30 de zile;</li>
+          <li>marchează lunile de <b>viitură</b> (media lunară &gt; percentila 90 a mediilor lunare);</li>
+          <li>produce un grafic cu axe etichetate (Debit m³/s, dată) și lunile de viitură evidențiate.</li>
+        </ol>
+        <p>Apoi <b>aplică checklist-ul</b>: găsește cel puțin o problemă (unități? funcție inventată? percentila calculată pe seria zilnică în loc de cea lunară? NaN la marginea mediei mobile?) și <b>re-promptează</b> ca s-o repare.</p>
+        <div class="final">🎯 <b>Cerință finală:</b> explică în <b>2 propoziții</b> ce face fiecare bloc de cod — cu cuvintele tale, nu copiate de la asistent.</div>
+      </div>
+    </section>
+
+    <!-- ========== RESURSE ========== -->
+    <section id="resurse">
+      <div class="eyebrow"><span class="num">9</span> Resurse</div>
+      <h2 class="sec">Pentru aprofundare</h2>
+      <div class="res">
+        <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener">
+          <div><div class="rt">Anthropic — Prompt engineering overview</div><div class="rd">Ghidul oficial: instrucțiuni clare, exemple, chain-of-thought</div></div><span class="ar">↗</span></a>
+        <a href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank" rel="noopener">
+          <div><div class="rt">Anthropic — Interactive Prompt Engineering Tutorial</div><div class="rd">Tutorial pas cu pas, ideal de parcurs după workshop</div></div><span class="ar">↗</span></a>
+        <a href="https://docs.github.com/en/copilot" target="_blank" rel="noopener">
+          <div><div class="rt">GitHub Copilot — documentație</div><div class="rd">Dacă lucrezi în VS Code</div></div><span class="ar">↗</span></a>
+        <a href="https://the-turing-way.netlify.app/" target="_blank" rel="noopener">
+          <div><div class="rt">The Turing Way</div><div class="rd">Bune practici de reproductibilitate în cercetare</div></div><span class="ar">↗</span></a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="foot">
+    <span>© 2026 DELTA-Hub · Universitatea din București · CC BY 4.0</span>
+    <span>Surse timeline: GitHub · METR · Challenger / Crunchbase · TrendForce / IDC · A. de Vries („Patterns", 2025) · Morgan Stanley · Gartner</span>
+  </div>
+</footer>
+
+<script>
+/* ---------- TIMELINE DATA ---------- */
+const CAT = {COD:'var(--c-cod)', SOCIETATE:'var(--c-soc)', HARDWARE:'var(--c-hw)', MEDIU:'var(--c-med)', VIITOR:'var(--c-fut)'};
+const ERAS = {
+  inceputuri:['ÎNCEPUTURI','2017 – 2021','#5b7c95'],
+  boom:['BOOM','2022 – 2024','#bf7327'],
+  prezent:['PREZENT','2025 – 2026','#1f8a98'],
+  viitor:['VIITOR','2027 →','#2f9c6a']
+};
+const EV = [
+ ['inceputuri','2017','COD','„Attention Is All You Need”','Google publică Transformerul — arhitectura pe care stau toate LLM-urile de azi.'],
+ ['inceputuri','2020','COD','GPT-3 · 175 de miliarde de parametri','Pentru prima dată un model scrie text și cod convingător. Sămânța boom-ului.'],
+ ['inceputuri','2021','COD','GitHub Copilot — primul asistent de cod mainstream','Pe baza OpenAI Codex, completează funcții întregi direct în editor.'],
+ ['boom','30 nov. 2022','COD','ChatGPT — momentul „boom”','~100 mil. utilizatori în 2 luni: cea mai rapidă adopție a unei aplicații de până atunci.'],
+ ['boom','2023','COD','Anul în care AI intră în fluxul de lucru','Peste 50% dintre programatori adoptă asistenți AI; apare Cursor, editorul „AI-native”.'],
+ ['boom','2024','COD','Normalizarea · Copilot +400% an-la-an','AI scrie deja ~46% din codul unui programator obișnuit (până la 61% în Java).'],
+ ['prezent','2025','COD','„Vibe coding” — Cuvântul Anului (Collins)','~51% din codul comis pe GitHub e generat sau asistat de AI. „Te lași dus de val.”'],
+ ['prezent','2025','COD','Realitatea contraintuitivă — studiul METR','Programatori experimentați au fost 19% mai LENȚI cu AI — deși se simțeau 20% mai rapizi.'],
+ ['prezent','2025','SOCIETATE','Concedieri: ~50.000 de joburi tăiate „din cauza AI”','Din 1,1 mil. concedieri în SUA (record post-pandemie). Cauzalitatea reală rămâne disputată.'],
+ ['prezent','2025–26','HARDWARE','Criza de RAM — foamea de memorie a data center-elor','Prețul DRAM +90% într-un trimestru; ~93% din producție mută spre memoria AI. Laptopuri și telefoane cu mai puțin RAM.'],
+ ['prezent','2025','MEDIU','Setea AI-ului · ~519 ml de apă la o interogare de 100 de cuvinte','Antrenarea GPT-3 a evaporat ~700.000 L. Total în 2025: 312–767 mld. L — cât apa îmbuteliată din toată lumea.'],
+ ['prezent','febr. 2026','COD','Dincolo de „vibe coding”','Karpathy îl declară depășit → urmează „agentic engineering”: omul dirijează agenți, nu mai scrie codul de mână.'],
+ ['viitor','2028','VIITOR','Adopție aproape totală — 90% dintre ingineri','Gartner: de la sub 14% la început de 2024 la 9 din 10 ingineri software cu asistent AI.'],
+ ['viitor','~2030','MEDIU','Amprenta sub presiune','Microsoft trece la răcire fără apă (closed-loop); angajamente „water-positive” — dar proiecția e ~1.068 mld. L/an în 2028.'],
+ ['viitor','ACUM','VIITOR','Întrebarea pentru tine: dacă AI scrie codul, unde e valoarea ta?','În formularea clară a problemei și în verificarea rezultatului. Despre asta e restul modulului.']
+];
+(function(){
+  const tl = document.getElementById('timeline');
+  let cur = null, html = '';
+  EV.forEach(([era,yr,cat,title,fact])=>{
+    if(era!==cur){
+      cur=era; const [n,y,c]=ERAS[era];
+      html += `<div class="era"><span class="bar" style="background:${c}"></span><span class="name" style="color:${c}">${n}</span><span class="yrs">${y}</span></div>`;
+    }
+    const col=CAT[cat];
+    html += `<div class="ev reveal" data-cat="${cat}" style="--c:${col}">
+      <span class="dot"></span>
+      <div class="card">
+        <div class="top"><span class="yr">${yr}</span><span class="pill">${cat}</span></div>
+        <h4>${title}</h4><p>${fact}</p>
+      </div></div>`;
+  });
+  tl.innerHTML = html;
+})();
+
+/* ---------- TABS ---------- */
+document.querySelectorAll('.tabs').forEach(group=>{
+  group.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      group.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      const t=btn.dataset.t;
+      // panels share prefix (e.g. "1b","1g")
+      const ex=group.dataset.ex;
+      ['b','g'].forEach(s=>{
+        const p=document.getElementById(ex+s);
+        if(p) p.classList.toggle('on', (ex+s)===t);
+      });
+    });
+  });
+});
+
+/* ---------- PROGRESS + SCROLLSPY ---------- */
+const prog=document.getElementById('progress');
+const links=[...document.querySelectorAll('nav.toc a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+function onScroll(){
+  const h=document.documentElement;
+  const sc=h.scrollTop, max=h.scrollHeight-h.clientHeight;
+  prog.style.width=(max>0? sc/max*100:0)+'%';
+  let idx=0;
+  secs.forEach((s,i)=>{ if(s && s.getBoundingClientRect().top<140) idx=i; });
+  links.forEach((a,i)=>a.classList.toggle('active', i===idx));
+}
+document.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+/* ---------- THEME (forțat dark, fără toggle) ---------- */
+document.documentElement.setAttribute('data-theme','dark');
+
+/* ---------- REVEAL + COUNT-UP ---------- */
+function countUp(el){
+  const target=+el.dataset.count, dur=1100, t0=performance.now();
+  function tick(t){const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*e).toLocaleString('ro-RO'); if(p<1)requestAnimationFrame(tick);}
+  requestAnimationFrame(tick);
+}
+const io=new IntersectionObserver((ents)=>{ents.forEach(en=>{ if(en.isIntersecting){
+  en.target.classList.add('in');
+  en.target.querySelectorAll('[data-count]').forEach(countUp);
+  io.unobserve(en.target);}});},{threshold:.12, rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.ev,.concept,.obj,.stat,.res a,.tablewrap,.danger-list,.exercise,.compare,.anatomy,.swvwrap,.mcard,.bw').forEach(el=>{el.classList.add('reveal'); io.observe(el);});
+
+/* ---------- COPY BUTTONS ---------- */
+document.querySelectorAll('pre.prompt, pre.code').forEach(pre=>{
+  const wrap=document.createElement('div'); wrap.className='codewrap';
+  pre.parentNode.insertBefore(wrap,pre); wrap.appendChild(pre);
+  const btn=document.createElement('button'); btn.className='copybtn'; btn.type='button'; btn.textContent='Copiază';
+  wrap.appendChild(btn);
+  btn.addEventListener('click',()=>{navigator.clipboard.writeText(pre.innerText).then(()=>{
+    btn.textContent='Copiat ✓'; btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent='Copiază'; btn.classList.remove('ok')},1500);
+  }).catch(()=>{btn.textContent='Eroare';});});
+});
+
+/* ---------- LEGEND FILTER ---------- */
+const legend=document.getElementById('legend'), tlEl=document.getElementById('timeline');
+const active=new Set(['COD','SOCIETATE','HARDWARE','MEDIU','VIITOR']);
+legend.querySelectorAll('button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const c=b.dataset.cat;
+    active.has(c)?active.delete(c):active.add(c);
+    b.classList.toggle('off',!active.has(c));
+    const showAll=active.size===5||active.size===0;
+    tlEl.classList.toggle('filtered',!showAll);
+    tlEl.querySelectorAll('.ev').forEach(ev=>ev.classList.toggle('match',active.has(ev.dataset.cat)));
+  });
+});
+
+/* ---------- MOBILE SECTION BAR ---------- */
+const mbar=document.getElementById('mbar'), mbartext=document.getElementById('mbartext');
+function mbarUpdate(){
+  const sc=document.documentElement.scrollTop, hh=document.querySelector('.hero').offsetHeight;
+  mbar.classList.toggle('show',sc>hh-60);
+  let idx=0; secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<150)idx=i;});
+  mbartext.textContent=links[idx].textContent;
+}
+document.addEventListener('scroll',mbarUpdate,{passive:true}); mbarUpdate();
+</script>
+</body>
+</html>

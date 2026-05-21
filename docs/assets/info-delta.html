@@ -6,7 +6,7 @@
 <title>Cum funcționează deltele — repere din prelegere</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    IZOLAT sub #delta-lecture — se poate insera în MkDocs Material
@@ -17,14 +17,17 @@
    ============================================================ */
 
 #delta-lecture{
-  --sea-deep:#08202e; --sea:#0e3346; --water:#1d6e7c; --water-light:#3fa6a0;
-  --sand:#e6d8bd; --sand-deep:#cdb78f; --paper:#f6f1e6;
-  --ink:#13262e; --ink-soft:#3a525a;
-  --green:#2e9e6b; --blue:#1f7ab0; --flood:#c0532f; --warm:#d98b3a; --veg:#5a8f1f;
-  --line:rgba(19,38,46,.14);
-  font-family:"Spectral",Georgia,serif; color:var(--ink); background:var(--paper);
+  /* Hero + footer rămân pe dark gradient (sea-deep/sea) — definit explicit. */
+  --sea-deep:#08202e; --sea:#0e3346; --water:#1d6e7c; --water-light:#6FA68F;
+  --sand:#e6d8bd; --sand-deep:#D4A574;
+  /* Aliniere cu site-ul (dark slate): bg + card + text */
+  --paper:#0c1719; --card:#13252a;
+  --ink:#F4EFE5; --ink-soft:#b9c4c8;
+  --green:#2e9e6b; --blue:#5fa3d0; --flood:#E85D2F; --warm:#d98b3a; --veg:#5a8f1f;
+  --line:rgba(244,239,229,.10);
+  font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif; color:var(--ink); background:var(--paper);
   line-height:1.6; max-width:1080px; margin:0 auto; border-radius:18px;
-  overflow:hidden; box-shadow:0 30px 80px -40px rgba(8,32,46,.6);
+  overflow:hidden; box-shadow:0 30px 80px -40px rgba(0,0,0,.65);
   -webkit-font-smoothing:antialiased;
 }
 #delta-lecture *{box-sizing:border-box;}
@@ -55,8 +58,8 @@
 #delta-lecture .dl-chapter > p strong{color:var(--ink);font-weight:600;}
 
 #delta-lecture .dl-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
-#delta-lecture .dl-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 22px 24px;position:relative;transition:transform .25s ease, box-shadow .25s ease;}
-#delta-lecture .dl-card:hover{transform:translateY(-3px);box-shadow:0 18px 36px -22px rgba(8,32,46,.45);}
+#delta-lecture .dl-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px 24px;position:relative;transition:transform .25s ease, box-shadow .25s ease;}
+#delta-lecture .dl-card:hover{transform:translateY(-3px);box-shadow:0 18px 36px -22px rgba(0,0,0,.55);}
 #delta-lecture .dl-card h4{font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem;margin:0 0 8px;color:var(--ink);}
 #delta-lecture .dl-card p{margin:0;font-size:.96rem;color:var(--ink-soft);}
 #delta-lecture .dl-tag{font-family:"JetBrains Mono",monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--water);margin-bottom:10px;display:block;}
@@ -71,35 +74,35 @@
 #delta-lecture .dl-fig svg{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--line);border-radius:14px;}
 #delta-lecture .dl-figcap{font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.04em;color:var(--ink-soft);margin-top:9px;text-transform:uppercase;}
 
-#delta-lecture .dl-pull{margin:30px 0 6px;padding:24px 26px;border-left:4px solid var(--flood);background:linear-gradient(90deg,rgba(192,83,47,.08),transparent);border-radius:0 12px 12px 0;}
+#delta-lecture .dl-pull{margin:30px 0 6px;padding:24px 26px;border-left:4px solid var(--flood);background:linear-gradient(90deg,rgba(232,93,47,.12),transparent);border-radius:0 12px 12px 0;}
 #delta-lecture .dl-pull p{font-family:"Fraunces",serif;font-style:italic;font-size:1.18rem;line-height:1.35;margin:0;color:var(--ink);}
 #delta-lecture .dl-pull cite{display:block;margin-top:10px;font-style:normal;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.06em;color:var(--ink-soft);}
 
-#delta-lecture .dl-si{margin-top:8px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;}
+#delta-lecture .dl-si{margin-top:8px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);}
 #delta-lecture .dl-si-bar{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;color:#fff;font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.08em;background:linear-gradient(90deg,var(--green) 0%, var(--water) 42%, var(--blue) 60%, var(--flood) 100%);}
 #delta-lecture .dl-si-foot{display:flex;justify-content:space-between;gap:16px;padding:16px 22px;font-size:.92rem;color:var(--ink-soft);}
 #delta-lecture .dl-si-foot span{flex:1;}#delta-lecture .dl-si-foot .right{text-align:right;}
 
 #delta-lecture .dl-threat{display:grid;gap:18px;margin-top:8px;}
-#delta-lecture .dl-meter{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;}
+#delta-lecture .dl-meter{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;}
 #delta-lecture .dl-meter .lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;}
 #delta-lecture .dl-meter .lab b{font-size:.95rem;color:var(--ink);letter-spacing:0;text-transform:none;font-family:"Fraunces",serif;}
-#delta-lecture .dl-track{height:10px;border-radius:6px;background:#eadfc8;overflow:hidden;}
+#delta-lecture .dl-track{height:10px;border-radius:6px;background:rgba(244,239,229,.10);overflow:hidden;}
 #delta-lecture .dl-fill{height:100%;border-radius:6px;}
 
-#delta-lecture .dl-danube{margin-top:30px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbf6ec);}
+#delta-lecture .dl-danube{margin-top:30px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,var(--card),#0a1d22);}
 #delta-lecture .dl-danube-head{padding:20px 26px;background:linear-gradient(120deg,var(--sea) 0%, var(--water) 100%);color:#fff;}
 #delta-lecture .dl-danube-head h4{font-family:"Fraunces",serif;font-weight:600;font-size:1.35rem;margin:0;color:#fff;}
 #delta-lecture .dl-danube-head span{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--water-light);display:block;margin-bottom:6px;}
 #delta-lecture .dl-danube-grid{display:grid;gap:1px;background:var(--line);grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
-#delta-lecture .dl-danube-grid > div{background:#fff;padding:20px 22px;}
+#delta-lecture .dl-danube-grid > div{background:var(--card);padding:20px 22px;}
 #delta-lecture .dl-danube-grid h5{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;margin:0 0 6px;color:var(--ink);display:flex;align-items:center;gap:9px;}
 #delta-lecture .dl-danube-grid h5 .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;}
 #delta-lecture .dl-danube-grid p{margin:0;font-size:.93rem;color:var(--ink-soft);}
 
 #delta-lecture .dl-chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:6px;}
-#delta-lecture .dl-chip{font-family:"JetBrains Mono",monospace;font-size:.74rem;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);}
-#delta-lecture .dl-chip b{color:var(--blue);font-weight:600;}
+#delta-lecture .dl-chip{font-family:"JetBrains Mono",monospace;font-size:.74rem;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);}
+#delta-lecture .dl-chip b{color:var(--water-light);font-weight:600;}
 
 #delta-lecture .dl-foot{background:linear-gradient(180deg,var(--sea) 0%,var(--sea-deep) 100%);color:var(--paper);padding:46px 48px;}
 #delta-lecture .dl-foot h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.5rem;margin:0 0 18px;color:#fff;}

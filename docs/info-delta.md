@@ -10,7 +10,7 @@ hide:
 </style>
 
 <p style="margin: 1.2rem 0 0.6rem 0;">
-  <a href="../assets/info-delta.html" target="_blank" rel="noopener" style="display:inline-block;padding:10px 18px;border-radius:8px;background:#08202e;color:#3fa6a0;font-weight:600;text-decoration:none;border:1px solid #1d6e7c;">
+  <a href="../assets/info-delta.html" target="_blank" rel="noopener" style="display:inline-block;padding:10px 18px;border-radius:8px;background:#0c1719;color:#6FA68F;font-weight:600;text-decoration:none;border:1px solid #2a3a3e;">
     Deschide pagina în filă nouă ↗
   </a>
   <span style="margin-left:0.6rem;color:var(--md-default-fg-color--light);font-size:0.9rem;">repere din prelegerea Prof. Edward Anthony, plus context despre delte și schimbări climatice.</span>
@@ -21,7 +21,7 @@ hide:
   src="../assets/info-delta.html"
   title="InfoDelta — Cum funcționează deltele (versiune interactivă)"
   scrolling="no"
-  style="width:100%; height:800px; border:1px solid var(--md-default-fg-color--lightest); border-radius:10px; background:#f6f1e6; margin-top:0.5rem; display:block;">
+  style="width:100%; height:800px; border:1px solid var(--md-default-fg-color--lightest); border-radius:10px; background:#0c1719; margin-top:0.5rem; display:block;">
 </iframe>
 
 <script>

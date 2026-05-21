@@ -2,7 +2,9 @@
 
 **Pregătire înainte de workshop**
 
-Workshop-ul folosește **Google Colab** pentru toate exercițiile practice. Asta înseamnă că **nu trebuie să instalezi Python pe laptopul tău** — totul rulează în browser, pe infrastructura Google.
+Folosim **Google Colab** pentru ușurință — nimic de instalat, totul rulează în browser pe infrastructura Google, cu un cont Google obișnuit.
+
+Pentru cine vrea **un mod avansat de coding** (offline, IDE complet, integrare AI și versionare), recomandăm **VS Code + AI assistants + GitHub** — detaliate mai jos în secțiunile *Tutorial avansat: Conda + VS Code*, *Git & GitHub* și *Unelte AI gratuite pentru cod*.
 
 ## Ce-ți trebuie
 
@@ -179,6 +181,15 @@ Git este instrumentul standard pentru a urmări modificările codului. GitHub es
 
 </div>
 
+!!! tip "GitHub Education — gratuit pentru studenți și profesori"
+    Cu o adresă de email instituțională (`@s.unibuc.ro`, `@unibuc.ro` etc.) și **legitimație de student / adeverință** încărcată la verificare, primești gratuit pachetul **GitHub Student Developer Pack** sau **GitHub Teacher Toolbox**:
+
+    - **GitHub Copilot Pro** gratuit (în loc de tier-ul limitat) — completare cod nelimitată și chat nelimitat în VS Code.
+    - Repo-uri private nelimitate, GitHub Pro, GitHub Codespaces ore extinse.
+    - Credite și licențe la zeci de servicii (JetBrains, Namecheap, DigitalOcean, MongoDB ș.a.).
+
+    **Cum aplici:** intră pe [github.com/settings/education/benefits](https://github.com/settings/education/benefits?locale=en-US), încarci legitimația de student sau dovada de afiliere academică și aștepți verificarea (de obicei câteva zile).
+
 ### Comenzi esențiale (5 suficiente pentru workshop)
 
 ```bash
@@ -279,12 +290,6 @@ Toate instrumentele de mai jos au **tier gratuit** și pot fi folosite fără ca
     Vezi [Modul 3](modules/module3-ai-coding.md) pentru strategii complete de prompting.
 
 ---
-
-## Lecturi recomandate
-
-- **Anthony, E. J.** *Deltas* (2024) — capitole introductive despre procesele deltaice.
-- **Syvitski, Anthony et al.** (2022) — *Earth's sediment cycle during the Anthropocene*, Nature Reviews Earth & Environment.
-- **Zăinescu et al.** (2024) — *Sediment bypass thresholds in wave-influenced deltas*, GRL.
 
 ## Linkuri rapide
 

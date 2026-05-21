@@ -48,6 +48,17 @@ Fiecare participant lucrează cu **un singur set de date**, din Copernicus Clima
 
     [Deschide Browser :octicons-arrow-right-24:](https://browser.dataspace.copernicus.eu/){ .card-link target="_blank" }
 
+-   :material-earth:{ .lg .middle } __Earth Engine Data Catalog__
+
+    ---
+
+    `Catalog · GEE` · `necesită cont`
+
+    Catalogul oficial Google Earth Engine — sute de seturi de date analiză-ready (satelit, climă, vegetație, DEM) plus catalogul community-curated cu seturi suplimentare (ex. produse regionale, sinteze de cercetare).
+
+    [Catalog oficial :octicons-arrow-right-24:](https://developers.google.com/earth-engine/datasets){ .card-link target="_blank" }
+    [Community catalog :octicons-arrow-right-24:](https://gee-community-catalog.org/projects/){ .card-link target="_blank" }
+
 </div>
 
 ### Proiecții climatice (viitor)
@@ -354,6 +365,12 @@ Fiecare participant lucrează cu **un singur set de date**, din Copernicus Clima
 </div>
 
 ---
+
+!!! tip "De explorat în plus — misiuni NASA"
+    Pe lângă seturile de mai sus, merită menționate două misiuni NASA relevante pentru deltă și coastă:
+
+    - **SWOT** (*Surface Water and Ocean Topography*, NASA/CNES, 2022–) — altimetrie 2D de înaltă rezoluție pentru nivelul mării și al apelor continentale (râuri, lacuri, zone umede). Util pentru hidrologia Dunării și dinamica nivelului pe șelful nord-vest al Mării Negre. [swot.jpl.nasa.gov](https://swot.jpl.nasa.gov){ target="_blank" }
+    - **GEDI** (*Global Ecosystem Dynamics Investigation*, NASA, ISS, 2019–) — lidar spațial pentru structura 3D a vegetației (înălțime canopy, biomasă). Util pentru păduri-galerie, stuf și zone forestiere din deltă. [gedi.umd.edu](https://gedi.umd.edu){ target="_blank" }
 
 !!! note "Surse & note"
     Surse: Copernicus (CDS, Marine, CLMS), Google Earth Engine, NOAA NCEI și GRDC. Acoperirile și variabilele sunt orientative — verifică pagina fiecărui produs pentru combinațiile exacte de modele, scenarii și perioade disponibile per variabilă.

@@ -209,6 +209,27 @@ body {
   line-height: 2.4rem;
 }
 
+/* Hamburger drawer toggle (mobile/narrow desktop) — must remain visible & clickable */
+.md-header__button.md-icon:not(.md-logo) {
+  color: var(--paper);
+  opacity: 1;
+  visibility: visible;
+  margin: 0;
+  padding: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+.md-header__button.md-icon:not(.md-logo) svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: currentColor;
+}
+
 /* Logo: wide banner PNG, smaller, far right */
 .md-header__button.md-logo {
   order: 99;

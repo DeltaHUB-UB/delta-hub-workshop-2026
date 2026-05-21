@@ -145,6 +145,141 @@ Colab are integrare nativă cu **Gemini** (gratuit cu cont Google). Pentru ce vo
 
 Dacă vrei să folosești **Claude** în paralel: [claude.ai](https://claude.ai) (gratuit pentru uz limitat).
 
+## Git & GitHub — versionare și colaborare
+
+Git este instrumentul standard pentru a urmări modificările codului. GitHub este platforma unde stocăm și partajăm repo-urile.
+
+### Instalare
+
+<div class="grid cards" markdown>
+
+-   :simple-git:{ .lg .middle } **Git (CLI)**
+
+    ---
+
+    Instrumentul de bază, rulează în terminal.
+
+    [git-scm.com/downloads](https://git-scm.com/downloads)
+
+-   :material-monitor:{ .lg .middle } **GitHub Desktop**
+
+    ---
+
+    Interfață vizuală — recomandat dacă nu ești familiar cu terminalul.
+
+    [desktop.github.com](https://desktop.github.com)
+
+-   :simple-github:{ .lg .middle } **Cont GitHub**
+
+    ---
+
+    Gratuit. Necesar pentru a accesa și salva repo-ul workshop-ului.
+
+    [github.com/signup](https://github.com/signup)
+
+</div>
+
+### Comenzi esențiale (5 suficiente pentru workshop)
+
+```bash
+# Clonează repo-ul workshop pe calculatorul tău
+git clone https://github.com/DeltaHUB-UB/delta-hub-workshop-2026
+
+# Vezi ce fișiere s-au schimbat
+git status
+
+# Marchează fișierele pentru commit
+git add fisier.py           # un singur fișier
+git add .                   # tot ce s-a schimbat
+
+# Salvează modificările cu un mesaj
+git commit -m "Adaug analiza temperaturii la Sulina"
+
+# Trimite modificările pe GitHub
+git push
+```
+
+!!! tip "Clonează repo-ul înainte de workshop"
+    ```bash
+    git clone https://github.com/DeltaHUB-UB/delta-hub-workshop-2026
+    cd delta-hub-workshop-2026
+    ```
+    Vei avea toate notebook-urile și materialele offline.
+
+!!! note "GitHub vs Google Drive"
+    Git urmărește **modificările în timp** (cine, ce, când). Nu e un simplu loc de stocare — e un jurnal complet al proiectului. Ideal pentru cod; mai puțin util pentru fișiere binare mari (.nc, .tif > 100 MB).
+
+---
+
+## Unelte AI gratuite pentru cod
+
+Toate instrumentele de mai jos au **tier gratuit** și pot fi folosite fără card bancar.
+
+### În VS Code
+
+| Unealtă | Ce face | Tier gratuit | Link |
+|:---|:---|:---|:---|
+| **GitHub Copilot** | Completare cod + chat în editor | 2 000 completări/lună, 50 mesaje chat/lună | [marketplace: GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) |
+| **Codeium** | Completare cod nelimitată | Complet gratuit, fără limite | [marketplace: Codeium](https://marketplace.visualstudio.com/items?itemName=Codeium.codeium) |
+| **Continue** | Chat cu orice model (Claude, GPT, Ollama local) | Open-source, gratuit | [marketplace: Continue](https://marketplace.visualstudio.com/items?itemName=Continue.continue) |
+
+**Instalare rapidă (GitHub Copilot):**
+
+1. Deschide VS Code → ++ctrl+shift+x++ → caută `GitHub Copilot` → Install
+2. Sign in cu contul GitHub
+3. Merge automat: sugestii inline în timp ce scrii, ++tab++ pentru a accepta
+
+**Activare GitHub Copilot gratuit:**
+→ [github.com/features/copilot](https://github.com/features/copilot) → *Start for free*
+
+### În browser
+
+<div class="grid cards" markdown>
+
+-   :simple-anthropic:{ .lg .middle } **Claude (Anthropic)**
+
+    ---
+
+    Excelent la cod Python și explicații. Tier gratuit disponibil.
+
+    [claude.ai](https://claude.ai)
+
+-   :simple-openai:{ .lg .middle } **ChatGPT**
+
+    ---
+
+    GPT-4o mini gratuit. Bun pentru debugging rapid.
+
+    [chatgpt.com](https://chatgpt.com)
+
+-   :simple-google:{ .lg .middle } **Google Gemini**
+
+    ---
+
+    Integrat nativ în Colab. Disponibil din butonul ✦ din orice notebook.
+
+    [gemini.google.com](https://gemini.google.com)
+
+-   :simple-github:{ .lg .middle } **GitHub Copilot Chat**
+
+    ---
+
+    Accesibil direct pe github.com la orice fișier de cod sau PR.
+
+    [github.com/copilot](https://github.com/copilot)
+
+</div>
+
+!!! tip "Cum să folosești AI eficient pentru cod de mediu"
+    Specifică **întotdeauna contextul**: biblioteca (`xarray`, `geopandas`), formatul datelor (`NetCDF`, `GeoTIFF`) și zona geografică. Un prompt bun:
+    ```
+    Folosind xarray, calculează media lunară a temperaturii dintr-un Dataset
+    cu dimensiunile (time, lat, lon) și salvează rezultatul ca NetCDF.
+    ```
+    Vezi [Modul 3](modules/module3-ai-coding.md) pentru strategii complete de prompting.
+
+---
+
 ## Lecturi recomandate
 
 - **Anthony, E. J.** *Deltas* (2024) — capitole introductive despre procesele deltaice.

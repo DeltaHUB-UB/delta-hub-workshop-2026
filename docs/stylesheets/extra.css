@@ -607,15 +607,18 @@ body {
 .md-typeset .note > summary::before { background-color: var(--channel-2); }
 
 /* tip / success → reed */
+.md-typeset .admonition.tip,
+.md-typeset .admonition.success {
+  border-color: var(--reed-2);
+  background: rgba(183,211,197,0.28);
+}
 .md-typeset .tip > .admonition-title,
 .md-typeset .tip > summary,
 .md-typeset .success > .admonition-title,
 .md-typeset .success > summary {
-  background: rgba(31,77,63,0.10);
+  background: rgba(31,77,63,0.12);
   color: var(--reed);
 }
-.md-typeset .admonition.tip,
-.md-typeset .admonition.success { border-color: var(--reed-2); }
 .md-typeset .tip > .admonition-title::before,
 .md-typeset .success > .admonition-title::before { background-color: var(--reed-2); }
 
@@ -623,38 +626,120 @@ body {
 .md-typeset .admonition.warning { border-color: var(--sediment-2); background: var(--sediment-3); }
 .md-typeset .warning > .admonition-title,
 .md-typeset .warning > summary {
-  background: rgba(232,197,71,0.20);
-  color: #6e5400;
+  background: rgba(232,197,71,0.22);
+  color: #5c4500;
 }
 .md-typeset .warning > .admonition-title::before { background-color: #b08800; }
+.md-typeset .admonition.warning,
+.md-typeset .admonition.warning p,
+.md-typeset .admonition.warning li { color: #2e2000; }
 
 /* danger / failure → ember */
 .md-typeset .admonition.danger,
-.md-typeset .admonition.failure { border-color: var(--ember); }
+.md-typeset .admonition.failure {
+  border-color: var(--ember);
+  background: rgba(232,93,47,0.07);
+}
 .md-typeset .danger > .admonition-title,
 .md-typeset .failure > .admonition-title,
 .md-typeset .danger > summary,
 .md-typeset .failure > summary {
-  background: rgba(232,93,47,0.10);
-  color: var(--ember);
+  background: rgba(232,93,47,0.12);
+  color: #c0390d;
 }
 .md-typeset .danger > .admonition-title::before,
 .md-typeset .failure > .admonition-title::before { background-color: var(--ember); }
+.md-typeset .admonition.danger p,
+.md-typeset .admonition.failure p,
+.md-typeset .admonition.danger li,
+.md-typeset .admonition.failure li { color: var(--ink); }
 
 /* example → ink */
-.md-typeset .admonition.example { border-color: var(--ink); }
+.md-typeset .admonition.example { border-color: var(--ink); background: rgba(14,26,29,0.04); }
 .md-typeset .example > .admonition-title {
   background: var(--paper-2);
   color: var(--ink);
 }
 .md-typeset .example > .admonition-title::before { background-color: var(--ink); }
+.md-typeset .admonition.example p,
+.md-typeset .admonition.example li { color: var(--ink); }
 
 /* info → channel-2 */
-.md-typeset .admonition.info { border-color: var(--channel-2); }
+.md-typeset .admonition.info { border-color: var(--channel-2); background: var(--channel-4); }
 .md-typeset .info > .admonition-title {
-  background: rgba(79,143,184,0.10);
-  color: var(--channel-2);
+  background: rgba(79,143,184,0.14);
+  color: var(--abyss);
 }
+.md-typeset .admonition.info p,
+.md-typeset .admonition.info li { color: var(--ink); }
+
+/* ── Dark mode overrides for all admonition types ───────────────────── */
+[data-md-color-scheme="slate"] .md-typeset .admonition.note,
+[data-md-color-scheme="slate"] .md-typeset details.note {
+  background: rgba(79,143,184,0.11);
+}
+[data-md-color-scheme="slate"] .md-typeset .note > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset .note > summary {
+  background: rgba(79,143,184,0.20);
+  color: var(--channel-3);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.tip,
+[data-md-color-scheme="slate"] .md-typeset .admonition.success {
+  background: rgba(31,77,63,0.20);
+}
+[data-md-color-scheme="slate"] .md-typeset .tip > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset .success > .admonition-title {
+  background: rgba(31,77,63,0.30);
+  color: var(--reed-3);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.warning {
+  background: rgba(212,165,116,0.12);
+}
+[data-md-color-scheme="slate"] .md-typeset .warning > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset .warning > summary {
+  background: rgba(232,197,71,0.18);
+  color: var(--sediment-2);
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.warning,
+[data-md-color-scheme="slate"] .md-typeset .admonition.warning p,
+[data-md-color-scheme="slate"] .md-typeset .admonition.warning li { color: var(--paper); }
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.danger,
+[data-md-color-scheme="slate"] .md-typeset .admonition.failure {
+  background: rgba(232,93,47,0.12);
+}
+[data-md-color-scheme="slate"] .md-typeset .danger > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset .failure > .admonition-title {
+  background: rgba(232,93,47,0.20);
+  color: var(--ember-2);
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.danger p,
+[data-md-color-scheme="slate"] .md-typeset .admonition.failure p,
+[data-md-color-scheme="slate"] .md-typeset .admonition.danger li,
+[data-md-color-scheme="slate"] .md-typeset .admonition.failure li { color: var(--paper); }
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.example {
+  background: rgba(31,77,63,0.12);
+  border-color: var(--reed-3);
+}
+[data-md-color-scheme="slate"] .md-typeset .example > .admonition-title {
+  background: rgba(31,77,63,0.25);
+  color: var(--paper);
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.example p,
+[data-md-color-scheme="slate"] .md-typeset .admonition.example li { color: var(--paper); }
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.info {
+  background: rgba(79,143,184,0.11);
+}
+[data-md-color-scheme="slate"] .md-typeset .info > .admonition-title {
+  background: rgba(79,143,184,0.20);
+  color: var(--channel-3);
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.info p,
+[data-md-color-scheme="slate"] .md-typeset .admonition.info li { color: var(--paper); }
 
 /* ============================================================
    TABLES — paper-2 header, mono numbers

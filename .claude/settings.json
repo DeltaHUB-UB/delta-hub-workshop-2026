@@ -10,7 +10,8 @@
       "Bash(mkdocs serve *)",
       "PowerShell(\\(Get-Command python -ErrorAction SilentlyContinue\\).Source; \\(Get-Command pip -ErrorAction SilentlyContinue\\).Source; \\(Get-Command conda -ErrorAction SilentlyContinue\\).Source)",
       "PowerShell(Stop-Process -Name \"mkdocs\" -Force -ErrorAction SilentlyContinue)",
-      "PowerShell(Start-Process -FilePath \"C:\\\\Users\\\\flori\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\mkdocs.exe\" -ArgumentList \"serve\" -WorkingDirectory \"d:\\\\RESEARCH\\\\EOPersist\\\\delta-hub-workshop-2026\" -NoNewWindow)"
+      "PowerShell(Start-Process -FilePath \"C:\\\\Users\\\\flori\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\mkdocs.exe\" -ArgumentList \"serve\" -WorkingDirectory \"d:\\\\RESEARCH\\\\EOPersist\\\\delta-hub-workshop-2026\" -NoNewWindow)",
+      "PowerShell(Start-Process \"cmd.exe\" -ArgumentList \"/k cd /d d:\\\\RESEARCH\\\\EOPersist\\\\delta-hub-workshop-2026 && C:\\\\Users\\\\flori\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\mkdocs.exe serve\" -WindowStyle Normal)"
     ]
   }
 }

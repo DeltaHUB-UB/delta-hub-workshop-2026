@@ -1,7 +1,7 @@
 # Ghid de predare — Modul 2
 ## Python pentru Geoscience
 
-**75 minute · 22 mai 2026 · 11:45–13:00**  
+**80 minute · 22 mai 2026 · 11:45–13:05**  
 Notebook: `notebooks/02_python_v2.ipynb`
 
 ---
@@ -13,8 +13,9 @@ Notebook: `notebooks/02_python_v2.ipynb`
 | 0–5 | Setup + context | s0 | Explici structura sesiunii, rulezi instalările |
 | 5–20 | Python de la zero | s1 | Variabile → Liste → Dicționare → Funcții → NumPy |
 | 20–45 | Coordonate și CRS | s2 | lat/lon, UTM, pyproj, raster vs vector |
-| 45–65 | Formate de fișiere | s3 | GeoJSON, GPKG, NetCDF, GeoTIFF |
-| 65–75 | Exercițiu | — | Participanții lucrează independent |
+| 45–65 | Formate de fișiere | s3 | GeoJSON, GPKG, NetCDF, GeoTIFF, Zarr |
+| 65–75 | Vizualizare | s4 | matplotlib recap + Plotly interactiv |
+| 75–80 | Exercițiu | — | Participanții lucrează independent |
 
 ---
 
@@ -195,6 +196,68 @@ Arată harta finală cu raster + vector suprapuse:
 
 ---
 
+## Etapa 4 · Vizualizare (10 min)
+
+### Intro (1 min)
+
+**Ce spui:**
+> "Am văzut matplotlib în Etapele 1–3. Acum comparăm: matplotlib produce figuri statice — PNG, PDF. Plotly produce grafice HTML interactive direct în notebook: zoom, hover, animații — cu aceeași cantitate de cod."
+
+Arată tabelul de comparație din celula de titlu Etapa 4.
+
+---
+
+### Matplotlib recap — fig/ax (3 min)
+
+**Ce spui:**
+> "`fig, axes = plt.subplots(1, 2)` — fig e pânza, axes e un array de sisteme de coordonate. Punem date pe ax cu `ax.plot()`, `ax.bar()`, `ax.imshow()`. Tot ce urmează modifică aspectul."
+
+Rulează celula cu seria temporală + bare sezoniere. Subliniază:
+- `DateFormatter('%b')` — formatare axă timp
+- culori condiționare în list comprehension pentru bare
+- `fig.suptitle()` — titlu deasupra tuturor subplot-urilor
+
+---
+
+### Plotly Express — linie interactivă (3 min)
+
+**Ce spui:**
+> "Plotly Express are același API ca matplotlib dar outputul e un widget HTML. `px.line()` în loc de `ax.plot()`. Importantă diferența: `fig.show()` în loc de `plt.show()`."
+
+Rulează celula cu `px.line`. Demonstrează live:
+1. Hover pe grafic — apare tooltip cu ambele serii
+2. Click pe legendă — ascunde/afișează o serie
+3. Scroll pe grafic — zoom
+4. Drag pentru pan; dublu-click pentru reset
+
+**Moment cheie:**
+> "Observați `hovermode='x unified'` — toate seriile la același x apar în același tooltip. Util pentru comparație."
+
+---
+
+### Heatmap raster + animație (2 min)
+
+**Ce spui:**
+> "`px.imshow` funcționează pe orice array 2D — exact ca `imshow` din matplotlib, dar interactiv. Și cu un array 3D și `animation_frame=0` obținem animație frame-by-frame fără cod suplimentar."
+
+Rulează celula. Apasă ▶ Play pe animație și lasă să ruleze câteva secunde.
+
+> "Aceasta e puterea Plotly: o singură linie în plus față de matplotlib și avem o animație completă."
+
+---
+
+### Hartă vectorială interactivă (1 min)
+
+**Ce spui:**
+> "`px.scatter_mapbox` suprapune puncte pe o hartă tile reală — OpenStreetMap, fără API key. Culoarea e temperatura de iulie, dimensiunea e populația. Hover arată toate atributele din GeoDataFrame."
+
+Rulează celula. Zoom în pe Delta Dunării.
+
+**Mesaj de încheiere:**
+> "Acum aveți instrumentele complete: Python pentru calcul, xarray pentru date multidimensionale, geopandas pentru vectori, matplotlib pentru figuri finale, Plotly pentru explorare. Restul e practică."
+
+---
+
 ## Exercițiu (10 min)
 
 **Ce le zici:**
@@ -222,6 +285,10 @@ Arată harta finală cu raster + vector suprapuse:
 | *"Pot combina un GeoTIFF cu un GeoJSON?"* | Da, dacă sunt în **același CRS**. Dacă nu, convertești vectorul: `gdf.to_crs(tif.rio.crs)`. |
 | *"Ce e `method='nearest'` în xarray?"* | Selectează valoarea la coordonata cea mai apropiată din grilă — util când coordonata exactă nu există în dataset. |
 | *"GeoJSON vs GPKG — care e mai bun?"* | GeoJSON pentru partajare și web; GPKG pentru lucru local cu date mai mari sau mai multe straturi. |
+| *"Plotly vs matplotlib — care e mai bun?"* | Depinde de scop: matplotlib pentru figuri finale (PDF, publicații), Plotly pentru explorare interactivă. Nu se exclud — se complementează. |
+| *"De ce `hovermode='x unified'`?"* | Fără el, fiecare serie are propriul tooltip. Cu `x unified`, toate seriile de la același x apar într-un singur tooltip — mai ușor de comparat. |
+| *"Cum salvez un grafic Plotly?"* | `fig.write_html('grafic.html')` — fișier HTML standalone. `fig.write_image('grafic.png')` — necesită `kaleido` instalat. |
+| *"`animation_frame` nu afișează Play?"* | Verifică că array-ul are cel puțin 2 frame-uri pe prima dimensiune. În Colab, animația funcționează direct în output. |
 
 ---
 
@@ -232,3 +299,5 @@ Arată harta finală cu raster + vector suprapuse:
 - **Audiență fără experiență GIS**: insistați mai mult pe secțiunea CRS — e cel mai greu concept și cel mai important pentru restul workshop-ului.
 - **Audiență cu experiență GIS**: puteți trece rapid peste Etapa 1 (Python basics) și aloca mai mult timp pentru NetCDF și xarray.
 - **Dacă rămâne timp**: arată `gdf.plot()` dintr-o singură linie — geopandas face harta direct fără matplotlib explicit.
+- **Plotly în Colab**: funcționează nativ, outputul HTML e embedded în celulă. Nu e nevoie de configurare specială.
+- **`px.scatter_mapbox` lent?**: tile-urile OSM se încarcă din internet — e normal să dureze 1–2 secunde prima dată. În mediu fără internet, folosiți `mapbox_style='white-bg'` (fără tile-uri).

@@ -65,10 +65,10 @@ Arată dicționarul `sulina` cu lat, lon, pop, tip. Apoi arată dicționarul de 
 
 ---
 
-### Bucle și funcții (5 min)
+### Loops și funcții (5 min)
 
-**Ce spui pentru bucle:**
-> "Bucla `for` repetă un bloc de cod pentru fiecare element dintr-o colecție. `if/elif/else` alege ce să execute în funcție de o condiție."
+**Ce spui pentru loops:**
+> "Loop-ul `for` repetă un bloc de cod pentru fiecare element dintr-o colecție. `if/elif/else` alege ce să execute în funcție de o condiție."
 
 Rulează celula cu temperaturi — participanții văd cum fiecare temperatură primește o categorie.
 
@@ -82,11 +82,11 @@ Rulează `descrie_statie` cu mai multe stații. Arată parametrul cu valoare imp
 ### NumPy (5 min)
 
 **Ce spui:**
-> "NumPy adaugă tipul `array` — un șir de numere care suportă operații matematice pe tot vectorul dintr-o singură instrucțiune, fără buclă."
+> "NumPy adaugă tipul `array` — un șir de numere care suportă operații matematice pe tot vectorul dintr-o singură instrucțiune, fără loop."
 
 Compară:
 ```python
-# Cu buclă (lent, verbos)
+# Cu loop (lent, verbos)
 rezultat = [t * 9/5 + 32 for t in temps]
 
 # Cu NumPy (rapid, clar)
@@ -210,7 +210,7 @@ Arată tabelul de comparație din celula de titlu Etapa 4.
 ### Matplotlib recap — fig/ax (3 min)
 
 **Ce spui:**
-> "`fig, axes = plt.subplots(1, 2)` — fig e pânza, axes e un array de sisteme de coordonate. Punem date pe ax cu `ax.plot()`, `ax.bar()`, `ax.imshow()`. Tot ce urmează modifică aspectul."
+> "`fig, axes = plt.subplots(1, 2)` — `fig` e Figure (suprafața de desenat), `axes` e un array de Axes (câte un subplot fiecare). Punem date pe Axes cu `ax.plot()`, `ax.bar()`, `ax.imshow()`. Tot ce urmează modifică aspectul."
 
 Rulează celula cu seria temporală + bare sezoniere. Subliniază:
 - `DateFormatter('%b')` — formatare axă timp
@@ -261,7 +261,7 @@ Rulează celula. Zoom în pe Delta Dunării.
 ## Exercițiu (10 min)
 
 **Ce le zici:**
-> "Patru sarcini independente — faceți câte puteți. Dacă vă blocați la una, treceți la următoarea."
+> "Cinci sarcini independente — faceți câte puteți. Dacă vă blocați la una, treceți la următoarea."
 
 **Indicii de dat dacă cer ajutor:**
 
@@ -269,6 +269,7 @@ Rulează celula. Zoom în pe Delta Dunării.
 2. NumPy: `(ts_zilnic > 20).sum()` — booleenii se sumează ca 0/1
 3. pyproj: `t.transform(lon, lat)` — atenție la ordinea lon/lat cu `always_xy=True`
 4. NetCDF: lanț `.sel(time='2024-08')` → `.mean(dim='time')` → `.to_dataset(name='t2m')` → `.to_netcdf(...)`
+5. Plotly: iterează prin `gdf.iterrows()`, selectează cu `.sel(lat=..., lon=..., method='nearest')`, construiește o listă de dict-uri cu `statie/luna/temp`, transformă în DataFrame și pasează la `px.bar`
 
 **Răspunsuri așteptate:**
 - Zile > 20°C: ~120–140 zile (vara + toamna timpurie, depinde de zgomotul aleatoriu)

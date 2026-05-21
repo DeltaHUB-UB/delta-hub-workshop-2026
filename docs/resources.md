@@ -153,7 +153,7 @@ Git este instrumentul standard pentru a urmări modificările codului. GitHub es
 
 <div class="grid cards" markdown>
 
--   :simple-git:{ .lg .middle } **Git (CLI)**
+-   :material-git:{ .lg .middle } **Git (CLI)**
 
     ---
 
@@ -169,7 +169,7 @@ Git este instrumentul standard pentru a urmări modificările codului. GitHub es
 
     [desktop.github.com](https://desktop.github.com)
 
--   :simple-github:{ .lg .middle } **Cont GitHub**
+-   :fontawesome-brands-github:{ .lg .middle } **Cont GitHub**
 
     ---
 
@@ -236,7 +236,7 @@ Toate instrumentele de mai jos au **tier gratuit** și pot fi folosite fără ca
 
 <div class="grid cards" markdown>
 
--   :simple-anthropic:{ .lg .middle } **Claude (Anthropic)**
+-   :material-robot:{ .lg .middle } **Claude (Anthropic)**
 
     ---
 
@@ -244,7 +244,7 @@ Toate instrumentele de mai jos au **tier gratuit** și pot fi folosite fără ca
 
     [claude.ai](https://claude.ai)
 
--   :simple-openai:{ .lg .middle } **ChatGPT**
+-   :material-robot-outline:{ .lg .middle } **ChatGPT**
 
     ---
 
@@ -252,7 +252,7 @@ Toate instrumentele de mai jos au **tier gratuit** și pot fi folosite fără ca
 
     [chatgpt.com](https://chatgpt.com)
 
--   :simple-google:{ .lg .middle } **Google Gemini**
+-   :material-google:{ .lg .middle } **Google Gemini**
 
     ---
 
@@ -260,7 +260,7 @@ Toate instrumentele de mai jos au **tier gratuit** și pot fi folosite fără ca
 
     [gemini.google.com](https://gemini.google.com)
 
--   :simple-github:{ .lg .middle } **GitHub Copilot Chat**
+-   :fontawesome-brands-github:{ .lg .middle } **GitHub Copilot Chat**
 
     ---
 

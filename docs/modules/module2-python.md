@@ -36,14 +36,14 @@ La finalul sesiunii vei putea:
 
 <div class="grid cards" markdown>
 
--   :simple-numpy:{ .lg .middle } **NumPy**
+-   :material-matrix:{ .lg .middle } **NumPy**
 
     ---
 
     Array N-dimensional omogen. Baza oricărui calcul numeric în Python.
     `np.array`, `np.mean`, `np.where`, broadcasting.
 
--   :simple-pandas:{ .lg .middle } **pandas**
+-   :material-table-large:{ .lg .middle } **pandas**
 
     ---
 

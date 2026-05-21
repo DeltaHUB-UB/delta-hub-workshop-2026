@@ -1,105 +1,50 @@
-# Modul 4 — AI-assisted coding cu Python (hands-on)
+---
+title: "Modul 4 — AI-assisted coding cu Python (hands-on)"
+hide:
+  - toc
+---
 
-**Vineri 22 mai · 14:45-16:00**
+<style>
+  /* Pagina folosește HTML-ul standalone din iframe ca header — ascundem H1-ul auto-generat de Material */
+  .md-content__inner > h1:first-of-type { display: none; }
+</style>
 
-<div class="colab-launch" markdown>
-<div class="colab-text" markdown>
-**Rulează acest modul în Google Colab**
+<p style="margin: 1.2rem 0 0.6rem 0;">
+  <a href="../../assets/modul4-Ai_assisted.html" target="_blank" rel="noopener" style="display:inline-block;padding:10px 18px;border-radius:8px;background:#0c1719;color:#6FA68F;font-weight:600;text-decoration:none;border:1px solid #2a3a3e;">
+    Deschide modulul în filă nouă ↗
+  </a>
+  <span style="margin-left:0.6rem;color:var(--md-default-fg-color--light);font-size:0.9rem;">recomandat pentru experiența completă (full-width, fonturi custom).</span>
+</p>
 
-Nu trebuie să instalezi nimic local. Doar un cont Google.
-</div>
-<a class="colab-button" href="https://colab.research.google.com/github/DeltaHUB-UB/delta-hub-workshop-2026/blob/main/notebooks/04_ai_coding.ipynb" target="_blank">Open in Colab</a>
-</div>
+<iframe
+  id="m4-iframe"
+  src="../../assets/modul4-Ai_assisted.html"
+  title="Modul 4 — AI-assisted coding cu Python (versiune interactivă)"
+  scrolling="no"
+  style="width:100%; height:800px; border:1px solid var(--md-default-fg-color--lightest); border-radius:10px; background:#0c1719; margin-top:0.5rem; display:block;">
+</iframe>
 
-!!! note "Pagină în pregătire"
-    Conținutul de mai jos este un schelet. Secțiunile vor fi completate înainte de workshop.
-
-## Obiective
-
-*TODO — listă scurtă (3-5 puncte) cu ce va putea participantul la final.*
-
-- [ ] Obiectiv 1
-- [ ] Obiectiv 2
-- [ ] Obiectiv 3
-
-## Plan de sesiune
-
-*TODO — împărțirea celor 75 min pe sub-teme, cu durate.*
-
-| Minut | Sub-temă |
-|:---:|:---|
-| 0-15 | … |
-| 15-40 | … |
-| 40-65 | … |
-| 65-75 | Discuție |
-
-## Concepte cheie
-
-*TODO — modelul mental, strategii de prompting, verificare, reproductibilitate.*
-
-<div class="grid cards" markdown>
-
--   :material-robot:{ .lg .middle } **Concept 1**
-
-    ---
-
-    Descriere scurtă.
-
--   :material-robot:{ .lg .middle } **Concept 2**
-
-    ---
-
-    Descriere scurtă.
-
-</div>
-
-## Exemple — prompt slab vs prompt bun
-
-*TODO — comparații side-by-side. Pattern recomandat:*
-
-<div class="grid side-by-side" markdown>
-
-!!! failure "Slab"
-
-    ```
-    TODO: prompt prea generic
-    ```
-
-!!! success "Mai bun"
-
-    ```
-    TODO: prompt cu context, date, format așteptat
-    ```
-
-</div>
-
-## Verificarea rezultatelor
-
-*TODO — checklist pe care îl aplici la orice cod generat de un LLM.*
-
-- [ ] Dimensiuni și unități
-- [ ] NaN și valori-limită
-- [ ] Funcții/biblioteci inventate
-- [ ] Performanță plauzibilă
-- [ ] Comparare cu un calcul manual
-
-## Capcane frecvente
-
-!!! warning "De evitat"
-    - TODO
-    - TODO
-
-## Exercițiu
-
-*TODO — mini-exercițiu cu un asistent (Claude / Gemini / Copilot), 10-15 min.*
-
-!!! example "Mini-exercițiu"
-    Enunț: …
-
-    *Cerință finală:* explică în 2 propoziții ce face fiecare bloc de cod.
-
-## Resurse
-
-*TODO — linkuri către ghiduri de prompt engineering, lecturi.*
-
-- [Titlu](https://example.com)
+<script>
+(function() {
+  var f = document.getElementById('m4-iframe');
+  if (!f) return;
+  function resize() {
+    try {
+      var doc = f.contentDocument || f.contentWindow.document;
+      var h = Math.max(
+        doc.body.scrollHeight,
+        doc.documentElement.scrollHeight,
+        doc.body.offsetHeight,
+        doc.documentElement.offsetHeight
+      );
+      f.style.height = (h + 20) + 'px';
+    } catch (e) {}
+  }
+  f.addEventListener('load', function() {
+    resize();
+    setTimeout(resize, 200);
+    setTimeout(resize, 800);
+  });
+  window.addEventListener('resize', resize);
+})();
+</script>

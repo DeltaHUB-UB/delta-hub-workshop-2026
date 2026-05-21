@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="ro" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modul 3 — AI-assisted coding cu Python · DELTA-Hub 2026</title>
+<title>Modul 4 — AI-assisted coding cu Python · DELTA-Hub 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#16242e; --ink-soft:#46596a; --faint:#7c8d99;
@@ -22,13 +22,13 @@
   html{scroll-behavior:smooth}
   body{
     margin:0; background:var(--paper); color:var(--ink);
-    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    font-family:"Space Grotesk",system-ui,sans-serif;
     font-size:16.5px; line-height:1.65; -webkit-font-smoothing:antialiased;
   }
   ::selection{background:rgba(14,125,136,.22)}
   h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif; line-height:1.12; font-weight:600; letter-spacing:-.01em}
   a{color:var(--teal)}
-  code,pre{font-family:"IBM Plex Mono",monospace}
+  code,pre{font-family:"JetBrains Mono",monospace}
 
   /* progress bar */
   #progress{position:fixed; top:0; left:0; height:3px; width:0;
@@ -66,7 +66,7 @@
   .eyebrow{display:flex; align-items:center; gap:11px; font-size:12.5px; letter-spacing:2px;
     text-transform:uppercase; color:var(--teal); font-weight:600; margin-bottom:14px}
   .eyebrow .num{display:grid; place-items:center; width:25px; height:25px; border-radius:50%;
-    background:var(--teal); color:#fff; font-family:"IBM Plex Sans"; font-size:12px; font-weight:600}
+    background:var(--teal); color:#fff; font-family:"Space Grotesk"; font-size:12px; font-weight:600}
   h2.sec{font-size:clamp(26px,3.6vw,34px); margin:0 0 18px}
   p{margin:0 0 16px}
   .prose{max-width:720px}
@@ -79,7 +79,7 @@
   .era{margin:34px 0 18px; display:flex; align-items:center; gap:12px}
   .era:first-child{margin-top:6px}
   .era .bar{width:6px; height:26px; border-radius:3px}
-  .era .name{font-family:"IBM Plex Sans"; font-weight:700; letter-spacing:2px; font-size:14px}
+  .era .name{font-family:"Space Grotesk"; font-weight:700; letter-spacing:2px; font-size:14px}
   .era .yrs{color:var(--faint); font-size:13px; font-weight:500}
   .ev{position:relative; padding:0 0 4px 38px; margin-bottom:14px}
   .ev .dot{position:absolute; left:0; top:5px; width:16px; height:16px; border-radius:50%;
@@ -122,7 +122,7 @@
   .tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); background:var(--card)}
   table{border-collapse:collapse; width:100%; font-size:14.5px; min-width:560px}
   th,td{text-align:left; padding:12px 16px; border-bottom:1px solid var(--line)}
-  th{background:#eef3f3; font-family:"IBM Plex Sans"; font-weight:600; color:var(--teal-ink); font-size:12.5px; letter-spacing:.4px; text-transform:uppercase}
+  th{background:#eef3f3; font-family:"Space Grotesk"; font-weight:600; color:var(--teal-ink); font-size:12.5px; letter-spacing:.4px; text-transform:uppercase}
   tr:last-child td{border-bottom:none}
   td.min{font-variant-numeric:tabular-nums; font-weight:600; color:var(--teal-deep); white-space:nowrap}
   tbody tr:hover{background:#f6faf9}
@@ -142,7 +142,7 @@
   .ex{margin:18px 0 26px}
   .ex h3{font-size:19px; margin:0 0 10px; color:var(--teal-ink)}
   .tabs{display:inline-flex; background:#e7eeee; border-radius:10px; padding:4px; gap:4px; margin-bottom:0}
-  .tabs button{border:none; background:none; cursor:pointer; font-family:"IBM Plex Sans"; font-weight:600;
+  .tabs button{border:none; background:none; cursor:pointer; font-family:"Space Grotesk"; font-weight:600;
     font-size:14px; padding:7px 16px; border-radius:7px; color:var(--ink-soft); transition:.15s}
   .tabs button.bad.on{background:#fcefec; color:#b5482f}
   .tabs button.good.on{background:#eaf6f3; color:#0e7d88}
@@ -255,14 +255,14 @@
 
   .codewrap{position:relative}
   .copybtn{position:absolute; top:8px; right:8px; border:1px solid var(--line); background:var(--card);
-    color:var(--ink-soft); font-family:"IBM Plex Sans",sans-serif; font-size:12px; font-weight:600; padding:5px 11px;
+    color:var(--ink-soft); font-family:"Space Grotesk",sans-serif; font-size:12px; font-weight:600; padding:5px 11px;
     border-radius:7px; cursor:pointer; opacity:0; transition:opacity .15s, color .15s, border-color .15s; box-shadow:var(--shadow)}
   .codewrap:hover .copybtn,.copybtn:focus{opacity:1}
   .copybtn.ok{color:var(--c-fut); border-color:var(--c-fut)}
 
   .legend{display:flex; flex-wrap:wrap; gap:8px; margin:2px 0 24px}
   .legend button{display:inline-flex; align-items:center; gap:7px; border:1px solid var(--line); background:var(--card);
-    border-radius:20px; padding:6px 13px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:600;
+    border-radius:20px; padding:6px 13px; font-family:"Space Grotesk",sans-serif; font-size:12.5px; font-weight:600;
     color:var(--ink-soft); cursor:pointer; box-shadow:var(--shadow); transition:.15s}
   .legend button .sw{width:10px; height:10px; border-radius:50%; background:var(--c)}
   .legend button:hover{color:var(--ink); transform:translateY(-1px)}
@@ -271,9 +271,10 @@
   .tl.filtered .ev.match{opacity:1; filter:none}
 
   [data-theme=dark]{
-    --ink:#e8eff0; --ink-soft:#a6b7bf; --faint:#7c8d97;
-    --paper:#0d1619; --card:#16242a; --line:#283a41;
-    --teal:#3fb6c0; --teal-deep:#7fd3d8; --teal-ink:#bfe6e8;
+    --ink:#F4EFE5; --ink-soft:#b9c4c8; --faint:#8a979b;
+    --paper:#0c1719; --card:#13252a; --line:#2a3a3e;
+    --teal:#6FA68F; --teal-deep:#9CC4B2; --teal-ink:#B7D3C5;
+    --sand:#D4A574;
     --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.36);
   }
   [data-theme=dark] body{background:var(--paper)}
@@ -315,7 +316,7 @@
 
   /* ---------- v3 GRAPHICS ---------- */
   .step-n{display:grid; place-items:center; width:26px; height:26px; border-radius:50%; background:var(--teal);
-    color:#fff; font-size:12.5px; font-weight:600; font-family:"IBM Plex Sans",sans-serif}
+    color:#fff; font-size:12.5px; font-weight:600; font-family:"Space Grotesk",sans-serif}
   td.stepcell,th.stepcell{width:46px}
   tr.phase-hands .step-n{background:var(--c-fut)}
   tr.phasehead td{background:#e7eeee; font-size:11px; letter-spacing:1.6px; text-transform:uppercase;
@@ -333,7 +334,7 @@
   .vis .ink{fill:var(--ink)}
   .vis .ac{fill:var(--c)} .vis .acs{stroke:var(--c); fill:none; stroke-width:2.2} .vis .acf{fill:var(--c); opacity:.15}
   .vis .red{fill:#d05a3f} .vis .redf{fill:#d05a3f; opacity:.16} .vis .grn{fill:var(--c-fut)} .vis .grnf{fill:var(--c-fut); opacity:.16}
-  .vis text{font-family:"IBM Plex Sans",sans-serif; font-weight:600}
+  .vis text{font-family:"Space Grotesk",sans-serif; font-weight:600}
   .concept .key{margin-top:11px; font-size:13px; color:var(--c); font-weight:600; line-height:1.4}
 
   .compare{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px}
@@ -359,13 +360,13 @@
   .anatomy .atag{flex:none; font-size:10.5px; font-weight:700; letter-spacing:.8px; color:var(--c);
     background:color-mix(in srgb, var(--c) 13%, white); padding:4px 9px; border-radius:6px; white-space:nowrap; margin-top:2px}
   [data-theme=dark] .anatomy .atag{background:color-mix(in srgb, var(--c) 26%, #16242a)}
-  .anatomy code{font-family:"IBM Plex Mono",monospace; font-size:12.8px; color:var(--ink-soft); line-height:1.5}
+  .anatomy code{font-family:"JetBrains Mono",monospace; font-size:12.8px; color:var(--ink-soft); line-height:1.5}
 
   /* models section */
   .swvwrap{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 18px 12px; box-shadow:var(--shadow); margin:6px 0 8px}
   .swv{width:100%; height:auto; display:block}
   .swv .trk{fill:var(--line)} .swv .fr{fill:var(--c-cod)} .swv .lo{fill:var(--c-fut)}
-  .swv text{fill:var(--ink-soft); font-family:"IBM Plex Sans",sans-serif; font-weight:600}
+  .swv text{fill:var(--ink-soft); font-family:"Space Grotesk",sans-serif; font-weight:600}
   .swv .ti{fill:var(--ink)} .swv .val{fill:var(--ink)}
   .cap{font-size:12.5px; color:var(--faint); margin:8px 2px 0}
   .modelgrid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:18px 0}
@@ -379,7 +380,7 @@
   .mcard li{margin:6px 0; font-size:14.5px; line-height:1.45; color:var(--ink-soft)}
   .mcard li b{color:var(--ink)}
   .mcard .mn{margin:0; font-size:13px; color:var(--faint)}
-  .mcard code{font-family:"IBM Plex Mono",monospace; background:rgba(0,0,0,.05); padding:1px 5px; border-radius:5px; font-size:12.5px}
+  .mcard code{font-family:"JetBrains Mono",monospace; background:rgba(0,0,0,.05); padding:1px 5px; border-radius:5px; font-size:12.5px}
   [data-theme=dark] .mcard.cloud{background:#13212e; border-color:#274457}
   [data-theme=dark] .mcard.local{background:#10271c; border-color:#27513a}
   [data-theme=dark] .mcard.cloud .mh{color:#74b2e2} [data-theme=dark] .mcard.local .mh{color:#4fc28a}
@@ -392,7 +393,6 @@
 </head>
 <body>
 <div id="progress"></div>
-<div class="tools"><button class="tbtn" id="themetoggle" title="Comută tema" aria-label="Comută tema"><span id="themeicon">🌙</span></button></div>
 <div class="mbar" id="mbar"><span class="dotm"></span><span id="mbartext">Context</span></div>
 
 <header class="hero">
@@ -409,12 +409,10 @@
   </svg>
   <div class="hero-inner">
     <p class="kicker">DELTA-Hub 2026 · Data Science Workshop</p>
-    <h1>Modul 3 — <span class="accent">AI-assisted coding</span> cu Python</h1>
-    <p class="lede">Nu mai predăm Python. Predăm cum colaborezi cu un asistent ca să scrii cod de mediu corect și reproductibil — fără să te lași păcălit de un cod care „rulează" dar e greșit.</p>
+    <h1>Modul 4 — <span class="accent">AI-assisted coding</span> cu Python</h1>
+    <p class="lede">Un asistent îți poate scrie 100 de linii de cod în câteva secunde — și la fel de ușor îți poate strecura un bug subtil care trece de prima rulare. Sesiunea asta e despre cum lucrezi cu el pe date reale de mediu: ce să-i ceri, ce să verifici și unde să nu ai încredere.</p>
     <div class="hero-meta">
-      <span>📅 <b>Vineri 22 mai</b> · 14:00–15:15</span>
-      <span>⏱️ 45 min predare + ~30 min exercițiu &amp; Q&amp;A</span>
-      <a class="colab" href="https://colab.research.google.com/github/DeltaHUB-UB/delta-hub-workshop-2026/blob/main/notebooks/03_ai_coding.ipynb" target="_blank" rel="noopener">▶ Open in Colab</a>
+      <a class="colab" href="https://colab.research.google.com/github/DeltaHUB-UB/delta-hub-workshop-2026/blob/main/notebooks/04_ai_coding.ipynb" target="_blank" rel="noopener">▶ Open in Colab</a>
     </div>
   </div>
 </header>
@@ -943,15 +941,8 @@ function onScroll(){
 document.addEventListener('scroll',onScroll,{passive:true});
 onScroll();
 
-/* ---------- THEME ---------- */
-const root=document.documentElement;
-let theme; try{theme=localStorage.getItem('dh-theme')}catch(e){}
-if(!theme) theme=(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
-function setTheme(t){root.setAttribute('data-theme',t); theme=t;
-  document.getElementById('themeicon').textContent=t==='dark'?'☀️':'🌙';
-  try{localStorage.setItem('dh-theme',t)}catch(e){}}
-setTheme(theme);
-document.getElementById('themetoggle').addEventListener('click',()=>setTheme(theme==='dark'?'light':'dark'));
+/* ---------- THEME (forțat dark, fără toggle) ---------- */
+document.documentElement.setAttribute('data-theme','dark');
 
 /* ---------- REVEAL + COUNT-UP ---------- */
 function countUp(el){

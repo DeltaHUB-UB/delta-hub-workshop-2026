@@ -2,7 +2,7 @@
 ## Python pentru Geoscience
 
 **80 minute · 22 mai 2026 · 11:45–13:05**  
-Notebook: `notebooks/02_python_v2.ipynb`
+Notebook: `notebooks/02_python.ipynb`
 
 ---
 

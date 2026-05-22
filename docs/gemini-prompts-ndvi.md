@@ -252,6 +252,47 @@ Use the variable ds already loaded in this notebook.
 
 ---
 
+---
+
+## Exemplu de analiză greșită (pentru workshop)
+
+> **Scop didactic:** rulează acest prompt, arată participanților codul generat și cere-le să găsească greșelile înainte să le explici. Greșelile sunt subtile și tipice pentru output-ul AI pe date geospațiale.
+
+### Prompt — analiză cu erori intenționate
+
+```
+I have a MODIS NDVI xarray Dataset `ds` with variable 'NDVI', dims (time, x, y).
+
+Write Python code to:
+1. Compute the average NDVI for summer (June, July, August) across all years
+2. Calculate the total vegetated area (NDVI > 0.3) in square kilometers
+3. Find the pixel with the highest NDVI value and print its coordinates
+4. Plot a time series of mean NDVI from 2000 to 2024
+5. Compute how much the vegetated area changed between 2000 and 2024 (in %)
+
+Use the variable ds already loaded in this notebook.
+```
+
+### Greșeli pe care Gemini le face de obicei la acest prompt
+
+| # | Greșeală tipică | De ce e greșit | Corecție |
+|:---|:---|:---|:---|
+| 1 | Uită să aplice scale factor (`× 0.0001`) | Valorile brute MODIS sunt int16 în `[-10000, 10000]`, nu `[-1, 1]` | `ndvi = ds['NDVI'] * 0.0001` înainte de orice calcul |
+| 2 | Calculează aria în grade pătrate sau pixeli | `x`/`y` sunt în metri (UTM), dar AI adesea tratează ca grade | `n_pixeli × (500m × 500m) / 1e6` pentru km² |
+| 3 | Ignoră valorile NaN/nodata (pixeli cu nori) | Statisticile includ fill values (`-28672` sau `NaN`) și distorsionează media | `.where(ndvi >= -1).where(ndvi <= 1)` pentru a filtra |
+| 4 | Inversează ordinea `(lat, lon)` când printează coordonatele pixelului maxim | xarray returnează `(y, x)` în UTM, nu `(lat, lon)` | Convertește cu pyproj înapoi la EPSG:4326 pentru afișare |
+| 5 | Compară direct pixelii din 2000 cu cei din 2024 fără să alinieze grila | Dacă zarr-ul a fost reproiectat, gridul poate fi ușor diferit | Verifică că `ds.x` și `ds.y` sunt identice pentru ambele perioade |
+
+### Cum să folosești în workshop
+
+1. Rulează promptul în Colab, inserează codul generat
+2. **Nu îl rula imediat** — arată-l participanților
+3. Întreabă: *"Ce credeți că e greșit sau lipsește?"*
+4. Discutați 3–4 minute, apoi rulați și vedeți erorile în output
+5. Corectați împreună linie cu linie
+
+---
+
 ## Notă de utilizare
 
 > **Cum folosești aceste prompturi în Colab:**

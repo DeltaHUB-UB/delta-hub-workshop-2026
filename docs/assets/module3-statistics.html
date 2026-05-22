@@ -185,7 +185,6 @@
 <!-- Intro -->
 <section style="border-top:none;padding-top:30px">
   <p class="lead">Trei întrebări revin mereu în datele de mediu: <strong>cum arată datele</strong> (distribuția), <strong>cum se schimbă în timp</strong> (tendința și sezonul) și <strong>cât de rar e ceva extrem</strong> (perioada de retur). Cele cinci părți de mai jos răspund exact la astea.</p>
-  <p>Vom folosi un fir-roșu de patru seturi pe care le cunoașteți deja din modulul de date: înălțimea valului din <span class="term">reanaliza Marea Neagră</span>, <span class="term">SST</span> satelitară, <span class="term">debitul Dunării</span> (GRDC) și <span class="term">nivelul mării</span> din altimetrie. Codul presupune date încărcate într-un <code>pandas.Series</code> sau <code>xarray.DataArray</code> indexat după timp.</p>
 </section>
 
 
@@ -204,7 +203,7 @@
 
   <div class="box"><span class="lab">Structură → unealtă → dificultate</span>
     <dl class="dl">
-      <dt>Serie de timp</dt><dd>Un punct × timp (debit GRDC, o stație, o celulă din SST) · <code>pandas</code> · <b style="color:var(--foam)">ușor</b></dd>
+      <dt>Serie de timp</dt><dd>Un punct × timp (debit GRDC, o stație, o celulă din SST) · <code>numpy</code> / <code>pandas</code> · <b style="color:var(--foam)">ușor</b></dd>
       <dt>Grilă (2D)</dt><dd>O hartă, un moment (DEM, batimetrie) · <code>xarray</code> / <code>rasterio</code> · mediu</dd>
       <dt>Grilă × timp (3D)</dt><dd>Raster în timp (ERA5, SST, NDVI, LWQ, CMIP6) · <code>xarray</code> + NetCDF · mai greu (volum)</dd>
       <dt>Câmp 4D</dt><dd>+ adâncime / niveluri (ORAS5, niveluri CMIP6) · <code>xarray</code> + <code>dask</code> · greu — <b style="color:var(--coral)">nu acoperim</b></dd>
@@ -214,15 +213,15 @@
 
   <p>Mai există și alte structuri pe care le vei întâlni:</p>
   <figure class="fig">
-    <svg viewBox="0 0 720 175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Alte structuri de date"><rect x="40" y="30" width="160" height="95" fill="none" stroke="#1c3e48" stroke-width="1"/><circle cx="114.7" cy="67.5" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="67.9" cy="106.5" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="48.9" cy="77.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="177.4" cy="44.4" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="127.8" cy="86.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="53.9" cy="67.9" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="149.3" cy="73.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="152.4" cy="50.4" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="82.3" cy="46.8" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="120.9" cy="111.0" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="133.0" cy="99.2" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="103.2" cy="96.9" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="62.6" cy="61.0" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="145.1" cy="95.3" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="108.7" cy="44.9" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="86.4" cy="54.6" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="88.5" cy="102.0" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="76.7" cy="108.0" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="174.6" cy="42.3" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="102.5" cy="76.8" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="51.4" cy="71.6" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="178.5" cy="46.9" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="133.9" cy="47.6" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="131.3" cy="108.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="77.2" cy="38.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="60.0" cy="80.6" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="50.5" cy="44.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="119.5" cy="110.8" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="108.5" cy="69.5" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="140.0" cy="45.4" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="131.5" cy="51.6" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="135.7" cy="113.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="55.8" cy="81.8" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="135.3" cy="49.8" r="2.6" fill="#5fc9bb" opacity="0.8"/><text x="120" y="148" fill="#eef5f3" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">Puncte împrăștiate</text><text x="120" y="163" fill="#90aab0" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">SWOT, ICESat-2, probe</text><rect x="270" y="30" width="170" height="95" fill="none" stroke="#1c3e48" stroke-width="1"/><path d="M300,70 C310,45 360,48 365,72 C370,98 320,108 305,92 Z" fill="#7fa8e0" opacity="0.25" stroke="#7fa8e0" stroke-width="1.5"/><path d="M380,55 C400,50 415,70 405,88 C395,104 375,95 378,78 Z" fill="#7fa8e0" opacity="0.25" stroke="#7fa8e0" stroke-width="1.5"/><polyline points="282,118 305,108 330,114 360,104 390,110 420,100" fill="none" stroke="#e0b878" stroke-width="2"/><text x="355" y="148" fill="#eef5f3" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">Vectorial — poligoane/linii</text><text x="355" y="163" fill="#90aab0" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">lacuri, linia țărmului</text><rect x="500" y="30" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="519" y="30" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="538" y="30" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="557" y="30" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="576" y="30" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="595" y="30" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="614" y="30" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="500" y="49" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="519" y="49" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="538" y="49" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="557" y="49" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="576" y="49" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="595" y="49" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="614" y="49" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="500" y="68" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="519" y="68" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="538" y="68" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="557" y="68" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="576" y="68" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="595" y="68" width="19" height="19" fill="#df9a82" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="614" y="68" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="500" y="87" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="519" y="87" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="538" y="87" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="557" y="87" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="576" y="87" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="595" y="87" width="19" height="19" fill="#df9a82" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="614" y="87" width="19" height="19" fill="#df9a82" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="500" y="106" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="519" y="106" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="538" y="106" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="557" y="106" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="576" y="106" width="19" height="19" fill="#df9a82" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="595" y="106" width="19" height="19" fill="#df9a82" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="614" y="106" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><text x="566.5" y="148" fill="#eef5f3" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">Raster categorial</text><text x="566.5" y="163" fill="#90aab0" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">clase: land cover, Hansen</text></svg>
+    <svg viewBox="0 0 720 175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Alte structuri de date"><rect x="40" y="30" width="160" height="95" fill="none" stroke="#1c3e48" stroke-width="1"/><circle cx="114.7" cy="67.5" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="67.9" cy="106.5" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="48.9" cy="77.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="177.4" cy="44.4" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="127.8" cy="86.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="53.9" cy="67.9" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="149.3" cy="73.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="152.4" cy="50.4" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="82.3" cy="46.8" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="120.9" cy="111.0" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="133.0" cy="99.2" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="103.2" cy="96.9" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="62.6" cy="61.0" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="145.1" cy="95.3" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="108.7" cy="44.9" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="86.4" cy="54.6" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="88.5" cy="102.0" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="76.7" cy="108.0" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="174.6" cy="42.3" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="102.5" cy="76.8" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="51.4" cy="71.6" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="178.5" cy="46.9" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="133.9" cy="47.6" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="131.3" cy="108.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="77.2" cy="38.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="60.0" cy="80.6" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="50.5" cy="44.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="119.5" cy="110.8" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="108.5" cy="69.5" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="140.0" cy="45.4" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="131.5" cy="51.6" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="135.7" cy="113.7" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="55.8" cy="81.8" r="2.6" fill="#5fc9bb" opacity="0.8"/><circle cx="135.3" cy="49.8" r="2.6" fill="#5fc9bb" opacity="0.8"/><text x="120" y="148" fill="#eef5f3" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">Puncte împrăștiate</text><text x="120" y="163" fill="#90aab0" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">SWOT, ICESat-2, probe</text><rect x="270" y="30" width="170" height="95" fill="none" stroke="#1c3e48" stroke-width="1"/><path d="M300,70 C310,45 360,48 365,72 C370,98 320,108 305,92 Z" fill="#7fa8e0" opacity="0.25" stroke="#7fa8e0" stroke-width="1.5"/><path d="M380,55 C400,50 415,70 405,88 C395,104 375,95 378,78 Z" fill="#7fa8e0" opacity="0.25" stroke="#7fa8e0" stroke-width="1.5"/><polyline points="282,118 305,108 330,114 360,104 390,110 420,100" fill="none" stroke="#e0b878" stroke-width="2"/><text x="355" y="148" fill="#eef5f3" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">Vectorial — poligoane/linii</text><text x="355" y="163" fill="#90aab0" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">lacuri, linia țărmului</text><rect x="500" y="30" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="519" y="30" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="538" y="30" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="557" y="30" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="576" y="30" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="595" y="30" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="614" y="30" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="500" y="49" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="519" y="49" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="538" y="49" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="557" y="49" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="576" y="49" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="595" y="49" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="614" y="49" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="500" y="68" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="519" y="68" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="538" y="68" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="557" y="68" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="576" y="68" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="595" y="68" width="19" height="19" fill="#df9a82" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="614" y="68" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="500" y="87" width="19" height="19" fill="#e0b878" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="519" y="87" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="538" y="87" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="557" y="87" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="576" y="87" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="595" y="87" width="19" height="19" fill="#df9a82" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="614" y="87" width="19" height="19" fill="#df9a82" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="500" y="106" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="519" y="106" width="19" height="19" fill="#5fc9bb" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="538" y="106" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="557" y="106" width="19" height="19" fill="#9cbf6e" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="576" y="106" width="19" height="19" fill="#df9a82" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="595" y="106" width="19" height="19" fill="#df9a82" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><rect x="614" y="106" width="19" height="19" fill="#7fa8e0" opacity="0.7" stroke="#1c3e48" stroke-width="0.4"/><text x="566.5" y="148" fill="#eef5f3" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">Raster categorial</text><text x="566.5" y="163" fill="#90aab0" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">clase: land cover</text></svg>
     <figcaption>Alte forme frecvente: puncte neregulate (necesită interpolare), date vectoriale (operații spațiale) și rastere categoriale (se numără arii, nu se face medie).</figcaption>
   </figure>
 
   <div class="box"><span class="lab">Și restul</span>
     <dl class="dl">
-      <dt>Puncte împrăștiate</dt><dd>Măsurători neregulate (SWOT PIXC, ICESat-2, probe de sediment) · <code>geopandas</code>, <code>scipy</code> · cer interpolare (vezi kriging).</dd>
+      <dt>Puncte împrăștiate</dt><dd>Măsurători neregulate (SWOT PIXC, ICESat-2, probe de sediment) · <code>geopandas</code>, <code>scipy</code> · cer interpolare.</dd>
       <dt>Vectorial</dt><dd>Poligoane și linii (lacuri, linia țărmului din CoastSat) · <code>geopandas</code> · operații spațiale, nu statistici pe pixeli.</dd>
-      <dt>Raster categorial</dt><dd>Clase, nu valori continue (land cover, Hansen) · se calculează <em>arii și frecvențe</em>, nu medii.</dd>
+      <dt>Raster categorial</dt><dd>Clase, nu valori continue (ex. land cover) · se calculează <em>arii și frecvențe</em>, nu medii.</dd>
     </dl>
   </div>
 </section>
@@ -237,7 +236,28 @@
 
   <p>Mediana, IQR-ul și percentilele se numesc statistici <em>robuste</em>: nu sunt trase de câteva valori uriașe. Media, abaterea standard și mai ales skewness/kurtosis sunt, dimpotrivă, sensibile la extreme — un singur val de furtună le mișcă vizibil.</p>
 
-  <p>Dar de unde vin aceste numere? Dintr-o <strong>populație de valori</strong>. Imaginează-ți toate măsurătorile de înălțime a valului dintr-un an: mii de numere. Dacă le numeri câte cad în fiecare interval, obții o <span class="term">distribuție</span> — o hartă a cât de des apare fiecare valoare. Histograma e tocmai asta: fiecare măsurătoare „cade" într-o coloană, iar înălțimea coloanei spune cât de frecventă e acea valoare.</p>
+  <p>Dar de unde vin aceste numere? Dintr-o <strong>populație de valori</strong>. Datele de mediu apar de obicei ca o <strong>serie de timp</strong>: o variabilă măsurată la momente succesive (ex. înălțimea valului, zilnic, pe un an).</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 620 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Serie de timp a înălțimii valului peste un an, cu două furtuni marcate">
+      <text x="20" y="22" fill="#90aab0" font-family="JetBrains Mono" font-size="12">datele brute = măsurători succesive în timp</text>
+      <line x1="55" y1="155" x2="600" y2="155" stroke="#1c3e48" stroke-width="1.2"/>
+      <line x1="55" y1="45" x2="55" y2="155" stroke="#1c3e48" stroke-width="1.2"/>
+      <text x="48" y="52" fill="#90aab0" font-family="JetBrains Mono" font-size="10" text-anchor="end">H (m)</text>
+      <text x="600" y="175" fill="#90aab0" font-family="JetBrains Mono" font-size="10" text-anchor="end">timp →</text>
+      <line x1="55" y1="125" x2="600" y2="125" stroke="#e0b878" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+      <text x="60" y="121" fill="#e0b878" font-family="JetBrains Mono" font-size="9">media</text>
+      <polyline points="55,135 80,118 105,128 130,108 155,125 180,95 205,110 230,60 255,82 280,110 305,90 330,108 355,75 380,118 405,98 430,128 455,68 480,38 505,85 530,108 555,82 580,115 600,95"
+        fill="none" stroke="#5fc9bb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="230" cy="60" r="5.5" fill="none" stroke="#df9a82" stroke-width="1.5"/>
+      <circle cx="480" cy="38" r="5.5" fill="none" stroke="#df9a82" stroke-width="1.5"/>
+      <text x="222" y="48" fill="#df9a82" font-family="JetBrains Mono" font-size="10">furtună</text>
+      <text x="472" y="26" fill="#df9a82" font-family="JetBrains Mono" font-size="10">furtună</text>
+    </svg>
+    <figcaption>Datele brute apar ca o serie de timp: variabilitate normală + câteva evenimente extreme (furtuni). Aceste valori, agregate fără a ține cont de timp, formează populația din care construim distribuția de mai jos.</figcaption>
+  </figure>
+
+  <p>Dacă numeri câte măsurători cad în fiecare interval de valori, obții o <span class="term">distribuție</span> — o hartă a cât de des apare fiecare valoare. Histograma e tocmai asta: fiecare măsurătoare „cade" într-o coloană, iar înălțimea coloanei spune cât de frecventă e acea valoare.</p>
 
   <figure class="fig">
     <svg viewBox="0 0 620 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Populație de valori individuale care se adună într-o distribuție; punctele cresc spre dreapta">
@@ -289,11 +309,11 @@
   <p>Multe variabile de mediu urmează <strong>distribuții cunoscute</strong>, iar a recunoaște care e utilă: îți spune ce statistici au sens și e baza analizei de extreme din Partea 4.</p>
   <div class="box"><span class="lab">Distribuții utile în date de mediu</span>
     <dl class="dl">
-      <dt>Normală</dt><dd>Simetrică, „clopot". Tipică pentru <em>anomalii</em> și erori de măsură.</dd>
-      <dt>Log-normală</dt><dd>Pozitivă, asimetrică la dreapta. Debit, turbiditate, concentrații, dimensiuni de sediment.</dd>
-      <dt>Weibull / Rayleigh</dt><dd>Înălțimea valului și viteza vântului.</dd>
-      <dt>Gamma</dt><dd>Cantități de precipitații.</dd>
-      <dt>Exponențială / Pareto</dt><dd>Depășiri peste un prag și timpi între evenimente (vezi Partea 4).</dd>
+      <dt><svg viewBox="0 0 80 40" width="56" height="24" style="vertical-align:middle;margin-right:10px" aria-hidden="true"><line x1="5" y1="38" x2="75" y2="38" stroke="#1c3e48" stroke-width="0.8"/><path d="M5,38 C18,38 30,5 40,5 C50,5 62,38 75,38" fill="none" stroke="#5fc9bb" stroke-width="2"/></svg>Normală</dt><dd>Simetrică, „clopot". Tipică pentru <em>anomalii</em> și erori de măsură.</dd>
+      <dt><svg viewBox="0 0 80 40" width="56" height="24" style="vertical-align:middle;margin-right:10px" aria-hidden="true"><line x1="5" y1="38" x2="75" y2="38" stroke="#1c3e48" stroke-width="0.8"/><path d="M5,38 C12,38 20,8 28,8 C36,8 50,28 65,35 C70,37 75,38 75,38" fill="none" stroke="#5fc9bb" stroke-width="2"/></svg>Log-normală</dt><dd>Pozitivă, asimetrică la dreapta. Debit, turbiditate, concentrații, dimensiuni de sediment.</dd>
+      <dt><svg viewBox="0 0 80 40" width="56" height="24" style="vertical-align:middle;margin-right:10px" aria-hidden="true"><line x1="5" y1="38" x2="75" y2="38" stroke="#1c3e48" stroke-width="0.8"/><path d="M5,38 C12,30 20,6 30,6 C42,6 56,28 75,38" fill="none" stroke="#5fc9bb" stroke-width="2"/></svg>Weibull / Rayleigh</dt><dd>Înălțimea valului și viteza vântului.</dd>
+      <dt><svg viewBox="0 0 80 40" width="56" height="24" style="vertical-align:middle;margin-right:10px" aria-hidden="true"><line x1="5" y1="38" x2="75" y2="38" stroke="#1c3e48" stroke-width="0.8"/><path d="M5,38 C10,30 16,8 22,8 C30,10 42,26 60,36 C68,38 73,38 75,38" fill="none" stroke="#5fc9bb" stroke-width="2"/></svg>Gamma</dt><dd>Cantități de precipitații.</dd>
+      <dt><svg viewBox="0 0 80 40" width="56" height="24" style="vertical-align:middle;margin-right:10px" aria-hidden="true"><line x1="5" y1="38" x2="75" y2="38" stroke="#1c3e48" stroke-width="0.8"/><path d="M5,4 C10,4 16,18 26,28 C40,36 58,38 75,38" fill="none" stroke="#5fc9bb" stroke-width="2"/></svg>Exponențială / Pareto</dt><dd>Depășiri peste un prag și timpi între evenimente (vezi Partea 4).</dd>
     </dl>
   </div>
   <p>Cum verifici că o distribuție „se potrivește"? Vizual cu un <span class="term">QQ-plot</span> (cuantilele datelor vs. cuantilele teoretice — dacă stau pe diagonală, se potrivește), iar numeric cu un test <span class="term">Kolmogorov-Smirnov</span> sau <span class="term">Anderson-Darling</span>.</p>
@@ -304,7 +324,7 @@
 
 
   <div class="delta"><span class="lab">De ce contează pentru deltă</span>
-  Pentru a dimensiona o lucrare de protecție costieră nu te interesează valul <em>mediu</em>, ci percentilele înalte (P95, P99) ale înălțimii valului. Raportează mediana + IQR, nu media ± abaterea standard, când distribuția e asimetrică.</div>
+  Pentru a înțelege efectele erozive ale valurilor nu te interesează valul <em>mediu</em>, ci percentilele înalte (P95, P99) ale înălțimii valului. <strong>Evenimentele extreme contează disproporționat mai mult!</strong> Raportează mediana + IQR, nu media ± abaterea standard, când distribuția e asimetrică.</div>
 
   <details class="code"><summary>Cod Python — rezumat &amp; distribuție<span class="py">Python</span></summary>
 <pre><span class="k">import</span> <span class="f">numpy</span> <span class="k">as</span> <span class="f">np</span>
@@ -408,7 +428,7 @@ anom.<span class="f">rolling</span>(<span class="n">12</span>, center=<span clas
   <h2>Tendințe &amp; <em>corelații</em></h2>
   <p class="lead">Acum întrebăm: <strong>crește ceva în timp?</strong> și <strong>se mișcă două lucruri împreună?</strong></p>
 
-  <p>Cel mai simplu estimator de tendință e <span class="term">regresia liniară</span>: tragi cea mai bună dreaptă prin date, iar panta ei e schimbarea pe unitate de timp (mm/an, °C/deceniu). Ușor de calculat — dar sensibilă la valori aberante și presupune zgomot „cuminte".</p>
+  <p>Cel mai simplu estimator de tendință e <span class="term">regresia liniară</span>: tragi cea mai bună dreaptă prin date, iar panta ei e schimbarea pe unitate de timp (mm/an, °C/deceniu). Ușor de calculat, dar sensibilă la valori aberante.</p>
 
   <figure class="fig">
     <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nor de puncte cu dreaptă de regresie">
@@ -463,17 +483,60 @@ anom.<span class="f">rolling</span>(<span class="n">12</span>, center=<span clas
     <figcaption>Aceeași pantă, încredere diferită: R² măsoară cât de strâns urmează datele tendința.</figcaption>
   </figure>
 
+  <p>Cealaltă jumătate a poveștii e <span class="term">p-value</span> (sau <em>p-score</em>): probabilitatea de a obține o pantă <strong>cel puțin la fel de mare</strong> dacă <em>de fapt</em> nu există niciun trend (ipoteza nulă). Cu alte cuvinte: cât de des ai vedea „accidental" o pantă ca a ta dacă ai amesteca datele în timp? <strong>p mic</strong> = greu de explicat prin hazard (deci panta e probabil reală). Pragul uzual e <code>p &lt; 0,05</code>. Atenție: <strong>p mic ≠ trend important</strong> — pe serii lungi, chiar și o pantă minusculă devine „semnificativă".</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Valoarea p ca aria din coada distribuției pantelor sub ipoteza nulă">
+      <polygon points="60,170 60,169.7 63,169.6 66,169.6 69,169.5 72,169.4 75,169.3 78,169.2 81,169.1 84,169.0 87,168.8 90,168.7 93,168.5 96,168.3 99,168.1 102,167.8 105,167.5 108,167.2 111,166.9 114,166.5 117,166.1 120,165.6 123,165.1 126,164.5 129,163.9 132,163.3 135,162.5 138,161.8 141,160.9 144,160.0 147,159.0 150,157.9 153,156.8 156,155.5 159,154.2 162,152.8 165,151.3 168,149.7 171,148.0 174,146.3 177,144.4 180,142.4 183,140.3 186,138.1 189,135.9 192,133.5 195,131.0 198,128.5 201,125.9 204,123.1 207,120.4 210,117.5 213,114.6 216,111.6 219,108.6 222,105.5 225,102.4 228,99.3 231,96.2 234,93.1 237,90.0 240,86.9 243,83.9 246,80.9 249,78.0 252,75.1 255,72.4 258,69.8 261,67.3 264,64.9 267,62.6 270,60.5 273,58.6 276,56.8 279,55.3 282,53.9 285,52.7 288,51.8 291,51.0 294,50.4 297,50.1 300,50.0 303,50.1 306,50.4 309,51.0 312,51.8 315,52.7 318,53.9 321,55.3 324,56.8 327,58.6 330,60.5 333,62.6 336,64.9 339,67.3 342,69.8 345,72.4 348,75.1 351,78.0 354,80.9 357,83.9 360,86.9 363,90.0 366,93.1 369,96.2 372,99.3 375,102.4 378,105.5 381,108.6 384,111.6 387,114.6 390,117.5 393,120.4 396,123.1 399,125.9 402,128.5 405,131.0 408,133.5 411,135.9 414,138.1 417,140.3 420,142.4 423,144.4 426,146.3 429,148.0 432,149.7 435,151.3 438,152.8 441,154.2 444,155.5 447,156.8 450,157.9 453,159.0 456,160.0 459,160.9 462,161.8 465,162.5 468,163.3 471,163.9 474,164.5 477,165.1 480,165.6 483,166.1 486,166.5 489,166.9 492,167.2 495,167.5 498,167.8 501,168.1 504,168.3 507,168.5 510,168.7 513,168.8 516,169.0 519,169.1 522,169.2 525,169.3 528,169.4 531,169.5 534,169.6 537,169.6 540,170" fill="#5fc9bb" opacity="0.10"/>
+      <polygon points="470,170 471,163.9 474,164.5 477,165.1 480,165.6 483,166.1 486,166.5 489,166.9 492,167.2 495,167.5 498,167.8 501,168.1 504,168.3 507,168.5 510,168.7 513,168.8 516,169.0 519,169.1 522,169.2 525,169.3 528,169.4 531,169.5 534,169.6 537,169.6 540,170" fill="#df9a82" opacity="0.65"/>
+      <polyline points="60,169.7 63,169.6 66,169.6 69,169.5 72,169.4 75,169.3 78,169.2 81,169.1 84,169.0 87,168.8 90,168.7 93,168.5 96,168.3 99,168.1 102,167.8 105,167.5 108,167.2 111,166.9 114,166.5 117,166.1 120,165.6 123,165.1 126,164.5 129,163.9 132,163.3 135,162.5 138,161.8 141,160.9 144,160.0 147,159.0 150,157.9 153,156.8 156,155.5 159,154.2 162,152.8 165,151.3 168,149.7 171,148.0 174,146.3 177,144.4 180,142.4 183,140.3 186,138.1 189,135.9 192,133.5 195,131.0 198,128.5 201,125.9 204,123.1 207,120.4 210,117.5 213,114.6 216,111.6 219,108.6 222,105.5 225,102.4 228,99.3 231,96.2 234,93.1 237,90.0 240,86.9 243,83.9 246,80.9 249,78.0 252,75.1 255,72.4 258,69.8 261,67.3 264,64.9 267,62.6 270,60.5 273,58.6 276,56.8 279,55.3 282,53.9 285,52.7 288,51.8 291,51.0 294,50.4 297,50.1 300,50.0 303,50.1 306,50.4 309,51.0 312,51.8 315,52.7 318,53.9 321,55.3 324,56.8 327,58.6 330,60.5 333,62.6 336,64.9 339,67.3 342,69.8 345,72.4 348,75.1 351,78.0 354,80.9 357,83.9 360,86.9 363,90.0 366,93.1 369,96.2 372,99.3 375,102.4 378,105.5 381,108.6 384,111.6 387,114.6 390,117.5 393,120.4 396,123.1 399,125.9 402,128.5 405,131.0 408,133.5 411,135.9 414,138.1 417,140.3 420,142.4 423,144.4 426,146.3 429,148.0 432,149.7 435,151.3 438,152.8 441,154.2 444,155.5 447,156.8 450,157.9 453,159.0 456,160.0 459,160.9 462,161.8 465,162.5 468,163.3 471,163.9 474,164.5 477,165.1 480,165.6 483,166.1 486,166.5 489,166.9 492,167.2 495,167.5 498,167.8 501,168.1 504,168.3 507,168.5 510,168.7 513,168.8 516,169.0 519,169.1 522,169.2 525,169.3 528,169.4 531,169.5 534,169.6 537,169.6" fill="none" stroke="#5fc9bb" stroke-width="2"/>
+      <line x1="60" y1="170" x2="540" y2="170" stroke="#1c3e48" stroke-width="1.3"/>
+      <line x1="300" y1="170" x2="300" y2="48" stroke="#90aab0" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="300" y="42" fill="#90aab0" font-family="JetBrains Mono" font-size="11" text-anchor="middle">pantă = 0 (ipoteza nulă)</text>
+      <line x1="470" y1="170" x2="470" y2="48" stroke="#e0b878" stroke-width="2"/>
+      <text x="470" y="42" fill="#e0b878" font-family="JetBrains Mono" font-size="11" text-anchor="middle">panta observată</text>
+      <text x="535" y="130" fill="#df9a82" font-family="JetBrains Mono" font-size="11" text-anchor="middle">p = aria</text>
+      <text x="535" y="146" fill="#df9a82" font-family="JetBrains Mono" font-size="11" text-anchor="middle">din coadă</text>
+      <text x="535" y="162" fill="#df9a82" font-family="JetBrains Mono" font-size="11" text-anchor="middle" font-weight="600">≈ 0,03</text>
+      <text x="180" y="200" fill="#90aab0" font-family="JetBrains Mono" font-size="10">clopotul = distribuția pantelor obținute pur întâmplător</text>
+      <text x="180" y="216" fill="#90aab0" font-family="JetBrains Mono" font-size="10">când <tspan fill="#5fc9bb">nu există</tspan> niciun trend real</text>
+    </svg>
+    <figcaption>Valoarea p ca arie în coadă: dacă nu ar exista niciun trend, ce pante ar produce hazardul? Clopotul e gama de pante întâmplătoare; p ne spune cât de departe în coadă cade panta noastră reală. p mic = greu de explicat prin hazard.</figcaption>
+  </figure>
+
+  <p>A treia metrică e <span class="term">RMSE</span> (root-mean-square error): eroarea tipică a predicției, în <strong>unitățile reale</strong> ale variabilei (cm, °C, m³/s). Calculată ca <code>RMSE = √(media reziduurilor²)</code> — deci o medie a distanțelor verticale între datele reale și dreapta de model. Spre deosebire de R² (fără unități, abstract), RMSE e direct interpretabil: „predicția mea greșește în medie cu ±X cm". E util când vrei să dimensionezi marja de eroare a unui model.</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RMSE ca bandă de eroare tipică în jurul modelului">
+      <line x1="55" y1="190" x2="555" y2="190" stroke="#1c3e48" stroke-width="1.4"/>
+      <line x1="55" y1="40" x2="55" y2="190" stroke="#1c3e48" stroke-width="1.4"/>
+      <!-- ±RMSE band -->
+      <polygon points="75,150 535,72 535,108 75,186" fill="#e0b878" opacity="0.14"/>
+      <!-- regression line -->
+      <line x1="75" y1="168" x2="535" y2="90" stroke="#e0b878" stroke-width="2.5"/>
+      <!-- residuals + data points -->
+      <line x1="120" y1="138" x2="120" y2="160" stroke="#df9a82" stroke-width="1.5"/><circle cx="120" cy="138" r="3.6" fill="#5fc9bb"/>
+      <line x1="180" y1="175" x2="180" y2="149" stroke="#df9a82" stroke-width="1.5"/><circle cx="180" cy="175" r="3.6" fill="#5fc9bb"/>
+      <line x1="240" y1="118" x2="240" y2="138" stroke="#df9a82" stroke-width="1.5"/><circle cx="240" cy="118" r="3.6" fill="#5fc9bb"/>
+      <line x1="300" y1="142" x2="300" y2="127" stroke="#df9a82" stroke-width="1.5"/><circle cx="300" cy="142" r="3.6" fill="#5fc9bb"/>
+      <line x1="360" y1="100" x2="360" y2="116" stroke="#df9a82" stroke-width="1.5"/><circle cx="360" cy="100" r="3.6" fill="#5fc9bb"/>
+      <line x1="420" y1="120" x2="420" y2="105" stroke="#df9a82" stroke-width="1.5"/><circle cx="420" cy="120" r="3.6" fill="#5fc9bb"/>
+      <line x1="480" y1="82" x2="480" y2="94" stroke="#df9a82" stroke-width="1.5"/><circle cx="480" cy="82" r="3.6" fill="#5fc9bb"/>
+      <!-- labels -->
+      <text x="535" y="64" fill="#e0b878" font-family="JetBrains Mono" font-size="11" text-anchor="end">model (regresie liniară)</text>
+      <text x="290" y="55" fill="#e0b878" font-family="JetBrains Mono" font-size="11" text-anchor="middle">banda ± RMSE — eroarea tipică</text>
+      <text x="120" y="215" fill="#df9a82" font-family="JetBrains Mono" font-size="11">reziduuri (distanțe verticale)</text>
+      <text x="550" y="215" fill="#90aab0" font-family="JetBrains Mono" font-size="10" text-anchor="end">timp →</text>
+      <text x="62" y="50" fill="#90aab0" font-family="JetBrains Mono" font-size="10">val (m)</text>
+    </svg>
+    <figcaption>RMSE = abaterea tipică a punctelor față de model, măsurată chiar în unitățile variabilei. Banda galbenă deschisă arată ±RMSE: aproximativ două treimi din puncte cad înăuntru (dacă reziduurile sunt aproape normale).</figcaption>
+  </figure>
+
   <p>Pentru date de mediu se preferă adesea un duo <strong>robust și non-parametric</strong>: testul <span class="term">Mann-Kendall</span> spune <em>dacă</em> există o tendință monotonă (fără să presupună liniaritate sau normalitate), iar <span class="term">panta Sen</span> (Theil-Sen) estimează <em>cât de mare</em> e, rezistent la valori aberante. E standardul în hidrologie și climatologie.</p>
   <figure class="fig">
     <svg viewBox="0 0 600 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mann-Kendall si panta Sen din pante pereche"><line x1="55.0" y1="157.5" x2="80.0" y2="172.5" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="55.0" y1="157.5" x2="105.0" y2="120.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="55.0" y1="157.5" x2="130.0" y2="127.5" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="55.0" y1="157.5" x2="155.0" y2="97.5" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="55.0" y1="157.5" x2="180.0" y2="105.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="55.0" y1="157.5" x2="205.0" y2="63.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="80.0" y1="172.5" x2="105.0" y2="120.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="80.0" y1="172.5" x2="130.0" y2="127.5" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="80.0" y1="172.5" x2="155.0" y2="97.5" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="80.0" y1="172.5" x2="180.0" y2="105.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="80.0" y1="172.5" x2="205.0" y2="63.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="105.0" y1="120.0" x2="130.0" y2="127.5" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="105.0" y1="120.0" x2="155.0" y2="97.5" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="105.0" y1="120.0" x2="180.0" y2="105.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="105.0" y1="120.0" x2="205.0" y2="63.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="130.0" y1="127.5" x2="155.0" y2="97.5" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="130.0" y1="127.5" x2="180.0" y2="105.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="130.0" y1="127.5" x2="205.0" y2="63.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="155.0" y1="97.5" x2="180.0" y2="105.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="155.0" y1="97.5" x2="205.0" y2="63.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="180.0" y1="105.0" x2="205.0" y2="63.0" stroke="#90aab0" stroke-width="0.5" opacity="0.35"/><line x1="55" y1="180" x2="205" y2="180" stroke="#1c3e48" stroke-width="1.2"/><line x1="55" y1="30" x2="55" y2="180" stroke="#1c3e48" stroke-width="1.2"/><line x1="55" y1="193.2" x2="205" y2="61.8" stroke="#e0b878" stroke-width="2.5"/><circle cx="55.0" cy="157.5" r="3.4" fill="#5fc9bb"/><circle cx="80.0" cy="172.5" r="3.4" fill="#5fc9bb"/><circle cx="105.0" cy="120.0" r="3.4" fill="#5fc9bb"/><circle cx="130.0" cy="127.5" r="3.4" fill="#5fc9bb"/><circle cx="155.0" cy="97.5" r="3.4" fill="#5fc9bb"/><circle cx="180.0" cy="105.0" r="3.4" fill="#5fc9bb"/><circle cx="205.0" cy="63.0" r="3.4" fill="#5fc9bb"/><text x="130.0" y="202" fill="#e0b878" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">panta Sen = mediana tuturor pantelor-pereche</text><text x="330" y="40" fill="#eef5f3" font-family="IBM Plex Mono" font-size="12" text-anchor="start">Mann-Kendall numără perechile:</text><circle cx="342" cy="70" r="4" fill="#5fc9bb"/><text x="356" y="74" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="start">concordante (cresc) → +1</text><circle cx="342" cy="98" r="4" fill="#df9a82"/><text x="356" y="102" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="start">discordante (scad) → −1</text><text x="330" y="135" fill="#eef5f3" font-family="IBM Plex Mono" font-size="11" text-anchor="start">S = (concordante − discordante)</text><text x="330" y="153" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="start">S mare & pozitiv → trend crescător</text><text x="330" y="171" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="start">semnul lui S nu depinde de valori</text><text x="330" y="185" fill="#9cbf6e" font-family="IBM Plex Mono" font-size="11" text-anchor="start">aberante → robust</text></svg>
     <figcaption>Mann-Kendall numără doar dacă perechile cresc sau scad (deci ignoră valorile aberante), iar panta Sen ia mediana tuturor pantelor dintre perechi de puncte — de aceea e robustă.</figcaption>
   </figure>
-
-  <figure class="fig">
-    <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Valoarea p ca aria din coada"><polygon points="60,170 60,169.7 63,169.6 66,169.6 69,169.5 72,169.4 75,169.3 78,169.2 81,169.1 84,169.0 87,168.8 90,168.7 93,168.5 96,168.3 99,168.1 102,167.8 105,167.5 108,167.2 111,166.9 114,166.5 117,166.1 120,165.6 123,165.1 126,164.5 129,163.9 132,163.3 135,162.5 138,161.8 141,160.9 144,160.0 147,159.0 150,157.9 153,156.8 156,155.5 159,154.2 162,152.8 165,151.3 168,149.7 171,148.0 174,146.3 177,144.4 180,142.4 183,140.3 186,138.1 189,135.9 192,133.5 195,131.0 198,128.5 201,125.9 204,123.1 207,120.4 210,117.5 213,114.6 216,111.6 219,108.6 222,105.5 225,102.4 228,99.3 231,96.2 234,93.1 237,90.0 240,86.9 243,83.9 246,80.9 249,78.0 252,75.1 255,72.4 258,69.8 261,67.3 264,64.9 267,62.6 270,60.5 273,58.6 276,56.8 279,55.3 282,53.9 285,52.7 288,51.8 291,51.0 294,50.4 297,50.1 300,50.0 303,50.1 306,50.4 309,51.0 312,51.8 315,52.7 318,53.9 321,55.3 324,56.8 327,58.6 330,60.5 333,62.6 336,64.9 339,67.3 342,69.8 345,72.4 348,75.1 351,78.0 354,80.9 357,83.9 360,86.9 363,90.0 366,93.1 369,96.2 372,99.3 375,102.4 378,105.5 381,108.6 384,111.6 387,114.6 390,117.5 393,120.4 396,123.1 399,125.9 402,128.5 405,131.0 408,133.5 411,135.9 414,138.1 417,140.3 420,142.4 423,144.4 426,146.3 429,148.0 432,149.7 435,151.3 438,152.8 441,154.2 444,155.5 447,156.8 450,157.9 453,159.0 456,160.0 459,160.9 462,161.8 465,162.5 468,163.3 471,163.9 474,164.5 477,165.1 480,165.6 483,166.1 486,166.5 489,166.9 492,167.2 495,167.5 498,167.8 501,168.1 504,168.3 507,168.5 510,168.7 513,168.8 516,169.0 519,169.1 522,169.2 525,169.3 528,169.4 531,169.5 534,169.6 537,169.6 540,170" fill="#5fc9bb" opacity="0.10"/><polygon points="470,170 471,163.9 474,164.5 477,165.1 480,165.6 483,166.1 486,166.5 489,166.9 492,167.2 495,167.5 498,167.8 501,168.1 504,168.3 507,168.5 510,168.7 513,168.8 516,169.0 519,169.1 522,169.2 525,169.3 528,169.4 531,169.5 534,169.6 537,169.6 540,170" fill="#df9a82" opacity="0.5"/><polyline points="60,169.7 63,169.6 66,169.6 69,169.5 72,169.4 75,169.3 78,169.2 81,169.1 84,169.0 87,168.8 90,168.7 93,168.5 96,168.3 99,168.1 102,167.8 105,167.5 108,167.2 111,166.9 114,166.5 117,166.1 120,165.6 123,165.1 126,164.5 129,163.9 132,163.3 135,162.5 138,161.8 141,160.9 144,160.0 147,159.0 150,157.9 153,156.8 156,155.5 159,154.2 162,152.8 165,151.3 168,149.7 171,148.0 174,146.3 177,144.4 180,142.4 183,140.3 186,138.1 189,135.9 192,133.5 195,131.0 198,128.5 201,125.9 204,123.1 207,120.4 210,117.5 213,114.6 216,111.6 219,108.6 222,105.5 225,102.4 228,99.3 231,96.2 234,93.1 237,90.0 240,86.9 243,83.9 246,80.9 249,78.0 252,75.1 255,72.4 258,69.8 261,67.3 264,64.9 267,62.6 270,60.5 273,58.6 276,56.8 279,55.3 282,53.9 285,52.7 288,51.8 291,51.0 294,50.4 297,50.1 300,50.0 303,50.1 306,50.4 309,51.0 312,51.8 315,52.7 318,53.9 321,55.3 324,56.8 327,58.6 330,60.5 333,62.6 336,64.9 339,67.3 342,69.8 345,72.4 348,75.1 351,78.0 354,80.9 357,83.9 360,86.9 363,90.0 366,93.1 369,96.2 372,99.3 375,102.4 378,105.5 381,108.6 384,111.6 387,114.6 390,117.5 393,120.4 396,123.1 399,125.9 402,128.5 405,131.0 408,133.5 411,135.9 414,138.1 417,140.3 420,142.4 423,144.4 426,146.3 429,148.0 432,149.7 435,151.3 438,152.8 441,154.2 444,155.5 447,156.8 450,157.9 453,159.0 456,160.0 459,160.9 462,161.8 465,162.5 468,163.3 471,163.9 474,164.5 477,165.1 480,165.6 483,166.1 486,166.5 489,166.9 492,167.2 495,167.5 498,167.8 501,168.1 504,168.3 507,168.5 510,168.7 513,168.8 516,169.0 519,169.1 522,169.2 525,169.3 528,169.4 531,169.5 534,169.6 537,169.6" fill="none" stroke="#5fc9bb" stroke-width="2"/><line x1="60" y1="170" x2="540" y2="170" stroke="#1c3e48" stroke-width="1.3"/><line x1="300" y1="170" x2="300" y2="40" stroke="#90aab0" stroke-width="1" stroke-dasharray="3 3"/><text x="300" y="34" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">pantă = 0 (fără trend)</text><line x1="470" y1="170" x2="470" y2="40" stroke="#e0b878" stroke-width="2"/><text x="470" y="32" fill="#e0b878" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">panta observată</text><text x="515" y="140" fill="#df9a82" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">p = aria</text><text x="515" y="154" fill="#df9a82" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">din coadă</text><text x="300" y="210" fill="#90aab0" font-family="IBM Plex Mono" font-size="10" text-anchor="middle">ce trenduri ar produce pur întâmplător datele aleatorii →</text></svg>
-    <figcaption>Valoarea p: dacă nu ar exista niciun trend, ce pante am obține din pură întâmplare? Clopotul e gama de pante întâmplătoare; p e cât de departe în coadă cade panta noastră reală. p mic = greu de explicat prin hazard.</figcaption>
-  </figure>
-
 
   <p>Când vrei să vezi dacă două variabile se mișcă împreună, folosești <span class="term">corelația</span>: coeficientul <strong>Pearson</strong> măsoară relația liniară, iar <strong>Spearman</strong> (pe ranguri) măsoară orice relație monotonă — mai potrivit pentru date asimetrice. Reține regula de aur: <em>corelația nu înseamnă cauzalitate</em>.</p>
 
@@ -555,25 +618,51 @@ r_s, _ = stats.<span class="f">spearmanr</span>(debit, turbiditate)  <span class
   <p>Începem cu o noțiune-punte: <span class="term">cuantila</span>. O percentilă e doar o cuantilă în procente — P95 e valoarea sub care stau 95% din date. Pe graficul cumulat (CDF/ECDF) o citești invers: alegi o probabilitate pe axa verticală, mergi până la curbă și cobori la valoare. Această operație — „de la probabilitate la valoare" — este exact ce face și o perioadă de retur.</p>
 
   <figure class="fig">
-    <svg viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Citirea unei percentile pe curba cumulată">
+    <svg viewBox="0 0 600 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Citirea unei percentile pe curba cumulată">
+      <!-- gridlines at key probabilities -->
+      <line x1="95" y1="120" x2="565" y2="120" stroke="#1c3e48" stroke-width="0.8" opacity="0.55"/>
+      <line x1="95" y1="55" x2="565" y2="55" stroke="#1c3e48" stroke-width="0.8" opacity="0.55"/>
       <!-- axes -->
       <line x1="95" y1="195" x2="565" y2="195" stroke="#1c3e48" stroke-width="1.5"/>
       <line x1="95" y1="195" x2="95" y2="30" stroke="#1c3e48" stroke-width="1.5"/>
-      <text x="85" y="40" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="end">1,0</text>
-      <text x="85" y="199" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="end">0</text>
-      <!-- CDF curve -->
-      <path d="M100,192 C190,188 250,155 330,112 C410,70 470,46 560,38" fill="none" stroke="#5fc9bb" stroke-width="2.5"/>
-      <!-- read-off guides at p=0.95 -->
-      <line x1="95" y1="55" x2="420" y2="55" stroke="#e0b878" stroke-width="1.8" stroke-dasharray="5 4"/>
-      <line x1="420" y1="55" x2="420" y2="195" stroke="#e0b878" stroke-width="1.8" stroke-dasharray="5 4"/>
-      <circle cx="420" cy="55" r="4.5" fill="#e0b878"/>
-      <text x="110" y="48" fill="#e0b878" font-family="IBM Plex Mono" font-size="12">p = 0,95</text>
-      <text x="430" y="185" fill="#e0b878" font-family="IBM Plex Mono" font-size="12">↑ P95 (valoarea)</text>
+      <!-- y-axis ticks -->
+      <g font-family="JetBrains Mono" font-size="10" fill="#90aab0" text-anchor="end">
+        <text x="89" y="199">0</text>
+        <text x="89" y="158">0,25</text>
+        <text x="89" y="124">0,5</text>
+        <text x="89" y="92">0,75</text>
+        <text x="89" y="59">0,95</text>
+        <text x="89" y="34">1,0</text>
+      </g>
+      <!-- x-axis ticks (concrete: înălțimea valului în m) -->
+      <g font-family="JetBrains Mono" font-size="10" fill="#90aab0" text-anchor="middle">
+        <text x="100" y="210">0</text>
+        <text x="230" y="210">1,2</text>
+        <text x="330" y="210">2</text>
+        <text x="420" y="210">3,2</text>
+        <text x="560" y="210">7</text>
+      </g>
+      <!-- CDF curve — trece exact prin (230,120) la p=0,5 și (420,55) la p=0,95 -->
+      <path d="M100,192 C170,188 215,150 230,120 C260,80 380,65 420,55 C475,45 525,40 560,35" fill="none" stroke="#5fc9bb" stroke-width="2.8" stroke-linecap="round"/>
+      <!-- median marker (P50) — comparison -->
+      <line x1="95" y1="120" x2="230" y2="120" stroke="#90aab0" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.7"/>
+      <line x1="230" y1="120" x2="230" y2="195" stroke="#90aab0" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.7"/>
+      <circle cx="230" cy="120" r="3.6" fill="#90aab0" opacity="0.85"/>
+      <text x="238" y="116" fill="#90aab0" font-family="JetBrains Mono" font-size="10">P50 (median) ≈ 1,2 m</text>
+      <!-- P95 read-off (main story) -->
+      <line x1="95" y1="55" x2="420" y2="55" stroke="#e0b878" stroke-width="2" stroke-dasharray="5 4"/>
+      <line x1="420" y1="55" x2="420" y2="195" stroke="#e0b878" stroke-width="2" stroke-dasharray="5 4"/>
+      <circle cx="420" cy="55" r="5" fill="#e0b878"/>
+      <!-- numbered steps -->
+      <text x="105" y="49" fill="#e0b878" font-family="JetBrains Mono" font-size="11" font-weight="600">① alegi p = 0,95</text>
+      <text x="232" y="49" fill="#e0b878" font-family="JetBrains Mono" font-size="11">② orizontal până la curbă</text>
+      <text x="426" y="78" fill="#e0b878" font-family="JetBrains Mono" font-size="11">③ cobori la axă</text>
+      <text x="426" y="186" fill="#e0b878" font-family="JetBrains Mono" font-size="11" font-weight="600">P95 ≈ 3,2 m</text>
       <!-- axis titles -->
-      <text x="330" y="232" fill="#90aab0" font-family="IBM Plex Mono" font-size="12" text-anchor="middle">valoare →</text>
-      <text x="38" y="112" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="middle" transform="rotate(-90 38 112)">probabilitate cumulată</text>
+      <text x="330" y="245" fill="#90aab0" font-family="JetBrains Mono" font-size="12" text-anchor="middle">valoare (înălțimea valului, m) →</text>
+      <text x="40" y="112" fill="#90aab0" font-family="JetBrains Mono" font-size="11" text-anchor="middle" transform="rotate(-90 40 112)">probabilitate cumulată</text>
     </svg>
-    <figcaption>Cuantila: alegi o probabilitate, citești valoarea. Un nivel de retur e o cuantilă foarte înaltă.</figcaption>
+    <figcaption>Cuantila: alegi o probabilitate, mergi orizontal la curbă, cobori la valoare. Mediana (P50, gri) e ~1,2 m — peste jumătate din valuri sunt sub această valoare. P95 ≈ 3,2 m — doar 5% dintre valuri o depășesc. Un nivel de retur e o cuantilă foarte înaltă (p &gt; 0,99).</figcaption>
   </figure>
 
   <div class="box"><span class="lab">Aceeași idee, trei nume</span>
@@ -620,7 +709,7 @@ r_s, _ = stats.<span class="f">spearmanr</span>(debit, turbiditate)  <span class
   </figure>
 
   <div class="delta"><span class="lab">De ce contează pentru deltă</span>
-  Înălțimea valului la 100 de ani și nivelul extrem al mării sunt parametrii de proiectare pentru protecția costieră și pentru hărțile de hazard. Atenție: extrapolarea la 100 de ani dintr-o serie de câteva zeci de ani are incertitudine mare — de aceea raportezi mereu un interval de încredere (vezi bootstrap-ul de mai jos), nu o singură cifră.</div>
+  Înălțimea valului la 100 de ani și nivelul extrem al mării sunt parametrii de proiectare pentru protecția costieră și pentru hărțile de hazard. Atenție: extrapolarea la 100 de ani dintr-o serie de câteva zeci de ani are incertitudine mare — de aceea raportezi mereu un interval de încredere, nu o singură cifră.</div>
 
   <details class="code"><summary>Cod Python — maxime anuale &amp; GEV<span class="py">Python</span></summary>
 <pre><span class="k">from</span> <span class="f">scipy</span> <span class="k">import</span> stats
@@ -661,7 +750,7 @@ lo, hi = np.<span class="f">percentile</span>(boot, [<span class="n">2.5</span>,
   <div class="stag"><span class="num">Partea 5</span><span class="dur">7 min</span></div>
   <span class="ladder lv3">Nivel · igienă statistică</span>
   <h2>Capcane <em>frecvente</em></h2>
-  <p class="lead">Aproape toate greșelile din analiza datelor de mediu se reduc la șase. Recunoaște-le și ai câștigat jumătate din luptă.</p>
+  <p class="lead">Aproape toate greșelile din analiza datelor de mediu se reduc la opt. Recunoaște-le și ai câștigat jumătate din luptă.</p>
 
   <div class="pit"><h4><span>01</span>Autocorelația</h4><p>Valorile consecutive (zilnice, lunare) seamănă între ele, deci „efectivul real" de date independente e mai mic decât pare. Asta <strong>supraestimează semnificația</strong> unui trend: un p mic poate fi iluzoriu. Folosește numărul efectiv de grade de libertate sau teste care țin cont de autocorelație (ex. Mann-Kendall modificat).</p></div>
 
@@ -674,6 +763,10 @@ lo, hi = np.<span class="f">percentile</span>(boot, [<span class="n">2.5</span>,
   <div class="pit"><h4><span>05</span>Un singur model nu e adevărul</h4><p>La CMIP6, dispersia dintre modele e adesea mai mare decât diferența dintre scenarii pe termen scurt. Raportează <strong>mediana ansamblului + interval</strong>, niciodată un singur model ca pe o certitudine.</p></div>
 
   <div class="pit"><h4><span>06</span>Goluri &amp; valori-lipsă</h4><p>SST, NDVI și Lake Water Quality au lacune (nori). Nu interpola naiv peste goluri lungi și nu confunda un <code>_FillValue</code> cu un zero real — verifică întotdeauna masca de date.</p></div>
+
+  <div class="pit"><h4><span>07</span>Erori în date &amp; filtrare insuficientă</h4><p>Senzori derivați, unități greșite, valori aberante reale (furtună) vs. artefacte (spike instrumental). Nu rula statistici „pe orb": verifică distribuția, vezi minim/maxim, exclude valorile fizic imposibile. O singură valoare de <code>-9999</code> rămasă în serie strică media, abaterea standard și trendul. Plot înainte de calcul.</p></div>
+
+  <div class="pit"><h4><span>08</span>Statistici neadecvate distribuției</h4><p>Folosirea statisticilor potrivite pentru tipul greșit de distribuție: media (și abaterea standard) când distribuția e asimetrică sau are coadă lungă, în loc de mediană + IQR. Pentru debit, val, turbiditate — extremele trag media în sus, iar „valoarea tipică" devine o ficțiune. Alege statistica după ce te uiți la histogramă, nu invers.</p></div>
 </section>
 
 <!-- EXTENDED TOOLKIT -->
@@ -758,8 +851,290 @@ lo, hi = np.<span class="f">percentile</span>(boot, [<span class="n">2.5</span>,
   <div class="subh"><span class="mk">A1</span>Analiză spectrală &amp; wavelet</div>
   <p>Orice ritm ascuns se vede în <strong>frecvență</strong>. <span class="term">Spectrul de putere</span> (FFT / periodogramă) arată ce cicluri domină — anual, semestrial, de maree. <span class="term">Wavelet</span> merge mai departe: arată <em>când</em> apare fiecare ciclu, util pentru semnale nestaționare (un eveniment de furtună, un regim care se schimbă).</p>
   <figure class="fig">
-    <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Serie sintetica din trei sinusoide si spectrul ei"><polyline points="70,40.0 73,37.9 76,35.9 79,33.9 82,32.0 85,30.2 88,28.5 91,27.0 94,25.6 97,24.5 100,23.5 103,22.8 106,22.3 109,22.0 112,22.0 115,22.2 118,22.7 121,23.4 124,24.3 127,25.4 130,26.7 133,28.2 136,29.8 139,31.6 142,33.5 145,35.4 148,37.5 151,39.5 154,41.6 157,43.7 160,45.7 163,47.6 166,49.4 169,51.1 172,52.7 175,54.1 178,55.3 181,56.3 184,57.0 187,57.6 190,57.9 193,58.0 196,57.8 199,57.4 202,56.8 205,56.0 208,54.9 211,53.6 214,52.2 217,50.6 220,48.8 223,47.0 226,45.0 229,43.0 232,40.9 235,38.8 238,36.8 241,34.8 244,32.8 247,31.0 250,29.2 253,27.6 256,26.2 259,25.0 262,23.9 265,23.1 268,22.5 271,22.1 274,22.0 277,22.1 280,22.5 283,23.0 286,23.8 289,24.9 292,26.1 295,27.5 298,29.0 301,30.8 304,32.6 307,34.5 310,36.6 313,38.6 316,40.7 319,42.8 322,44.8 325,46.8 328,48.6 331,50.4 334,52.0 337,53.5 340,54.8 343,55.9 346,56.7 349,57.4 352,57.8 355,58.0 358,57.9 361,57.6 364,57.1 367,56.4 370,55.4 373,54.2 376,52.8 379,51.3 382,49.6 385,47.8 388,45.9 391,43.9 394,41.8 397,39.8 400,37.7 403,35.7 406,33.7 409,31.8 412,30.0 415,28.3 418,26.8 421,25.5 424,24.4 427,23.4 430,22.7 433,22.3 436,22.0 439,22.0 442,22.3 445,22.7 448,23.4 451,24.4 454,25.5 457,26.8 460,28.3 463,30.0 466,31.8 469,33.7 472,35.7 475,37.7 478,39.8 481,41.8 484,43.9 487,45.9 490,47.8 493,49.6 496,51.3 499,52.8 502,54.2 505,55.4 508,56.4 511,57.1 514,57.6 517,57.9 520,58.0 523,57.8 526,57.4 529,56.7 532,55.9 535,54.8 538,53.5 541,52.0 544,50.4 547,48.6 550,46.8 553,44.8 556,42.8 559,40.7" fill="none" stroke="#5fc9bb" stroke-width="1.5" opacity="0.9"/><text x="560" y="43" fill="#5fc9bb" font-family="IBM Plex Mono" font-size="10" text-anchor="end">f1</text><polyline points="70,80.0 73,77.1 76,74.4 79,72.0 82,70.3 85,69.3 88,69.0 91,69.5 94,70.8 97,72.8 100,75.2 103,78.0 106,81.0 109,83.9 112,86.5 115,88.6 118,90.1 121,90.9 124,90.9 127,90.1 130,88.6 133,86.5 136,83.9 139,81.0 142,78.0 145,75.2 148,72.8 151,70.8 154,69.5 157,69.0 160,69.3 163,70.3 166,72.0 169,74.4 172,77.1 175,80.0 178,82.9 181,85.6 184,88.0 187,89.7 190,90.7 193,91.0 196,90.5 199,89.2 202,87.2 205,84.8 208,82.0 211,79.0 214,76.1 217,73.5 220,71.4 223,69.9 226,69.1 229,69.1 232,69.9 235,71.4 238,73.5 241,76.1 244,79.0 247,82.0 250,84.8 253,87.2 256,89.2 259,90.5 262,91.0 265,90.7 268,89.7 271,88.0 274,85.6 277,82.9 280,80.0 283,77.1 286,74.4 289,72.0 292,70.3 295,69.3 298,69.0 301,69.5 304,70.8 307,72.8 310,75.2 313,78.0 316,81.0 319,83.9 322,86.5 325,88.6 328,90.1 331,90.9 334,90.9 337,90.1 340,88.6 343,86.5 346,83.9 349,81.0 352,78.0 355,75.2 358,72.8 361,70.8 364,69.5 367,69.0 370,69.3 373,70.3 376,72.0 379,74.4 382,77.1 385,80.0 388,82.9 391,85.6 394,88.0 397,89.7 400,90.7 403,91.0 406,90.5 409,89.2 412,87.2 415,84.8 418,82.0 421,79.0 424,76.1 427,73.5 430,71.4 433,69.9 436,69.1 439,69.1 442,69.9 445,71.4 448,73.5 451,76.1 454,79.0 457,82.0 460,84.8 463,87.2 466,89.2 469,90.5 472,91.0 475,90.7 478,89.7 481,88.0 484,85.6 487,82.9 490,80.0 493,77.1 496,74.4 499,72.0 502,70.3 505,69.3 508,69.0 511,69.5 514,70.8 517,72.8 520,75.2 523,78.0 526,81.0 529,83.9 532,86.5 535,88.6 538,90.1 541,90.9 544,90.9 547,90.1 550,88.6 553,86.5 556,83.9 559,81.0" fill="none" stroke="#7fa8e0" stroke-width="1.5" opacity="0.9"/><text x="560" y="83" fill="#7fa8e0" font-family="IBM Plex Mono" font-size="10" text-anchor="end">f2</text><polyline points="70,120.0 73,116.6 76,114.1 79,113.0 82,113.6 85,115.8 88,119.0 91,122.5 94,125.3 97,126.8 100,126.7 103,124.9 106,121.9 109,118.5 112,115.4 115,113.4 118,113.1 121,114.4 124,117.1 127,120.5 130,123.8 133,126.2 136,127.0 139,126.1 142,123.7 145,120.4 148,117.0 151,114.4 154,113.1 157,113.5 160,115.5 163,118.6 166,122.0 169,125.0 172,126.7 175,126.8 178,125.2 181,122.4 184,118.9 187,115.7 190,113.6 193,113.0 196,114.2 199,116.7 202,120.1 205,123.4 208,125.9 211,127.0 214,126.3 217,124.1 220,120.9 223,117.5 226,114.6 229,113.1 232,113.3 235,115.1 238,118.1 241,121.6 244,124.7 247,126.6 250,126.9 253,125.5 256,122.8 259,119.4 262,116.1 265,113.8 268,113.0 271,113.9 274,116.3 277,119.6 280,123.0 283,125.7 286,126.9 289,126.5 292,124.5 295,121.3 298,117.9 301,114.9 304,113.2 307,113.2 310,114.8 313,117.7 316,121.2 319,124.3 322,126.4 325,127.0 328,125.8 331,123.2 334,119.8 337,116.5 340,114.0 343,113.0 346,113.7 349,116.0 352,119.2 355,122.6 358,125.4 361,126.9 364,126.7 367,124.8 370,121.8 373,118.3 376,115.3 379,113.4 382,113.1 385,114.5 388,117.3 391,120.7 394,124.0 397,126.2 400,127.0 403,126.0 406,123.6 409,120.3 412,116.9 415,114.3 418,113.0 421,113.5 424,115.6 427,118.8 430,122.2 433,125.1 436,126.8 439,126.8 442,125.1 445,122.2 448,118.8 451,115.6 454,113.5 457,113.0 460,114.3 463,116.9 466,120.3 469,123.6 472,126.0 475,127.0 478,126.2 481,124.0 484,120.7 487,117.3 490,114.5 493,113.1 496,113.4 499,115.3 502,118.3 505,121.8 508,124.8 511,126.7 514,126.9 517,125.4 520,122.6 523,119.2 526,116.0 529,113.7 532,113.0 535,114.0 538,116.5 541,119.8 544,123.2 547,125.8 550,127.0 553,126.4 556,124.3 559,121.2" fill="none" stroke="#9cbf6e" stroke-width="1.5" opacity="0.9"/><text x="560" y="123" fill="#9cbf6e" font-family="IBM Plex Mono" font-size="10" text-anchor="end">f3</text><text x="70" y="24" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="start">① trei sinusoide ascunse</text><polyline points="70,185.0 72,179.9 74,175.1 76,170.9 78,167.5 80,164.9 82,163.3 84,162.7 86,163.0 88,163.9 90,165.3 92,166.9 94,168.6 96,170.1 98,171.2 100,171.9 102,172.2 104,172.1 106,171.7 108,171.2 110,170.7 112,170.5 114,170.6 116,171.2 118,172.3 120,173.9 122,175.8 124,178.1 126,180.3 128,182.4 130,184.2 132,185.4 134,185.9 136,185.6 138,184.6 140,182.9 142,180.7 144,178.3 146,175.8 148,173.5 150,171.8 152,170.9 154,170.8 156,171.7 158,173.6 160,176.4 162,179.9 164,183.9 166,188.2 168,192.4 170,196.4 172,199.8 174,202.7 176,204.8 178,206.1 180,206.7 182,206.8 184,206.5 186,206.0 188,205.5 190,205.0 192,204.8 194,204.9 196,205.2 198,205.7 200,206.3 202,206.7 204,206.9 206,206.5 208,205.5 210,203.8 212,201.3 214,198.2 216,194.4 218,190.3 220,186.0 222,181.8 224,178.0 226,174.9 228,172.5 230,171.1 232,170.7 234,171.2 236,172.6 238,174.6 240,177.0 242,179.5 244,181.9 246,183.8 248,185.2 250,185.8 252,185.7 254,184.9 256,183.4 258,181.4 260,179.2 262,176.9 264,174.8 266,173.0 268,171.7 270,170.8 272,170.5 274,170.6 276,171.0 278,171.5 280,171.9 282,172.2 284,172.1 286,171.6 288,170.7 290,169.4 292,167.8 294,166.1 296,164.5 298,163.3 300,162.7 302,162.9 304,164.0 306,166.1 308,169.1 310,172.9 312,177.5 314,182.4 316,187.6 318,192.5 320,197.1 322,200.9 324,203.9 326,206.0 328,207.1 330,207.3 332,206.7 334,205.5 336,203.9 338,202.2 340,200.6 342,199.3 344,198.4 346,197.9 348,197.8 350,198.1 352,198.5 354,199.0 356,199.4 358,199.5 360,199.2 362,198.3 364,197.0 366,195.2 368,193.1 370,190.8 372,188.6 374,186.6 376,185.1 378,184.3 380,184.2 382,184.8 384,186.2 386,188.1 388,190.5 390,193.0 392,195.4 394,197.4 396,198.8 398,199.3 400,198.9 402,197.5 404,195.1 406,192.0 408,188.2 410,184.0 412,179.7 414,175.6 416,171.8 418,168.7 420,166.2 422,164.5 424,163.5 426,163.1 428,163.3 430,163.7 432,164.3 434,164.8 436,165.1 438,165.2 440,165.0 442,164.5 444,164.0 446,163.5 448,163.2 450,163.3 452,163.9 454,165.2 456,167.3 458,170.2 460,173.6 462,177.6 464,181.8 466,186.1 468,190.1 470,193.6 472,196.4 474,198.3 476,199.2 478,199.1 480,198.2 482,196.5 484,194.2 486,191.7 488,189.3 490,187.1 492,185.4 494,184.4 496,184.1 498,184.6 500,185.8 502,187.6 504,189.7 506,191.9 508,194.2 510,196.1 512,197.7 514,198.8 516,199.4 518,199.5 520,199.3 522,198.8 524,198.3 526,197.9 528,197.8 530,198.1 532,198.8 534,199.9 536,201.4 538,203.1 540,204.7 542,206.1 544,207.0 546,207.3 548,206.7 550,205.1 552,202.5 554,199.1 556,194.9 558,190.1 560,185.0" fill="none" stroke="#eef5f3" stroke-width="1.8"/><text x="70" y="158" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="start">② ce vezi în date: suma lor (pare haotică)</text><line x1="70" y1="285" x2="560" y2="285" stroke="#1c3e48" stroke-width="1.2"/><text x="70" y="238" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="start">③ FFT recuperează exact cele trei frecvențe</text><line x1="161.9" y1="285" x2="161.9" y2="252.6" stroke="#5fc9bb" stroke-width="3"/><circle cx="161.9" cy="252.6" r="3" fill="#5fc9bb"/><text x="161.875" y="246.6" fill="#5fc9bb" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">f=3</text><line x1="284.4" y1="285" x2="284.4" y2="265.2" stroke="#7fa8e0" stroke-width="3"/><circle cx="284.4" cy="265.2" r="3" fill="#7fa8e0"/><text x="284.375" y="259.2" fill="#7fa8e0" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">f=7</text><line x1="468.1" y1="285" x2="468.1" y2="272.4" stroke="#9cbf6e" stroke-width="3"/><circle cx="468.1" cy="272.4" r="3" fill="#9cbf6e"/><text x="468.125" y="266.4" fill="#9cbf6e" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">f=13</text><text x="560" y="301" fill="#90aab0" font-family="IBM Plex Mono" font-size="10" text-anchor="end">frecvență →</text></svg>
-    <figcaption>Idee de bază a FFT: o serie care pare haotică (mijloc) e de fapt suma câtorva sinusoide (sus). Spectrul (jos) le scoate înapoi ca vârfuri la frecvențele lor — exact ce faci cu o serie reală de debit sau nivel.</figcaption>
+    <style>
+      .spectral-controls {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        padding: 14px 16px;
+        background: linear-gradient(160deg, var(--surface), var(--bg2));
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        margin-bottom: 14px;
+      }
+      .sc-card { display: flex; flex-direction: column; gap: 8px; }
+      .sc-head {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.86rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+      }
+      .sc-row {
+        display: grid;
+        grid-template-columns: 64px 1fr 36px;
+        align-items: center;
+        gap: 8px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+      .sc-row > .sc-val {
+        text-align: right;
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .sc-row > input[type=range] {
+        width: 100%;
+        accent-color: currentColor;
+        height: 4px;
+        cursor: pointer;
+        margin: 0;
+      }
+      .sc-extreme {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: minmax(170px, auto) 1fr 1fr;
+        gap: 14px;
+        align-items: center;
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+      }
+      .sc-extreme .sc-head { white-space: nowrap; margin: 0; }
+      .sc-extreme .sc-row { grid-template-columns: 70px 1fr 44px; }
+      @media (max-width: 700px) { .sc-extreme { grid-template-columns: 1fr; } }
+      .sc-presets {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        padding-top: 8px;
+        border-top: 1px solid var(--line);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+      .sc-presets button {
+        background: rgba(95,201,187,0.08);
+        border: 1px solid var(--line);
+        color: var(--foam);
+        font-family: inherit;
+        font-size: inherit;
+        padding: 5px 11px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background .15s ease, border-color .15s ease;
+      }
+      .sc-presets button:hover {
+        background: rgba(95,201,187,0.18);
+        border-color: var(--foam);
+      }
+      @media (max-width: 700px) {
+        .spectral-controls { grid-template-columns: 1fr; }
+      }
+    </style>
+    <div class="spectral-controls" id="spectral-controls">
+      <div class="sc-card" data-idx="0" style="color:#5fc9bb">
+        <div class="sc-head">f1 · sinusoidă</div>
+        <div class="sc-row"><span>amplitudine</span><input type="range" min="0" max="25" step="0.5" value="18" data-param="amp"><span class="sc-val" data-show="amp">18</span></div>
+        <div class="sc-row"><span>frecvență</span><input type="range" min="1" max="20" step="1" value="3" data-param="freq"><span class="sc-val" data-show="freq">3</span></div>
+      </div>
+      <div class="sc-card" data-idx="1" style="color:#7fa8e0">
+        <div class="sc-head">f2 · sinusoidă</div>
+        <div class="sc-row"><span>amplitudine</span><input type="range" min="0" max="25" step="0.5" value="11" data-param="amp"><span class="sc-val" data-show="amp">11</span></div>
+        <div class="sc-row"><span>frecvență</span><input type="range" min="1" max="20" step="1" value="7" data-param="freq"><span class="sc-val" data-show="freq">7</span></div>
+      </div>
+      <div class="sc-card" data-idx="2" style="color:#9cbf6e">
+        <div class="sc-head">f3 · sinusoidă</div>
+        <div class="sc-row"><span>amplitudine</span><input type="range" min="0" max="25" step="0.5" value="7" data-param="amp"><span class="sc-val" data-show="amp">7</span></div>
+        <div class="sc-row"><span>frecvență</span><input type="range" min="1" max="20" step="1" value="13" data-param="freq"><span class="sc-val" data-show="freq">13</span></div>
+      </div>
+      <div class="sc-extreme" style="color:#e0b878">
+        <div class="sc-head">⚡ eveniment extrem (furtună / spike)</div>
+        <div class="sc-row"><span>amplitudine</span><input type="range" min="0" max="40" step="1" value="0" data-extreme="amp"><span class="sc-val" data-show-extreme="amp">0</span></div>
+        <div class="sc-row"><span>poziție</span><input type="range" min="0.05" max="0.95" step="0.05" value="0.6" data-extreme="pos"><span class="sc-val" data-show-extreme="pos">0,60</span></div>
+      </div>
+      <div class="sc-presets">
+        <span>preset-uri rapide:</span>
+        <button data-preset="default">implicit</button>
+        <button data-preset="annual">cicluri lente</button>
+        <button data-preset="storm">furtună (HF dominant)</button>
+        <button data-preset="single">o singură frecvență</button>
+      </div>
+    </div>
+    <svg id="spectral-svg" viewBox="0 0 600 305" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vizualizare interactiva: 3 sinusoide, suma lor si spectrul FFT">
+      <text x="70" y="22" fill="#90aab0" font-family="JetBrains Mono" font-size="11">① datele observate: suma sinusoidelor (mută slider-ele!)</text>
+      <path id="iv-sum" fill="none" stroke="#eef5f3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle id="iv-spike-marker" r="5" fill="#e0b878" stroke="#1c3e48" stroke-width="1.2" opacity="0"/>
+      <text id="iv-spike-lbl" font-family="JetBrains Mono" font-size="11" fill="#e0b878" text-anchor="middle" opacity="0">⚡ spike</text>
+      <text x="70" y="110" fill="#90aab0" font-family="JetBrains Mono" font-size="11">② sinusoidele care o compun</text>
+      <path id="iv-s1" fill="none" stroke="#5fc9bb" stroke-width="1.5" opacity="0.95"/>
+      <text id="iv-s1-lbl" x="563" y="133" fill="#5fc9bb" font-family="JetBrains Mono" font-size="10">f1</text>
+      <path id="iv-s2" fill="none" stroke="#7fa8e0" stroke-width="1.5" opacity="0.95"/>
+      <text id="iv-s2-lbl" x="563" y="170" fill="#7fa8e0" font-family="JetBrains Mono" font-size="10">f2</text>
+      <path id="iv-s3" fill="none" stroke="#9cbf6e" stroke-width="1.5" opacity="0.95"/>
+      <text id="iv-s3-lbl" x="563" y="207" fill="#9cbf6e" font-family="JetBrains Mono" font-size="10">f3</text>
+      <text x="70" y="240" fill="#90aab0" font-family="JetBrains Mono" font-size="11">③ spectrul (FFT): vârfuri la frecvențele alese, înălțime ∝ amplitudine</text>
+      <rect id="iv-fft-spread" x="80" y="288" width="475" height="0" fill="#e0b878" opacity="0"/>
+      <text id="iv-fft-spread-lbl" x="320" y="262" fill="#e0b878" font-family="JetBrains Mono" font-size="10" text-anchor="middle" opacity="0">⚡ energia spike-ului se împrăștie pe toate frecvențele (FFT „pierde" evenimentul)</text>
+      <line x1="70" y1="290" x2="560" y2="290" stroke="#1c3e48" stroke-width="1.2"/>
+      <g id="iv-fft-ticks"></g>
+      <line id="iv-fft1-line" stroke="#5fc9bb" stroke-width="3"/>
+      <circle id="iv-fft1-dot" r="3.5" fill="#5fc9bb"/>
+      <text id="iv-fft1-lbl" font-family="JetBrains Mono" font-size="9" text-anchor="middle" fill="#5fc9bb">f=3</text>
+      <line id="iv-fft2-line" stroke="#7fa8e0" stroke-width="3"/>
+      <circle id="iv-fft2-dot" r="3.5" fill="#7fa8e0"/>
+      <text id="iv-fft2-lbl" font-family="JetBrains Mono" font-size="9" text-anchor="middle" fill="#7fa8e0">f=7</text>
+      <line id="iv-fft3-line" stroke="#9cbf6e" stroke-width="3"/>
+      <circle id="iv-fft3-dot" r="3.5" fill="#9cbf6e"/>
+      <text id="iv-fft3-lbl" font-family="JetBrains Mono" font-size="9" text-anchor="middle" fill="#9cbf6e">f=13</text>
+      <text x="560" y="302" fill="#90aab0" font-family="JetBrains Mono" font-size="10" text-anchor="end">frecvență →</text>
+    </svg>
+    <figcaption>Mută sliderele ca să vezi cum amplitudinea și frecvența fiecărei sinusoide schimbă <em>semnalul observat</em> (sus) și <em>spectrul FFT</em> (jos). FFT „desface" semnalul complex în vârfurile sale la frecvențele componente. Acum încearcă să crești amplitudinea evenimentului extrem (⚡): vei vedea un spike pe semnal — iar în FFT energia lui se „împrăștie" pe toate frecvențele, fără un vârf clar. Aici începe utilitatea analizei wavelet (vezi mai jos).</figcaption>
+    <script>
+    (function(){
+      var sines = [
+        { amp: 18, freq: 3,  yc: 130 },
+        { amp: 11, freq: 7,  yc: 170 },
+        { amp: 7,  freq: 13, yc: 207 }
+      ];
+      var presets = {
+        'default': [[18,3],[11,7],[7,13]],
+        'annual':  [[22,1],[12,2],[5,4]],
+        'storm':   [[5,2],[4,5],[22,12]],
+        'single':  [[22,5],[0,1],[0,1]]
+      };
+      var extreme = { amp: 0, pos: 0.6 };
+      var SPIKE_SIGMA = 0.015;
+      var xMin = 70, xMax = 560, SAMPLES = 320;
+      var sumYC = 55, sumScale = 0.55;
+      var fftYBase = 290, fftXMin = 80, fftXMax = 555, fftMaxFreq = 20;
+      function el(id){ return document.getElementById(id); }
+      function spikeAt(t){
+        if(extreme.amp <= 0) return 0;
+        var d = (t - extreme.pos) / SPIKE_SIGMA;
+        return extreme.amp * Math.exp(-d*d);
+      }
+      function buildPath(fn){
+        var d = '';
+        for(var i=0;i<=SAMPLES;i++){
+          var t = i/SAMPLES;
+          var x = xMin + t*(xMax-xMin);
+          var y = fn(t);
+          d += (i===0?'M':' L') + x.toFixed(1) + ',' + y.toFixed(1);
+        }
+        return d;
+      }
+      function update(){
+        // SUM: sinusoide + spike
+        el('iv-sum').setAttribute('d', buildPath(function(t){
+          var y = 0;
+          for(var i=0;i<sines.length;i++) y += sines[i].amp * Math.sin(2*Math.PI*sines[i].freq*t);
+          return sumYC - (y + spikeAt(t))*sumScale;
+        }));
+        // Spike marker + label (visible only when amp > 0)
+        var spikeActive = extreme.amp > 0;
+        var spikeOp = spikeActive ? 1 : 0;
+        var spikeX = xMin + extreme.pos*(xMax - xMin);
+        var spikeY = sumYC - extreme.amp*sumScale; // peak position on sum (sin contribution at peak ≈ 0)
+        el('iv-spike-marker').setAttribute('cx', spikeX);
+        el('iv-spike-marker').setAttribute('cy', spikeY);
+        el('iv-spike-marker').setAttribute('opacity', spikeActive ? 0.9 : 0);
+        el('iv-spike-lbl').setAttribute('x', spikeX);
+        el('iv-spike-lbl').setAttribute('y', Math.max(20, spikeY - 10));
+        el('iv-spike-lbl').setAttribute('opacity', spikeOp);
+        // FFT spread band (when spike active, energy spreads across all frequencies)
+        var spreadH = Math.min(28, extreme.amp * 0.9);
+        el('iv-fft-spread').setAttribute('y', fftYBase - spreadH);
+        el('iv-fft-spread').setAttribute('height', spreadH);
+        el('iv-fft-spread').setAttribute('opacity', spikeActive ? 0.30 : 0);
+        el('iv-fft-spread-lbl').setAttribute('opacity', spikeOp);
+        // Sines individual + lollipops
+        sines.forEach(function(s, i){
+          var idx = i+1;
+          el('iv-s'+idx).setAttribute('d', buildPath(function(t){
+            return s.yc - s.amp*0.85*Math.sin(2*Math.PI*s.freq*t);
+          }));
+          var fx = fftXMin + (s.freq/fftMaxFreq)*(fftXMax-fftXMin);
+          var h = Math.max(3, s.amp*1.7);
+          var yTop = fftYBase - h;
+          el('iv-fft'+idx+'-line').setAttribute('x1', fx);
+          el('iv-fft'+idx+'-line').setAttribute('x2', fx);
+          el('iv-fft'+idx+'-line').setAttribute('y1', fftYBase);
+          el('iv-fft'+idx+'-line').setAttribute('y2', yTop);
+          el('iv-fft'+idx+'-dot').setAttribute('cx', fx);
+          el('iv-fft'+idx+'-dot').setAttribute('cy', yTop);
+          el('iv-fft'+idx+'-lbl').setAttribute('x', fx);
+          el('iv-fft'+idx+'-lbl').setAttribute('y', yTop - 5);
+          el('iv-fft'+idx+'-lbl').textContent = 'f=' + s.freq;
+        });
+      }
+      function setTicks(){
+        var g = el('iv-fft-ticks');
+        g.innerHTML = '';
+        var ns = 'http://www.w3.org/2000/svg';
+        for(var f=2; f<=fftMaxFreq; f+=2){
+          var fx = fftXMin + (f/fftMaxFreq)*(fftXMax-fftXMin);
+          var t = document.createElementNS(ns,'line');
+          t.setAttribute('x1', fx); t.setAttribute('x2', fx);
+          t.setAttribute('y1', fftYBase); t.setAttribute('y2', fftYBase+3);
+          t.setAttribute('stroke', '#1c3e48'); t.setAttribute('stroke-width', '0.8');
+          g.appendChild(t);
+        }
+      }
+      function applyPreset(name){
+        var p = presets[name]; if(!p) return;
+        for(var i=0;i<3;i++){ sines[i].amp = p[i][0]; sines[i].freq = p[i][1]; }
+        document.querySelectorAll('#spectral-controls .sc-card').forEach(function(card){
+          var idx = parseInt(card.dataset.idx);
+          card.querySelectorAll('input[type=range]').forEach(function(input){
+            var param = input.dataset.param;
+            input.value = sines[idx][param];
+            var valSpan = card.querySelector('[data-show="'+param+'"]');
+            if(valSpan) valSpan.textContent = sines[idx][param];
+          });
+        });
+        update();
+      }
+      document.querySelectorAll('#spectral-controls .sc-card').forEach(function(card){
+        var idx = parseInt(card.dataset.idx);
+        card.querySelectorAll('input[type=range]').forEach(function(input){
+          input.addEventListener('input', function(e){
+            var param = e.target.dataset.param;
+            var val = parseFloat(e.target.value);
+            sines[idx][param] = val;
+            var valSpan = card.querySelector('[data-show="'+param+'"]');
+            if(valSpan) valSpan.textContent = val;
+            update();
+          });
+        });
+      });
+      // Extreme event sliders
+      document.querySelectorAll('#spectral-controls .sc-extreme input[type=range]').forEach(function(input){
+        input.addEventListener('input', function(e){
+          var param = e.target.dataset.extreme;
+          var val = parseFloat(e.target.value);
+          extreme[param] = val;
+          var valSpan = document.querySelector('#spectral-controls .sc-extreme [data-show-extreme="'+param+'"]');
+          if(valSpan) valSpan.textContent = (param === 'pos') ? val.toFixed(2).replace('.', ',') : val;
+          update();
+        });
+      });
+      document.querySelectorAll('#spectral-controls .sc-presets button').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          // Resetează și evenimentul extrem când aplici un preset
+          extreme.amp = 0; extreme.pos = 0.6;
+          var ampInput = document.querySelector('#spectral-controls .sc-extreme input[data-extreme="amp"]');
+          var posInput = document.querySelector('#spectral-controls .sc-extreme input[data-extreme="pos"]');
+          if(ampInput){ ampInput.value = 0; document.querySelector('[data-show-extreme="amp"]').textContent = 0; }
+          if(posInput){ posInput.value = 0.6; document.querySelector('[data-show-extreme="pos"]').textContent = '0,60'; }
+          applyPreset(btn.dataset.preset);
+        });
+      });
+      setTicks();
+      update();
+    })();
+    </script>
   </figure>
 
   <figure class="fig">
@@ -793,8 +1168,8 @@ coef, _ = pywt.<span class="f">cwt</span>(x, np.<span class="f">arange</span>(<s
   </details>
 
 
-  <div class="subh"><span class="mk">A2</span>Corelația încrucișată (lead-lag)</div>
-  <p>Două serii pot fi legate, dar <em>decalat</em>. <span class="term">Corelația încrucișată</span> (CCF) caută la ce lag corelația e maximă — adică cu cât întârzie un semnal față de altul.</p>
+  <div class="subh"><span class="mk">A2</span>Cross-correlation (lead-lag)</div>
+  <p>Două serii pot fi legate, dar <em>decalat</em>. <span class="term">Cross-correlation</span> (CCF) caută la ce lag corelația e maximă — adică cu cât întârzie un semnal față de altul.</p>
   <figure class="fig">
     <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Corelatie incrucisata cu varf la lag pozitiv"><line x1="60" y1="125" x2="555" y2="125" stroke="#1c3e48" stroke-width="1.3"/><line x1="300" y1="30" x2="300" y2="133" stroke="#1c3e48" stroke-width="1.2" stroke-dasharray="3 3"/><line x1="60" y1="107" x2="555" y2="107" stroke="#df9a82" stroke-width="1" stroke-dasharray="4 4"/><rect x="74" y="125.0" width="12" height="0.0" fill="#5fc9bb" opacity="0.88"/><rect x="96" y="125.0" width="12" height="0.0" fill="#5fc9bb" opacity="0.88"/><rect x="118" y="125.0" width="12" height="0.0" fill="#5fc9bb" opacity="0.88"/><rect x="140" y="125.0" width="12" height="0.0" fill="#5fc9bb" opacity="0.88"/><rect x="162" y="125.0" width="12" height="0.0" fill="#5fc9bb" opacity="0.88"/><rect x="184" y="125.0" width="12" height="0.0" fill="#5fc9bb" opacity="0.88"/><rect x="206" y="125.0" width="12" height="0.0" fill="#5fc9bb" opacity="0.88"/><rect x="228" y="125.0" width="12" height="0.0" fill="#5fc9bb" opacity="0.88"/><rect x="250" y="124.9" width="12" height="0.1" fill="#5fc9bb" opacity="0.88"/><rect x="272" y="124.3" width="12" height="0.7" fill="#5fc9bb" opacity="0.88"/><rect x="294" y="122.2" width="12" height="2.8" fill="#5fc9bb" opacity="0.88"/><rect x="316" y="116.2" width="12" height="8.8" fill="#5fc9bb" opacity="0.88"/><rect x="338" y="104.0" width="12" height="21.0" fill="#5fc9bb" opacity="0.88"/><rect x="360" y="85.7" width="12" height="39.3" fill="#5fc9bb" opacity="0.88"/><rect x="382" y="67.8" width="12" height="57.2" fill="#5fc9bb" opacity="0.88"/><rect x="404" y="60.2" width="12" height="64.8" fill="#e0b878" opacity="0.88"/><rect x="426" y="67.8" width="12" height="57.2" fill="#5fc9bb" opacity="0.88"/><rect x="448" y="85.7" width="12" height="39.3" fill="#5fc9bb" opacity="0.88"/><rect x="470" y="104.0" width="12" height="21.0" fill="#5fc9bb" opacity="0.88"/><rect x="492" y="116.2" width="12" height="8.8" fill="#5fc9bb" opacity="0.88"/><rect x="514" y="122.2" width="12" height="2.8" fill="#5fc9bb" opacity="0.88"/><text x="300" y="145" fill="#90aab0" font-family="IBM Plex Mono" font-size="10" text-anchor="middle">0</text><text x="410" y="145" fill="#e0b878" font-family="IBM Plex Mono" font-size="10" text-anchor="middle">+5</text><text x="410" y="28" fill="#e0b878" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">vârf la +5 zile</text><text x="410" y="42" fill="#90aab0" font-family="IBM Plex Mono" font-size="10" text-anchor="middle">al 2-lea semnal întârzie 5 zile</text><text x="500" y="145" fill="#90aab0" font-family="IBM Plex Mono" font-size="11" text-anchor="middle">lag (zile) →</text></svg>
     <figcaption>CCF: vârful la un lag pozitiv arată că al doilea semnal urmează primul cu acel decalaj.</figcaption>

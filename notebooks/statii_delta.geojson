@@ -1,0 +1,12 @@
+{
+"type": "FeatureCollection",
+"name": "statii_delta",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "Sulina", "tip": "port", "populatie": 3200, "temp_iulie": 24.2 }, "geometry": { "type": "Point", "coordinates": [ 29.65, 45.15 ] } },
+{ "type": "Feature", "properties": { "name": "Sf. Gheorghe", "tip": "sat", "populatie": 800, "temp_iulie": 23.8 }, "geometry": { "type": "Point", "coordinates": [ 29.6, 44.9 ] } },
+{ "type": "Feature", "properties": { "name": "Crișan", "tip": "sat", "populatie": 250, "temp_iulie": 23.5 }, "geometry": { "type": "Point", "coordinates": [ 29.42, 45.02 ] } },
+{ "type": "Feature", "properties": { "name": "Maliuc", "tip": "rezervație", "populatie": 120, "temp_iulie": 22.9 }, "geometry": { "type": "Point", "coordinates": [ 29.38, 45.12 ] } },
+{ "type": "Feature", "properties": { "name": "Chilia Veche", "tip": "sat", "populatie": 1100, "temp_iulie": 23.1 }, "geometry": { "type": "Point", "coordinates": [ 29.28, 45.42 ] } }
+]
+}

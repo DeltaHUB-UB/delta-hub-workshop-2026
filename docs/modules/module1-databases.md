@@ -59,6 +59,25 @@ Fiecare participant lucrează cu **un singur set de date**, din Copernicus Clima
     [Catalog oficial :octicons-arrow-right-24:](https://developers.google.com/earth-engine/datasets){ .card-link target="_blank" }
     [Community catalog :octicons-arrow-right-24:](https://gee-community-catalog.org/projects/){ .card-link target="_blank" }
 
+-   :material-chart-timeline-variant:{ .lg .middle } __Climate Engine__
+
+    ---
+
+    `Explorare · No-code · GEE`
+
+    Aplicație web construită peste Google Earth Engine — analizezi și exporți date de climă & teledetecție pentru Delta Dunării direct în browser, **fără cod**. Serii temporale, anomalii, comparații cu un baseline climatic, hărți interactive — pe punct, poligon desenat sau shapefile încărcat.
+
+    **Date disponibile:** imagini Landsat / Sentinel-2 / MODIS, precipitații (CHIRPS, GPM, gridMET), reanaliză ERA5, indici de secetă (**SPI · SPEI · PDSI · EDDI**), Land Surface Temperature, umiditatea solului, NDVI/EVI, evapotranspirație, indici de incendiu.
+
+    **Vizualizare:** hartă interactivă (pan/zoom, overlay), serii temporale (line/bar), hărți de anomalie față de medie multianuală, comparare a două perioade.
+
+    **Descărcare într-un click:** **CSV** (serii temporale pe AOI), **PNG** (hărți & grafice), **GeoTIFF** (rastere pentru perioada și variabila aleasă).
+
+    - :material-plus-circle:{ .pro } Cea mai rapidă cale pentru o explorare seria-temporală-pe-poligon a deltei fără a scrie Earth Engine cod.
+    - :material-information:{ .info } Cont gratuit (Google sign-in). Limite de export pentru poligoane mari — taie zona pe sub-bazine sau gurile Dunării.
+
+    [Deschide Climate Engine :octicons-arrow-right-24:](https://app.climateengine.org/climateEngine){ .card-link target="_blank" }
+
 </div>
 
 ### Proiecții climatice (viitor)

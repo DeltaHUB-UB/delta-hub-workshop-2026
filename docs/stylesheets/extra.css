@@ -233,10 +233,83 @@ body {
   opacity: 0.9;
 }
 /* Push everything default to the left, logo to the right */
-.md-header__option,
 .md-header__source,
 .md-header__topic[data-md-component="header-topic"] {
   order: 1;
+}
+/* Language switcher sits just before the logo on the right */
+.md-header__option {
+  order: 90;
+  margin-right: 0.4rem;
+}
+
+/* ============================================================
+   LANGUAGE SWITCHER — explicit EN / RO pill toggle (always visible)
+   ============================================================ */
+
+/* Hide Material's default globe-icon dropdown trigger */
+.md-header__option .md-select > .md-header__button {
+  display: none;
+}
+
+/* Show the dropdown content inline, always visible — no hover needed */
+.md-header__option .md-select__inner {
+  position: static;
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+  max-height: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  min-width: 0;
+  visibility: visible;
+}
+
+/* Horizontal pill container */
+.md-header__option .md-select__list {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(244, 239, 229, 0.10);
+  border: 1px solid rgba(244, 239, 229, 0.22);
+  border-radius: 999px;
+  padding: 3px;
+  margin: 0;
+  list-style: none;
+}
+
+.md-header__option .md-select__item { margin: 0; padding: 0; }
+
+.md-header__option .md-select__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.1rem;
+  padding: 0.22rem 0.7rem;
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(244, 239, 229, 0.72) !important;
+  background: transparent;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.md-header__option .md-select__link:hover {
+  color: #F4EFE5 !important;
+  background: rgba(244, 239, 229, 0.12);
+}
+
+/* Active language pill — ember highlight */
+html:lang(en) .md-header__option .md-select__link[hreflang="en"],
+html:lang(ro) .md-header__option .md-select__link[hreflang="ro"] {
+  background: var(--ember);
+  color: #F4EFE5 !important;
+  box-shadow: 0 2px 6px -2px rgba(232, 93, 47, 0.55);
 }
 
 /* ---------- TABS BAR — search lives here, aligned with tab links ---------- */

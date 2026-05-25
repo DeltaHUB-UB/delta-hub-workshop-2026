@@ -1,5 +1,5 @@
 site_name: DELTA-Hub 2026 Data Science Workshop
-site_description: Data Science & AI-Assisted Coding pentru Delta Dunării — 22-23 mai 2026
+site_description: Data Science & AI-Assisted Coding for the Danube Delta — 22-23 May 2026
 site_url: https://deltahub-ub.github.io/delta-hub-workshop-2026/
 site_author: DELTA-Hub
 
@@ -8,12 +8,12 @@ repo_name: delta-hub-workshop-2026
 edit_uri: edit/main/docs/
 
 copyright: |
-  &copy; 2026 DELTA-Hub · Universitatea din București ·
+  &copy; 2026 DELTA-Hub · University of Bucharest ·
   <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
 
 theme:
   name: material
-  language: ro
+  language: en
 
   logo: assets/Delta-HubWebsite1.png
   favicon: assets/favicon.svg
@@ -60,7 +60,7 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
-      permalink_title: Link permanent
+      permalink_title: Permanent link
 
   # PyMdown Extensions
   - pymdownx.arithmatex:
@@ -93,17 +93,46 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
 
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          default: true
+          name: EN
+          build: true
+          site_name: DELTA-Hub 2026 Data Science Workshop
+          site_description: Data Science & AI-Assisted Coding for the Danube Delta — 22-23 May 2026
+        - locale: ro
+          name: RO
+          build: true
+          site_name: Workshop DELTA-Hub 2026 — Data Science
+          site_description: Data Science & AI-Assisted Coding pentru Delta Dunării — 22-23 mai 2026
+          theme:
+            language: ro
+          nav_translations:
+            Home: Acasă
+            Program: Program
+            InfoDelta: InfoDelta
+            Modules: Module
+            Projects: Proiecte
+            Resources: Resurse
+
 nav:
-  - Acasă: index.md
+  - Home: index.md
   - Program: program.md
   - InfoDelta: info-delta.md
-  - Module:
+  - Modules:
       - modules/module1-databases.md
       - modules/module2-python.md
       - modules/module3-statistics.md
       - modules/module4-ai-coding.md
-  - Proiecte: projects.md
-  - Resurse: resources.md
+  - Projects: projects.md
+  - Resources: resources.md
 
 extra_css:
   - stylesheets/extra.css
@@ -114,7 +143,7 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/DeltaHUB-UB/delta-hub-workshop-2026
-      name: Sursa pe GitHub
+      name: Source on GitHub
     - icon: fontawesome/solid/globe
       link: https://delta-hub.unibuc.ro/
-      name: Site-ul DELTA-Hub
+      name: DELTA-Hub website

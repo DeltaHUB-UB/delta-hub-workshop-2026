@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How deltas work — highlights from the lecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ISOLATED under #delta-lecture — can be embedded in MkDocs Material
+   (or any page) without conflicting with the theme. To embed:
+   copy the <section id="delta-lecture">...</section> block
+   together with this <style> block into a markdown page as raw HTML.
+   Heading hierarchy: the host page keeps <h1>; the component starts at <h2>.
+   ============================================================ */
+
+html, body { background:#0c1719; margin:0; }
+
+#delta-lecture{
+  /* Hero + footer stay on a dark gradient (sea-deep/sea) — explicitly defined. */
+  --sea-deep:#08202e; --sea:#0e3346; --water:#1d6e7c; --water-light:#6FA68F;
+  --sand:#e6d8bd; --sand-deep:#D4A574;
+  /* Aligned with the site (dark slate): bg + card + text */
+  --paper:#0c1719; --card:#13252a;
+  --ink:#F4EFE5; --ink-soft:#b9c4c8;
+  --green:#2e9e6b; --blue:#5fa3d0; --flood:#E85D2F; --warm:#d98b3a; --veg:#5a8f1f;
+  --line:rgba(244,239,229,.10);
+  font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif; color:var(--ink); background:var(--paper);
+  line-height:1.6; max-width:1080px; margin:0 auto; border-radius:18px;
+  overflow:hidden; box-shadow:0 30px 80px -40px rgba(0,0,0,.65);
+  -webkit-font-smoothing:antialiased;
+}
+#delta-lecture *{box-sizing:border-box;}
+
+#delta-lecture .dl-hero{
+  position:relative; padding:64px 48px 220px; color:var(--paper); overflow:hidden;
+  background:radial-gradient(120% 90% at 80% -10%, rgba(63,166,160,.35), transparent 60%),
+             linear-gradient(180deg,var(--sea-deep) 0%, var(--sea) 100%);
+}
+#delta-lecture .dl-kicker{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--water-light);margin:0 0 18px;}
+#delta-lecture .dl-hero h2{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(2.1rem,5.2vw,3.7rem);line-height:1.02;letter-spacing:-.015em;margin:0 0 18px;max-width:18ch;color:#fff;}
+#delta-lecture .dl-hero h2 em{font-style:italic;color:var(--water-light);}
+#delta-lecture .dl-lead{font-size:clamp(1.02rem,1.7vw,1.22rem);max-width:62ch;color:rgba(246,241,230,.86);margin:0;}
+#delta-lecture .dl-by{margin-top:26px;font-family:"JetBrains Mono",monospace;font-size:.78rem;letter-spacing:.04em;color:rgba(246,241,230,.6);}
+#delta-lecture .dl-by b{color:var(--paper);font-weight:600;}
+#delta-lecture .dl-strata{position:absolute;left:0;right:0;bottom:0;height:200px;pointer-events:none;}
+#delta-lecture .dl-strata svg{width:100%;height:100%;display:block;}
+
+#delta-lecture .dl-body{padding:0 48px 56px;}
+#delta-lecture .dl-chapter{padding:56px 0;border-bottom:1px solid var(--line);scroll-margin-top:80px;}
+#delta-lecture .dl-chapter:last-child{border-bottom:0;}
+#delta-lecture .dl-num{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:600;display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+#delta-lecture .dl-num::before{content:"";width:34px;height:2px;background:var(--blue);display:inline-block;}
+#delta-lecture .dl-num.flood{color:var(--flood);}#delta-lecture .dl-num.flood::before{background:var(--flood);}
+#delta-lecture .dl-num.warm{color:var(--warm);}#delta-lecture .dl-num.warm::before{background:var(--warm);}
+#delta-lecture .dl-chapter h3{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.08;letter-spacing:-.01em;margin:0 0 14px;color:var(--ink);}
+#delta-lecture .dl-chapter > p{font-size:1.06rem;max-width:70ch;color:var(--ink-soft);margin:0 0 26px;}
+#delta-lecture .dl-chapter > p strong{color:var(--ink);font-weight:600;}
+
+#delta-lecture .dl-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
+#delta-lecture .dl-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px 24px;position:relative;transition:transform .25s ease, box-shadow .25s ease;}
+#delta-lecture .dl-card:hover{transform:translateY(-3px);box-shadow:0 18px 36px -22px rgba(0,0,0,.55);}
+#delta-lecture .dl-card h4{font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem;margin:0 0 8px;color:var(--ink);}
+#delta-lecture .dl-card p{margin:0;font-size:.96rem;color:var(--ink-soft);}
+#delta-lecture .dl-tag{font-family:"JetBrains Mono",monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--water);margin-bottom:10px;display:block;}
+#delta-lecture .dl-card svg.icon{width:100%;height:auto;display:block;margin-bottom:14px;border-radius:9px;background:#fbf7ee;border:1px solid var(--line);}
+
+#delta-lecture .dl-rwt{display:grid;gap:14px;grid-template-columns:repeat(3,1fr);margin-top:8px;}
+#delta-lecture .dl-rwt .dl-card{border-top:3px solid;}
+#delta-lecture .dl-rwt .r{border-top-color:var(--green);}#delta-lecture .dl-rwt .w{border-top-color:var(--flood);}#delta-lecture .dl-rwt .t{border-top-color:var(--blue);}
+#delta-lecture .dl-param .dl-card{border-left:3px solid var(--line);}
+
+#delta-lecture .dl-fig{margin:28px 0 4px;}
+#delta-lecture .dl-fig svg{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--line);border-radius:14px;}
+#delta-lecture .dl-figcap{font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.04em;color:var(--ink-soft);margin-top:9px;text-transform:uppercase;}
+
+#delta-lecture .dl-pull{margin:30px 0 6px;padding:24px 26px;border-left:4px solid var(--flood);background:linear-gradient(90deg,rgba(232,93,47,.12),transparent);border-radius:0 12px 12px 0;}
+#delta-lecture .dl-pull p{font-family:"Fraunces",serif;font-style:italic;font-size:1.18rem;line-height:1.35;margin:0;color:var(--ink);}
+#delta-lecture .dl-pull cite{display:block;margin-top:10px;font-style:normal;font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.06em;color:var(--ink-soft);}
+
+#delta-lecture .dl-si{margin-top:8px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);}
+#delta-lecture .dl-si-bar{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;color:#fff;font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.08em;background:linear-gradient(90deg,var(--green) 0%, var(--water) 42%, var(--blue) 60%, var(--flood) 100%);}
+#delta-lecture .dl-si-foot{display:flex;justify-content:space-between;gap:16px;padding:16px 22px;font-size:.92rem;color:var(--ink-soft);}
+#delta-lecture .dl-si-foot span{flex:1;}#delta-lecture .dl-si-foot .right{text-align:right;}
+
+#delta-lecture .dl-threat{display:grid;gap:18px;margin-top:8px;}
+#delta-lecture .dl-meter{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;}
+#delta-lecture .dl-meter .lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;}
+#delta-lecture .dl-meter .lab b{font-size:.95rem;color:var(--ink);letter-spacing:0;text-transform:none;font-family:"Fraunces",serif;}
+#delta-lecture .dl-track{height:10px;border-radius:6px;background:rgba(244,239,229,.10);overflow:hidden;}
+#delta-lecture .dl-fill{height:100%;border-radius:6px;}
+
+#delta-lecture .dl-danube{margin-top:30px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,var(--card),#0a1d22);}
+#delta-lecture .dl-danube-head{padding:20px 26px;background:linear-gradient(120deg,var(--sea) 0%, var(--water) 100%);color:#fff;}
+#delta-lecture .dl-danube-head h4{font-family:"Fraunces",serif;font-weight:600;font-size:1.35rem;margin:0;color:#fff;}
+#delta-lecture .dl-danube-head span{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--water-light);display:block;margin-bottom:6px;}
+#delta-lecture .dl-danube-grid{display:grid;gap:1px;background:var(--line);grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+#delta-lecture .dl-danube-grid > div{background:var(--card);padding:20px 22px;}
+#delta-lecture .dl-danube-grid h5{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;margin:0 0 6px;color:var(--ink);display:flex;align-items:center;gap:9px;}
+#delta-lecture .dl-danube-grid h5 .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;}
+#delta-lecture .dl-danube-grid p{margin:0;font-size:.93rem;color:var(--ink-soft);}
+
+#delta-lecture .dl-chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:6px;}
+#delta-lecture .dl-chip{font-family:"JetBrains Mono",monospace;font-size:.74rem;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);}
+#delta-lecture .dl-chip b{color:var(--water-light);font-weight:600;}
+
+#delta-lecture .dl-foot{background:linear-gradient(180deg,var(--sea) 0%,var(--sea-deep) 100%);color:var(--paper);padding:46px 48px;}
+#delta-lecture .dl-foot h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.5rem;margin:0 0 18px;color:#fff;}
+#delta-lecture .dl-foot ul.dl-take{list-style:none;padding:0;margin:0;display:grid;gap:12px;}
+#delta-lecture .dl-foot ul.dl-take li{display:flex;gap:14px;align-items:flex-start;font-size:1.02rem;color:rgba(246,241,230,.84);}
+#delta-lecture .dl-foot ul.dl-take li b{color:var(--water-light);}
+#delta-lecture .dl-foot ul.dl-take li::before{content:"→";color:var(--water-light);font-family:"JetBrains Mono",monospace;flex:0 0 auto;margin-top:2px;}
+#delta-lecture .dl-refs{margin-top:38px;padding-top:26px;border-top:1px solid rgba(246,241,230,.16);}
+#delta-lecture .dl-refs h4{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--water-light);margin:0 0 16px;}
+#delta-lecture .dl-reflist{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:11px;}
+#delta-lecture .dl-reflist li{font-size:.92rem;color:rgba(246,241,230,.72);line-height:1.55;padding-left:18px;position:relative;}
+#delta-lecture .dl-reflist li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:rgba(63,166,160,.5);}
+#delta-lecture .dl-reflist li.feat{color:rgba(246,241,230,.95);}
+#delta-lecture .dl-reflist li.feat::before{background:var(--water-light);width:8px;height:8px;top:8px;left:-1px;}
+#delta-lecture .dl-reflist .ttl{font-style:italic;}
+#delta-lecture .dl-reflist a{color:var(--water-light);text-decoration:none;border-bottom:1px solid rgba(63,166,160,.45);word-break:break-word;}
+#delta-lecture .dl-reflist a:hover{border-bottom-color:var(--water-light);color:#fff;}
+#delta-lecture .dl-reflist .jrn{color:rgba(246,241,230,.55);}
+
+@media (max-width:680px){
+  #delta-lecture .dl-hero{padding:44px 26px 150px;}
+  #delta-lecture .dl-strata{height:140px;}
+  #delta-lecture .dl-body{padding:0 26px 40px;}
+  #delta-lecture .dl-foot{padding:38px 26px;}
+  #delta-lecture .dl-rwt{grid-template-columns:1fr;}
+  #delta-lecture .dl-si-foot{flex-direction:column;}#delta-lecture .dl-si-foot .right{text-align:left;}
+}
+</style>
+</head>
+<body>
+
+<section id="delta-lecture">
+
+  <!-- ===================== HERO ===================== -->
+  <header class="dl-hero">
+    <p class="dl-kicker">Invited lecture · 22 May 2026 · Bucharest</p>
+    <h2>How deltas work — the <em>processes</em> that shape them</h2>
+    <p class="dl-lead">A delta is where a river delivers its sediment to the sea. The contest between river discharge, waves and tides decides a delta's shape, where it grows and how it survives in a warming world. Highlights from Edward Anthony's opening lecture, in preparation for hands-on work with data.</p>
+    <p class="dl-by">Lecture by <b>Prof. Edward Anthony</b> · CEREGE, Aix-Marseille Université &amp; ICUB, University of Bucharest</p>
+    <div class="dl-strata" aria-hidden="true">
+      <svg viewBox="0 0 1200 200" preserveAspectRatio="none">
+        <path d="M0,120 C200,90 380,150 560,118 C760,82 960,150 1200,110 L1200,200 L0,200 Z" fill="#0e3346"/>
+        <path d="M0,150 C220,128 420,168 600,148 C800,126 1000,170 1200,142 L1200,200 L0,200 Z" fill="#1d6e7c" opacity=".55"/>
+        <path d="M540,118 C560,140 580,158 600,200 L600,200 L600,118 Z" fill="#3fa6a0" opacity=".5"/>
+        <path d="M0,178 C300,160 600,190 900,172 C1050,164 1130,182 1200,176 L1200,200 L0,200 Z" fill="#08202e"/>
+      </svg>
+    </div>
+  </header>
+
+  <div class="dl-body">
+
+    <!-- ===================== 1 · RIVER · SEA ===================== -->
+    <article class="dl-chapter" id="river-sea">
+      <div class="dl-num">01 · River · Sea</div>
+      <h3>Deltas are where a river meets the sea</h3>
+      <p>Deltas are 3D coastal accumulations of predominantly <strong>fluvial-origin</strong> sediment, built at river mouths — and the most important link in the global <strong>source-to-sink</strong> system, which transports sediment from continents through rivers to the ocean.</p>
+
+      <figure class="dl-fig">
+        <svg viewBox="0 0 720 300" role="img" aria-label="Source-to-sink section: from drainage basin to submarine fan">
+          <rect width="720" height="300" fill="#ffffff"/>
+          <path d="M430,165 L720,165 L720,300 L430,300 Z" fill="#1d6e7c" opacity="0.16"/>
+          <path d="M0,300 L0,168 L16,150 L30,70 L44,108 L58,52 L74,104 L92,74 L112,120 L150,152 L240,158 L330,161 L430,166 L510,214 L620,240 L690,266 L720,272 L720,300 Z" fill="#e6d8bd"/>
+          <path d="M430,166 L510,214 L620,240 L690,266 L720,272 L720,300 L430,300 Z" fill="#cdb78f" opacity="0.55"/>
+          <ellipse cx="678" cy="282" rx="42" ry="12" fill="#0e3346" opacity="0.32"/>
+          <path d="M16,150 L30,70 L44,108 L58,52 L74,104 L92,74 L112,120 L150,152 Z" fill="#cdb78f" opacity="0.45"/>
+          <path d="M58,60 C92,112 132,150 232,158 C322,164 382,165 430,166" fill="none" stroke="#1f7ab0" stroke-width="3" stroke-linecap="round"/>
+          <path d="M44,108 C70,122 82,138 112,150" fill="none" stroke="#1f7ab0" stroke-width="1.5" opacity="0.7"/>
+          <line x1="300" y1="165" x2="720" y2="165" stroke="#0e3346" stroke-width="1" stroke-dasharray="5 4" opacity="0.5"/>
+          <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="#3a525a">
+            <text x="34" y="184">Drainage basin</text><text x="186" y="185">Alluvial plain</text>
+            <text x="318" y="150">Subaerial delta</text><text x="452" y="198" fill="#0e3346">Delta front</text>
+            <text x="548" y="230" fill="#0e3346">Prodelta</text><text x="620" y="258" fill="#0e3346">Submarine fan</text>
+            <text x="604" y="159" fill="#0e3346">Sea level</text>
+          </g>
+        </svg>
+        <figcaption class="dl-figcap">Fig. 1 — The source-to-sink system: from drainage basin to deep submarine fan.</figcaption>
+      </figure>
+
+      <p style="margin-top:30px;">The planview shape of deltas emerges from the balance of three forces — <strong>river, waves, tides</strong>. Anthony prefers "influence" over "dominance" (after Galloway, 1975): real deltas sit on a continuum, not in three rigid boxes.</p>
+
+      <div class="dl-rwt">
+        <div class="dl-card r">
+          <svg class="icon" viewBox="0 0 240 120" aria-hidden="true">
+            <rect width="240" height="120" fill="#1d6e7c" opacity="0.14"/><rect width="240" height="40" fill="#e6d8bd"/>
+            <g stroke="#d8c7a3" stroke-width="9" fill="none" stroke-linecap="round"><path d="M120,40 L86,104"/><path d="M120,40 L120,110"/><path d="M120,40 L154,104"/></g>
+            <g stroke="#1f7ab0" stroke-width="3" fill="none" stroke-linecap="round"><path d="M120,16 L120,40"/><path d="M120,40 L86,104"/><path d="M120,40 L120,110"/><path d="M120,40 L154,104"/></g>
+          </svg>
+          <span class="dl-tag">River influence</span>
+          <h4>Built by the river</h4>
+          <p>Strong fluvial input and subaqueous levees push the delta seaward, into a "bird-foot" (e.g. Mississippi).</p>
+        </div>
+        <div class="dl-card w">
+          <svg class="icon" viewBox="0 0 240 120" aria-hidden="true">
+            <rect width="240" height="120" fill="#1d6e7c" opacity="0.14"/>
+            <path d="M0,0 H240 V44 C200,46 168,64 120,78 C92,86 64,52 40,48 C24,46 12,46 0,46 Z" fill="#e6d8bd"/>
+            <path d="M120,12 L120,78" stroke="#1f7ab0" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M120,78 C150,86 176,80 198,64" stroke="#cdb78f" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <g stroke="#0e3346" stroke-width="2" opacity="0.5" stroke-linecap="round"><path d="M150,116 L162,102"/><path d="M160,116 L172,102"/><path d="M170,116 L182,102"/></g>
+          </svg>
+          <span class="dl-tag">Wave influence</span>
+          <h4>Smoothed by waves</h4>
+          <p>Waves redistribute the sediment into barriers and spits — the Danube's Sf. Gheorghe lobe, the Rhône, the Ebro.</p>
+        </div>
+        <div class="dl-card t">
+          <svg class="icon" viewBox="0 0 240 120" aria-hidden="true">
+            <rect width="240" height="120" fill="#1d6e7c" opacity="0.14"/>
+            <path d="M0,0 H120 V40 C90,60 72,86 72,120 H0 Z" fill="#e6d8bd"/><path d="M240,0 H120 V40 C150,60 168,86 168,120 H240 Z" fill="#e6d8bd"/>
+            <g fill="#cdb78f"><ellipse cx="120" cy="72" rx="6" ry="22"/><ellipse cx="101" cy="88" rx="5" ry="17"/><ellipse cx="139" cy="88" rx="5" ry="17"/></g>
+            <g stroke="#1f7ab0" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M92,110 L92,96"/><path d="M88,100 L92,96 L96,100"/><path d="M148,96 L148,110"/><path d="M144,106 L148,110 L152,106"/></g>
+          </svg>
+          <span class="dl-tag">Tidal influence</span>
+          <h4>Shaped by tides</h4>
+          <p>Tidal currents and the turbidity maximum trap sediment in funnel-shaped channels (e.g. Ganges-Brahmaputra).</p>
+        </div>
+      </div>
+
+      <div class="dl-pull">
+        <p>The mouth bar is located at the interaction. The ratio between river discharge and longshore wave transport decides whether a delta grows symmetrically and prominently or is deflected and smoothed down-drift.</p>
+        <cite>Anthony, 2015, Marine Geology · conceptual model</cite>
+      </div>
+
+      <p style="margin-top:30px;">This qualitative picture is now becoming <strong>quantitative</strong> through numerical modelling. Delta shape can be understood through the parameter <strong>Si</strong> (the ratio of longshore sediment transport to the river's solid discharge), which collapses the river–wave balance into a single number (Preoteasa et al., 2018).</p>
+
+      <figure class="dl-fig">
+        <svg viewBox="0 0 720 140" role="img" aria-label="Morphological continuum as a function of the Si index: from a river-dominated delta with multiple mouths to a straightened shoreline">
+          <rect width="720" height="140" fill="#ffffff"/><rect width="720" height="34" fill="#e6d8bd"/>
+          <rect y="34" width="720" height="106" fill="#1d6e7c" opacity="0.12"/>
+          <path d="M44,34 C58,74 74,98 90,106 C106,98 122,74 136,34 Z" fill="#e6d8bd"/>
+          <g stroke="#d8c7a3" stroke-width="6" fill="none" stroke-linecap="round"><path d="M90,40 L64,100"/><path d="M90,40 L82,106"/><path d="M90,40 L100,106"/><path d="M90,40 L118,98"/></g>
+          <g stroke="#1f7ab0" stroke-width="2.2" fill="none" stroke-linecap="round"><path d="M90,12 L90,40"/><path d="M90,40 L64,100"/><path d="M90,40 L82,106"/><path d="M90,40 L100,106"/><path d="M90,40 L118,98"/></g>
+          <path d="M205,34 C245,46 252,82 270,82 C288,82 295,46 335,34 Z" fill="#e6d8bd"/><path d="M270,12 L270,82" stroke="#1f7ab0" stroke-width="2.5" fill="none"/>
+          <path d="M385,34 C420,42 432,72 450,72 C470,72 480,46 515,34 Z" fill="#e6d8bd"/><path d="M450,12 L450,72" stroke="#1f7ab0" stroke-width="2.5" fill="none"/>
+          <path d="M450,72 C476,80 500,74 516,62" stroke="#cdb78f" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M560,40 C600,44 645,46 690,42 L690,52 C645,56 600,54 560,50 Z" fill="#cdb78f"/><path d="M625,12 L625,44" stroke="#1f7ab0" stroke-width="2.5" fill="none"/>
+          <g font-family="JetBrains Mono, monospace" font-size="9.5" fill="#3a525a" text-anchor="middle">
+            <text x="90" y="124">river-dominated (Chilia)</text><text x="270" y="124">lobate</text><text x="450" y="124">deflected + spit/island</text><text x="625" y="124">straightened shore</text>
+          </g>
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="#1f7ab0" text-anchor="middle" font-weight="600">
+            <text x="90" y="138">Si ≪ 1</text><text x="270" y="138">Si ~ 0.5</text><text x="450" y="138">Si ~ 1</text><text x="625" y="138">Si ≫ 1</text>
+          </g>
+          <text x="360" y="20" font-family="JetBrains Mono, monospace" font-size="11" fill="#0e3346" text-anchor="middle">Si = Q<tspan font-size="8" baseline-shift="sub">longshore (waves)</tspan> / Q<tspan font-size="8" baseline-shift="sub">river (fluvial sediment)</tspan></text>
+        </svg>
+        <figcaption class="dl-figcap">Fig. 2 — The shape continuum controlled by Si: from a river-dominated delta (multiple mouths, e.g. Chilia) to a straightened shoreline as waves become dominant (Preoteasa et al., 2018).</figcaption>
+      </figure>
+
+      <div class="dl-si" style="margin-top:18px;">
+        <div class="dl-si-bar"><span>◀ MORE FLUVIAL SEDIMENT</span><span>Si · river/wave control</span><span>STRONGER WAVES ▶</span></div>
+        <div class="dl-si-foot">
+          <span><b>Low Si:</b> symmetric, protruding lobes; sediment retained at the mouth; multiple distributary branches (e.g. Danube–Chilia).</span>
+          <span class="right"><b>High Si:</b> deflected, straightened shorelines; sediment escapes downdrift, into spits and barriers.</span>
+        </div>
+      </div>
+
+      <p style="margin-top:28px;font-size:.98rem;">
+        <strong>The Danube as a living textbook:</strong> within the same delta, the sheltered, river-influenced <strong>Chilia</strong> lobe and the exposed, wave-influenced <strong>Sf. Gheorghe</strong> lobe sit side by side, the difference coming from Black Sea wave fetch and the heavier sediment input on Chilia (Zăinescu et al., 2019, 2024).
+      </p>
+
+      <figure class="dl-fig">
+        <svg viewBox="0 0 720 380" role="img" aria-label="Sketch of the Danube Delta: river-influenced Chilia and wave-influenced Sf. Gheorghe">
+          <rect width="720" height="380" fill="#ffffff"/><rect width="720" height="380" fill="#1d6e7c" opacity="0.14"/>
+          <path d="M0,30 L300,24 C400,34 460,64 452,92 C540,128 540,150 470,176 C440,230 470,250 455,300 C440,332 410,352 360,362 L0,362 Z" fill="#e6d8bd"/>
+          <g stroke="#cdb78f" stroke-width="2" opacity="0.7"><path d="M300,210 L440,250"/><path d="M300,230 L432,272"/><path d="M300,250 L420,290"/><path d="M300,270 L406,308"/></g>
+          <path d="M0,150 C80,150 132,160 182,166" fill="none" stroke="#1f7ab0" stroke-width="6" stroke-linecap="round"/>
+          <!-- Chilia: main trunk + 4 distributaries (river-dominated bird-foot) -->
+          <g fill="none" stroke="#1f7ab0" stroke-linecap="round">
+            <path d="M182,166 C222,118 300,72 430,60" stroke-width="3"/>
+            <path d="M310,82 Q345,50 365,30" stroke-width="2.4"/>
+            <path d="M355,72 Q385,46 412,36" stroke-width="2.4"/>
+            <path d="M395,66 Q425,54 452,58" stroke-width="2.4"/>
+            <path d="M422,60 Q440,56 460,72" stroke-width="2"/>
+          </g>
+          <path d="M182,166 C300,168 420,170 520,172" fill="none" stroke="#1f7ab0" stroke-width="4" stroke-linecap="round"/>
+          <path d="M182,168 C282,200 382,250 455,300" fill="none" stroke="#1f7ab0" stroke-width="4" stroke-linecap="round"/>
+          <path d="M455,300 C448,330 430,350 405,362" fill="none" stroke="#cdb78f" stroke-width="7" stroke-linecap="round"/>
+          <!-- Offshore waves in the Black Sea (wave crests) -->
+          <g fill="none" stroke="#1f7ab0" stroke-width="1.8" opacity="0.55" stroke-linecap="round">
+            <path d="M540 200 q 5 -4 10 0 t 10 0 t 10 0"/>
+            <path d="M590 232 q 5 -4 10 0 t 10 0 t 10 0"/>
+            <path d="M555 282 q 5 -4 10 0 t 10 0 t 10 0"/>
+            <path d="M610 322 q 5 -4 10 0 t 10 0 t 10 0"/>
+            <path d="M640 265 q 5 -4 10 0 t 10 0 t 10 0"/>
+            <path d="M625 195 q 5 -4 10 0 t 10 0 t 10 0"/>
+          </g>
+          <g stroke="#3a525a" fill="#3a525a"><path d="M684,72 L684,32" stroke-width="2"/><path d="M678,42 L684,30 L690,42 Z"/></g>
+          <g font-family="JetBrains Mono, monospace" font-size="12" fill="#13262e">
+            <text x="20" y="142">Danube</text><text x="246" y="58" fill="#2e9e6b">Chilia · river</text><text x="360" y="160">Sulina</text>
+            <text x="232" y="332" fill="#c0532f">Sf. Gheorghe · waves</text><text x="566" y="206" fill="#0e3346">Black Sea</text><text x="676" y="88" fill="#3a525a">N</text>
+          </g>
+        </svg>
+        <figcaption class="dl-figcap">Fig. 3 — The Danube Delta: Chilia (river-influenced) and Sf. Gheorghe (wave-influenced) within the same system.</figcaption>
+      </figure>
+    </article>
+
+    <!-- ===================== 2 · CLIMATE CHANGE ===================== -->
+    <article class="dl-chapter flood" id="climate-change">
+      <div class="dl-num flood">02 · Climate change</div>
+      <h3>Global warming threatens deltas — but unevenly</h3>
+      <p>Most delta plains lie below 2 m above sea level (the Danube Delta has an average elevation of just 0.6 m), so they are extremely sensitive to two pressures: <strong>relative sea-level rise</strong> and <strong>land subsidence</strong>. Survival depends as much on management and sediment supply as on the climate scenario itself.</p>
+
+      <figure class="dl-fig">
+        <svg viewBox="0 0 720 320" role="img" aria-label="SSP scenarios of sea-level rise to 2150">
+          <rect width="720" height="320" fill="#ffffff"/>
+          <g stroke="#e2d6bd" stroke-width="1"><line x1="70" y1="270" x2="690" y2="270"/><line x1="70" y1="212" x2="690" y2="212"/><line x1="70" y1="155" x2="690" y2="155"/><line x1="70" y1="97" x2="690" y2="97"/></g>
+          <line x1="70" y1="40" x2="690" y2="40" stroke="#c0532f" stroke-width="1.4" stroke-dasharray="6 4" opacity="0.8"/>
+          <line x1="70" y1="201" x2="690" y2="201" stroke="#2e9e6b" stroke-width="1.4" stroke-dasharray="3 3" opacity="0.9"/>
+          <line x1="70" y1="40" x2="70" y2="270" stroke="#3a525a" stroke-width="1.2"/>
+          <path d="M70,270 C320,266 480,236 690,190 L690,74 C450,165 300,258 70,270 Z" fill="#1f7ab0" opacity="0.07"/>
+          <path d="M70,270 C320,266 480,236 690,190" fill="none" stroke="#1f7ab0" stroke-width="2.4"/>
+          <path d="M70,270 C320,264 480,222 690,166" fill="none" stroke="#2e8fae" stroke-width="2.4"/>
+          <path d="M70,270 C320,262 470,205 690,143" fill="none" stroke="#d98b3a" stroke-width="2.4"/>
+          <path d="M70,270 C300,260 460,185 690,109" fill="none" stroke="#c0532f" stroke-width="2.4"/>
+          <path d="M70,270 C300,258 450,162 690,74" fill="none" stroke="#9b3520" stroke-width="2.6"/>
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="#3a525a" text-anchor="end"><text x="62" y="274">0</text><text x="62" y="216">0.5</text><text x="62" y="159">1.0</text><text x="62" y="101">1.5</text><text x="62" y="44">2.0 m</text></g>
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="#3a525a" text-anchor="middle"><text x="70" y="286">2000</text><text x="280" y="286">2050</text><text x="490" y="286">2100</text><text x="690" y="286">2150</text></g>
+          <!-- SSP labels aligned to the end of each line (x≈690), text-anchor=end -->
+          <g font-family="JetBrains Mono, monospace" font-size="10" text-anchor="end">
+            <text x="685" y="70" fill="#9b3520">SSP5-8.5</text>
+            <text x="685" y="105" fill="#c0532f">SSP3-7.0</text>
+            <text x="685" y="139" fill="#d98b3a">SSP2-4.5</text>
+            <text x="685" y="162" fill="#2e8fae">SSP1-2.6</text>
+            <text x="685" y="186" fill="#1f7ab0">SSP1-1.9</text>
+          </g>
+          <text x="78" y="34" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#c0532f">≈ delta plain elevation (below 2 m)</text>
+          <text x="78" y="196" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#2e9e6b">≈ mean elevation of the Danube Delta (0.6 m)</text>
+        </svg>
+        <figcaption class="dl-figcap">Fig. 4 — Sea-level rise by SSP scenarios (schematic, illustrative values after Anthony et al., 2024). Under extreme scenarios, the delta plain is overtopped.</figcaption>
+      </figure>
+
+      <div class="dl-grid" style="margin-top:8px;">
+        <div class="dl-card">
+          <span class="dl-tag">Factor A · the sea rises</span>
+          <h4>Sea-level rise</h4>
+          <p>Under low-emission scenarios (SSP1-1.9/2.6), well-managed deltas can keep up. Under extreme scenarios (SSP3-7.0, SSP5-8.5), a 1–1.4 m rise produces large-scale flooding.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Factor B · the land sinks</span>
+          <h4>Subsidence</h4>
+          <p>Natural compaction is accelerated by humans: groundwater and hydrocarbon extraction, drainage, construction loading. The Po Delta has subsided by metres in a century due to methane extraction.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">The lever we have</span>
+          <h4>Management &amp; sediment</h4>
+          <p>Sediment management, subsidence control and adaptation move a delta between "threatened" and "sustainable" — human choices matter as much as the emissions trajectory.</p>
+        </div>
+      </div>
+
+      <div class="dl-threat">
+        <div class="dl-meter">
+          <div class="lab"><b>Subsidence (local rates)</b><span>immediate · up to &gt;30 mm/yr</span></div>
+          <div class="dl-track"><div class="dl-fill" style="width:90%;background:linear-gradient(90deg,var(--flood),#e08a5a);"></div></div>
+        </div>
+        <div class="dl-meter">
+          <div class="lab"><b>Global sea-level rise (today)</b><span>slower · ~4–5 mm/yr</span></div>
+          <div class="dl-track"><div class="dl-fill" style="width:22%;background:linear-gradient(90deg,var(--blue),var(--water-light));"></div></div>
+        </div>
+        <p class="dl-figcap" style="margin-top:6px;">Illustrative comparison of relative magnitude; local subsidence rates after Ohenhen et al., 2026 (40 deltas; max. in the Mississippi Delta &gt;30 mm/yr).</p>
+      </div>
+
+      <div class="dl-pull">
+        <p>In most of the world's major deltas, accelerated subsidence is a more immediate threat to delta drowning than sea-level rise itself.</p>
+        <cite>after Ohenhen et al., 2026, Nature · subsidence exceeds local SLR in 18 of 40 deltas</cite>
+      </div>
+
+      <div class="dl-danube">
+        <div class="dl-danube-head">
+          <span>Application · regional context</span>
+          <h4>What this means for the Danube Delta and the Black Sea</h4>
+        </div>
+        <div class="dl-danube-grid">
+          <div>
+            <h5><span class="dot" style="background:var(--flood)"></span>Sediment deficit</h5>
+            <p>Dams on the Danube (especially Iron Gates) have drastically reduced sediment supply. A "starved" delta can no longer compensate either subsidence or sea-level rise.</p>
+          </div>
+          <div>
+            <h5><span class="dot" style="background:var(--flood)"></span>Shoreline erosion</h5>
+            <p>The exposed Sf. Gheorghe lobe and the downdrift sectors lose sediment through longshore transport. With diminished fluvial input, the balance tips towards shoreline retreat.</p>
+          </div>
+          <div>
+            <h5><span class="dot" style="background:var(--blue)"></span>Low elevation &amp; subsidence</h5>
+            <p>The delta plain is close to sea level: modest local subsidence produces marine flooding and salinisation before the global signal becomes dominant.</p>
+          </div>
+          <div>
+            <h5><span class="dot" style="background:var(--blue)"></span>Black Sea: waves &amp; storms</h5>
+            <p>Limited fetch in the north (the Chilia vs. Sf. Gheorghe contrast), but storms energetically redistribute sediment. The same shorelines can accumulate during floods and erode during storms (Zăinescu et al., 2019).</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:24px;font-size:.98rem;color:var(--ink-soft);">The bottom line for the Danube and for the workshop: monitoring <em>vertical land motion</em> and <em>sediment budgets</em> is the first line of defence for delta survival.</p>
+    </article>
+
+    <!-- ===================== 3 · OTHER CONTROL PARAMETERS ===================== -->
+    <article class="dl-chapter" id="parameters">
+      <div class="dl-num warm">03 · Other control parameters</div>
+      <h3>Beyond sea level: the physical and biological parameters that climate is changing in parallel</h3>
+      <p>The shape and health of a delta — and the state of the sea in front of it — are governed by a set of variables that evolve simultaneously with climate and amplify each other. Three appear explicitly as <strong>input parameters in numerical models</strong>: water discharge (Q), sediment load (Qs) and wave height (Hs).</p>
+
+      <div class="dl-grid dl-param">
+
+        <div class="dl-card" style="border-left-color:var(--blue)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <line x1="18" y1="84" x2="226" y2="84" stroke="#e2d6bd"/>
+            <path d="M22,74 C44,66 62,30 84,30 C108,30 120,52 140,60 C166,70 196,72 226,74" fill="none" stroke="#1f7ab0" stroke-width="2.5"/>
+            <path d="M22,72 C40,58 56,40 70,40 C92,40 108,60 130,68 C158,76 196,76 226,78" fill="none" stroke="#1f7ab0" stroke-width="2" stroke-dasharray="4 3" opacity="0.7"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#3a525a"><text x="20" y="96">winter</text><text x="120" y="96">summer</text><text x="120" y="20" fill="#1f7ab0">today · future</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--blue)">Water discharge · Q</span>
+          <h4>The hydrological regime</h4>
+          <p>Earlier alpine snowmelt and more variable precipitation shift the peak and sharpen the flood ↔ drought contrast. Low discharge = less sediment delivered and a saline wedge further upstream.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--flood)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <line x1="18" y1="84" x2="226" y2="84" stroke="#e2d6bd"/>
+            <path d="M18,84 L18,34 L84,34 L84,64 L222,64 L222,84 Z" fill="#c0532f" opacity="0.22"/>
+            <path d="M18,34 L84,34 L84,64 L222,64" fill="none" stroke="#c0532f" stroke-width="2"/>
+            <line x1="84" y1="22" x2="84" y2="84" stroke="#3a525a" stroke-width="1.4" stroke-dasharray="3 3"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#3a525a"><text x="56" y="18">dam</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--flood)">Sediment load · Qs</span>
+          <h4>Sediment supply</h4>
+          <p>Basin erosion responds to precipitation, but on the Danube <strong>dams remain the dominant control</strong>. The result is a reduced and less predictable supply — essential for the Si balance.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--warm)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <line x1="18" y1="84" x2="226" y2="84" stroke="#e2d6bd"/>
+            <path d="M18,60 L60,57 L100,50 L140,47 L180,40 L222,33" fill="none" stroke="#d98b3a" stroke-width="2.4"/>
+            <path d="M18,72 L60,67 L100,62 L140,55 L180,49 L222,43" fill="none" stroke="#1f7ab0" stroke-width="2.4"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9"><text x="150" y="30" fill="#d98b3a">river</text><text x="150" y="56" fill="#1f7ab0">Black Sea</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--warm)">Temperature · river &amp; sea</span>
+          <h4>Water is warming</h4>
+          <p>The Black Sea is warming at the surface → <strong>stronger stratification</strong>, effects on oxygenation and ecosystems, marine heatwaves. Warmer river water reduces the winter ice regime on the Danube.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--blue)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <rect x="18" y="30" width="204" height="52" fill="#3fa6a0" opacity="0.16"/>
+            <path d="M222,82 L222,52 L66,80 Z" fill="#1f7ab0" opacity="0.5"/>
+            <path d="M150,64 L120,70" stroke="#0e3346" stroke-width="2" fill="none"/><path d="M132,62 L120,70 L132,76" stroke="#0e3346" stroke-width="2" fill="none"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9"><text x="26" y="44" fill="#0e3346">fresh water</text><text x="180" y="96" fill="#1f7ab0" font-weight="600" text-anchor="middle">salt wedge</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--blue)">Salinity</span>
+          <h4>Saline intrusion</h4>
+          <p>Low discharge plus sea-level rise push the <strong>salt wedge</strong> upstream, into the branches and the aquifer, salinising soils and fresh water. A slow but cumulative pressure.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--flood)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <g stroke="#cdb78f" stroke-width="0.8" fill="none" opacity="0.7"><circle cx="120" cy="52" r="14"/><circle cx="120" cy="52" r="26"/><circle cx="120" cy="52" r="38"/></g>
+            <g stroke="#1f7ab0" stroke-width="6" stroke-linecap="round" opacity="0.85"><line x1="120" y1="52" x2="154" y2="52"/><line x1="120" y1="52" x2="141" y2="33"/><line x1="120" y1="52" x2="120" y2="33"/><line x1="120" y1="52" x2="138" y2="70"/><line x1="120" y1="52" x2="120" y2="66"/><line x1="120" y1="52" x2="112" y2="63"/><line x1="120" y1="52" x2="106" y2="52"/><line x1="120" y1="52" x2="110" y2="44"/></g>
+            <circle cx="120" cy="52" r="2.4" fill="#0e3346"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#3a525a"><text x="120" y="96" text-anchor="middle">direction · wave energy</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--flood)">Wave climate · Hs</span>
+          <h4>Waves &amp; storms</h4>
+          <p>Wave energy and direction control longshore transport and shoreline shape (the Si engine). Changes in the Black Sea storm regime can reorient the drift and accelerate erosion.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--green)">
+          <svg class="icon" viewBox="0 0 240 100" aria-hidden="true">
+            <rect x="18" y="22" width="204" height="60" fill="#3fa6a0" opacity="0.14"/>
+            <rect x="18" y="70" width="204" height="12" fill="#0e3346" opacity="0.4"/>
+            <g fill="#2e9e6b"><circle cx="46" cy="34" r="3"/><circle cx="78" cy="30" r="3.4"/><circle cx="110" cy="36" r="3"/><circle cx="150" cy="31" r="3.4"/><circle cx="190" cy="35" r="3"/></g>
+            <g stroke="#2e9e6b" stroke-width="1.4" opacity="0.6"><path d="M78,36 L78,60"/><path d="M150,37 L150,60"/></g>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#0e3346"><text x="24" y="48">algae</text><text x="160" y="80" fill="#f6f1e6">hypoxia</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--green)">Nutrients · oxygenation</span>
+          <h4>Danube → Black Sea</h4>
+          <p>The Danube delivers nutrients onto the north-western shelf. Warming and stratification amplify the risk of <strong>eutrophication and hypoxia</strong> — a loop where river and sea influence each other.</p>
+        </div>
+
+        <div class="dl-card" style="border-left-color:var(--veg)">
+          <svg class="icon" viewBox="0 0 240 110" aria-hidden="true">
+            <line x1="18" y1="80" x2="226" y2="80" stroke="#e2d6bd"/>
+            <path d="M18,70 C58,68 80,30 120,26 C160,22 182,60 226,68" fill="none" stroke="#2e9e6b" stroke-width="2.6"/>
+            <path d="M18,73 C58,71 92,52 120,48 C150,44 190,66 226,73" fill="none" stroke="#9b7a3a" stroke-width="2" stroke-dasharray="4 3" opacity="0.8"/>
+            <defs><linearGradient id="ndvi" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9c6b3a"/><stop offset="0.5" stop-color="#d9c44a"/><stop offset="1" stop-color="#2e9e6b"/></linearGradient></defs>
+            <rect x="18" y="92" width="208" height="9" rx="2" fill="url(#ndvi)"/>
+            <g font-family="JetBrains Mono, monospace" font-size="9" fill="#3a525a"><text x="120" y="20" text-anchor="middle" fill="#2e9e6b">NDVI</text><text x="18" y="90">0</text><text x="226" y="90" text-anchor="end">1</text></g>
+          </svg>
+          <span class="dl-tag" style="color:var(--veg)">Vegetation · NDVI</span>
+          <h4>Reed, floating islands &amp; biogeomorphology</h4>
+          <p>Vegetation — the Danube's reed beds are among the most extensive in the world — stabilises sediment; bank vegetation enhances levee formation. <strong>NDVI</strong> tracks its vigour, phenology and extent, plus its response to flooding, drought and salinisation (the dashed curve = vegetation under stress, illustrative).</p>
+        </div>
+
+      </div>
+
+      <div class="dl-pull" style="border-left-color:var(--warm);background:linear-gradient(90deg,rgba(217,139,58,.10),transparent);">
+        <p>These parameters do not act in isolation: lower discharge strengthens saline intrusion, warmer water strengthens stratification and hypoxia, and a different storm regime reshuffles sediment and stresses vegetation. The effects amplify each other.</p>
+        <cite>Synthesis · river–delta–Black Sea interactions</cite>
+      </div>
+    </article>
+
+    <!-- ===================== 4 · DATA & METHODS ===================== -->
+    <article class="dl-chapter" id="data-methods">
+      <div class="dl-num">04 · Data &amp; methods</div>
+      <h3>Deltas leave signals that can be read in imagery, bathymetry, sensors and model data (waves, wind, discharge)</h3>
+      <p>Deltas are dynamic, reactive systems that record their own behaviour. The methods below cover exactly the data sources from the workshop's modules — from <strong>open global datasets</strong> to <strong>field measurements</strong> — and pair naturally with numerical modelling and AI.</p>
+
+      <div class="dl-grid">
+        <div class="dl-card">
+          <span class="dl-tag">Satellite remote sensing</span>
+          <h4>Imagery, water &amp; vegetation</h4>
+          <p>Landsat, Sentinel, MODIS, SPOT, WorldView provide morphology, shoreline dynamics, land/water mapping and <strong>spectral indices (NDVI / NDWI)</strong>. <strong>SWOT</strong> (launched Nov 2022) returns water occurrence and connectivity across whole deltas.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Altimetry &amp; subsidence</span>
+          <h4>LiDAR &amp; InSAR</h4>
+          <p>Airborne and drone LiDAR (2.5–10 cm) and terrestrial laser scanning build high-resolution DEMs; SAR interferometry maps subsidence rates over decades.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Bathymetry</span>
+          <h4>Underwater</h4>
+          <p>Multibeam &amp; side-scan sonar — now deployable from uncrewed surface vessels (USV) — and bathymetric LiDAR resolve mouth bars, the beach face and channel change for 3D budgets.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Field hydrodynamics</span>
+          <h4>Currents, waves, turbidity</h4>
+          <p>ADCP &amp; ADV (velocity, level, backscatter→turbidity), electromagnetic current meters, wave buoys, pressure sensors and OBS measure real processes — flood vs. storm.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Hydro-meteorology &amp; reanalysis</span>
+          <h4>Discharge, wind, waves, SST</h4>
+          <p>Discharge series (Q, Qs), ERA5 for wind and waves, plus sea surface temperature (SST) link climatic forcing to the delta's response — the data that "feeds" the parameters in chapter 03.</p>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">Numerical modelling</span>
+          <h4>From data to process</h4>
+          <p><strong>Delft3D</strong> and <strong>MIKE 21</strong> are numerical platforms for hydrodynamics and morphodynamics: they solve flow, sediment transport and bed evolution equations (2D/3D). They quantify the river–wave–tide contributions, channel connectivity and the response of deltas to sea-level rise.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:30px;font-size:.98rem;"><strong>How this connects to the workshop:</strong></p>
+      <div class="dl-chips">
+        <span class="dl-chip"><b>Module 1</b> · Copernicus · Sentinel/Landsat · ERA5 · GEE · SWOT · NDVI</span>
+        <span class="dl-chip"><b>Module 2</b> · Python · xarray · geospatial</span>
+        <span class="dl-chip"><b>Module 3</b> · AI-assisted coding</span>
+        <span class="dl-chip"><b>Module 4</b> · trend · regression · uncertainty</span>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ===================== TAKEAWAYS + REFERENCES ===================== -->
+  <footer class="dl-foot" id="references">
+    <h3>Three takeaways for working with data</h3>
+    <ul class="dl-take">
+      <li><span><b>Deltas live on a continuum.</b> River, waves and tides <em>influence</em> — they don't rigidly dominate — and the mouth bar is the template that decides shape and shoreline.</span></li>
+      <li><span><b>Climate changes more than sea level.</b> Discharge, water temperature, salinity, wave climate, nutrients and vegetation all shift simultaneously and amplify each other. For the Danube, sediment deficit and subsidence remain the key pressures.</span></li>
+      <li><span><b>The signals can be read.</b> Satellite databases (including NDVI), bathymetry and field sensors — together with modelling and AI — let us quantify how a delta is changing, even today.</span></li>
+    </ul>
+
+    <div class="dl-refs">
+      <h4>References &amp; resources</h4>
+      <ul class="dl-reflist">
+        <li class="feat">
+          Anthony, E.J. et al. (2024). <span class="ttl">Delta sustainability from the Holocene to the Anthropocene and envisioning the future.</span> <span class="jrn">Nature Sustainability.</span><br>
+          <a href="https://www.nature.com/articles/s41893-024-01426-3" target="_blank" rel="noopener">nature.com/articles/s41893-024-01426-3</a>
+        </li>
+        <li class="feat">
+          Zăinescu, F. et al. (2024). <span class="ttl">Wave-influenced delta morphodynamics, long-term sediment bypass and trapping controlled by relative magnitudes of riverine and wave-driven sediment transport.</span> <span class="jrn">Geophysical Research Letters, 51, e2024GL111069.</span><br>
+          <a href="https://doi.org/10.1029/2024GL111069" target="_blank" rel="noopener">doi.org/10.1029/2024GL111069</a>
+        </li>
+      </ul>
+      <ul class="dl-reflist">
+        <li>
+          Ohenhen, L.O. et al. (2026). <span class="ttl">Global subsidence of river deltas.</span> <span class="jrn">Nature, 649, 894–901.</span>
+          <a href="https://www.nature.com/articles/s41586-025-09928-6" target="_blank" rel="noopener">doi.org/10.1038/s41586-025-09928-6</a>
+        </li>
+        <li>
+          Anthony, E.J. et al. (2025). <span class="ttl">A 7000-year record of human influence on global river deltas: geomorphology, stratigraphy, the Anthropocene overprint and future.</span> <span class="jrn">Earth-Science Reviews.</span>
+          <a href="https://www.sciencedirect.com/science/article/pii/S0012825225002636" target="_blank" rel="noopener">sciencedirect.com/…/S0012825225002636</a>
+        </li>
+        <li>
+          Anthony, E.J. (2015). <span class="ttl">Wave influence in the construction, shaping and destruction of river deltas: a review.</span> <span class="jrn">Marine Geology, 361, 53–78.</span>
+          <a href="https://doi.org/10.1016/j.margeo.2014.12.004" target="_blank" rel="noopener">doi.org/10.1016/j.margeo.2014.12.004</a>
+        </li>
+        <li>
+          Zăinescu, F. et al. (2019). <span class="ttl">Flood deposition and storm removal of sediments in front of a deltaic wave-influenced river mouth.</span> <span class="jrn">Marine Geology, 417, 106015.</span>
+          <a href="https://doi.org/10.1016/j.margeo.2019.106015" target="_blank" rel="noopener">doi.org/10.1016/j.margeo.2019.106015</a>
+        </li>
+        <li>
+          Branß, T., Núñez-González, F. &amp; Aberle, J. (2022). <span class="ttl">Fluvial levees in compound channels: a review on formation processes and the impact of bedforms and vegetation.</span> <span class="jrn">Environmental Fluid Mechanics, 22, 559–585.</span>
+          <a href="https://doi.org/10.1007/s10652-022-09850-9" target="_blank" rel="noopener">doi.org/10.1007/s10652-022-09850-9</a>
+        </li>
+        <li>Galloway, W.E. (1975). <span class="ttl">Process framework for describing the morphologic and stratigraphic evolution of deltaic depositional systems.</span> <span class="jrn">In: Broussard, M.L. (Ed.), Deltas: Models for Exploration. Houston Geological Society, 87–98.</span></li>
+        <li>Miron, A. &amp; Zăinescu, F. (2025). <span class="ttl">Mapping water occurrence and connectivity in deltas with SWOT.</span> <span class="jrn">SWOT Science Team Meeting (presentation).</span></li>
+      </ul>
+    </div>
+  </footer>
+
+</section>
+
+</body>
+</html>

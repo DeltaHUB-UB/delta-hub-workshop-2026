@@ -1,0 +1,36 @@
+
+ \u2502  \u26a0  Warning from the Material for MkDocs team
+ \u2502
+ \u2502  MkDocs 2.0, the underlying framework of Material for MkDocs,
+ \u2502  will introduce backward-incompatible changes, including:
+ \u2502
+ \u2502  × All plugins will stop working – the plugin system has been removed
+ \u2502  × All theme overrides will break – the theming system has been rewritten
+ \u2502  × No migration path exists – existing projects cannot be upgraded
+ \u2502  × Closed contribution model – community members can't report bugs
+ \u2502  × Currently unlicensed – unsuitable for production use
+ \u2502
+ \u2502  Our full analysis:
+ \u2502
+ \u2502  https://squidfunk.github.io/mkdocs-material/blog/2026/02/18/mkdocs-2.0/
+
+INFO    -  Building documentation...
+INFO    -  mkdocs_static_i18n: Building 'en' documentation to directory: C:\Users\zaifl\AppData\Local\Temp\mkdocs_xl6xurh4
+INFO    -  mkdocs_static_i18n: Adding 'ro' to the 'material/search' plugin 'lang' option
+INFO    -  mkdocs_static_i18n: Overriding 'en' config 'site_description' with 'Data Science & AI-Assisted Coding for the Danube Delta — 22-23 May 2026'
+INFO    -  mkdocs_static_i18n: Overriding 'en' config 'site_name' with 'DELTA-Hub 2026 Data Science Workshop'
+INFO    -  Cleaning site directory
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+  - gemini-prompts-ndvi.md
+  - teaching-guide-module2.md
+INFO    -  mkdocs_static_i18n: Building 'ro' documentation to directory: C:\Users\zaifl\AppData\Local\Temp\mkdocs_xl6xurh4\ro
+INFO    -  mkdocs_static_i18n: Overriding 'ro' config 'site_description' with 'Data Science & AI-Assisted Coding pentru Delta Dun\u0103rii — 22-23 mai 2026'
+INFO    -  mkdocs_static_i18n: Overriding 'ro' config 'site_name' with 'Workshop DELTA-Hub 2026 — Data Science'
+INFO    -  mkdocs_static_i18n: Overriding 'ro' config 'theme.language' with 'ro'
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+  - gemini-prompts-ndvi.ro.md
+  - teaching-guide-module2.ro.md
+INFO    -  mkdocs_static_i18n: Translated 6 navigation elements to 'ro'
+INFO    -  Documentation built in 6.61 seconds
+INFO    -  [11:42:32] Watching paths for changes: 'docs', 'mkdocs.yml'
+INFO    -  [11:42:32] Serving on http://127.0.0.1:8765/delta-hub-workshop-2026/

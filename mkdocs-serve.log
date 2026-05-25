@@ -73,3 +73,22 @@ INFO    -  The following pages exist in the docs directory, but are not included
 INFO    -  mkdocs_static_i18n: Translated 6 navigation elements to 'ro'
 INFO    -  Documentation built in 4.66 seconds
 INFO    -  [12:15:52] Reloading browsers
+INFO    -  [12:28:03] Detected file changes
+INFO    -  Building documentation...
+INFO    -  mkdocs_static_i18n: Building 'en' documentation to directory: C:\Users\zaifl\AppData\Local\Temp\mkdocs_xl6xurh4
+INFO    -  mkdocs_static_i18n: Adding 'ro' to the 'material/search' plugin 'lang' option
+INFO    -  mkdocs_static_i18n: Overriding 'en' config 'site_description' with 'Data Science & AI-Assisted Coding for the Danube Delta — 22-23 May 2026'
+INFO    -  mkdocs_static_i18n: Overriding 'en' config 'site_name' with 'DELTA-Hub 2026 Data Science Workshop'
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+  - gemini-prompts-ndvi.md
+  - teaching-guide-module2.md
+INFO    -  mkdocs_static_i18n: Building 'ro' documentation to directory: C:\Users\zaifl\AppData\Local\Temp\mkdocs_xl6xurh4\ro
+INFO    -  mkdocs_static_i18n: Overriding 'ro' config 'site_description' with 'Data Science & AI-Assisted Coding pentru Delta Dun\u0103rii — 22-23 mai 2026'
+INFO    -  mkdocs_static_i18n: Overriding 'ro' config 'site_name' with 'Workshop DELTA-Hub 2026 — Data Science'
+INFO    -  mkdocs_static_i18n: Overriding 'ro' config 'theme.language' with 'ro'
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+  - gemini-prompts-ndvi.ro.md
+  - teaching-guide-module2.ro.md
+INFO    -  mkdocs_static_i18n: Translated 6 navigation elements to 'ro'
+INFO    -  Documentation built in 5.39 seconds
+INFO    -  [12:28:08] Reloading browsers
